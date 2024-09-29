@@ -1,28 +1,12 @@
 import path from 'path'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { en } from 'payload/i18n/en'
-import {
-  AlignFeature,
-  BlockquoteFeature,
-  BlocksFeature,
-  BoldFeature,
-  ChecklistFeature,
-  HeadingFeature,
-  IndentFeature,
-  InlineCodeFeature,
-  ItalicFeature,
-  lexicalEditor,
-  LinkFeature,
-  OrderedListFeature,
-  ParagraphFeature,
-  RelationshipFeature,
-  UnorderedListFeature,
-  UploadFeature,
-} from '@payloadcms/richtext-lexical'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 import { HeaderCollection } from './src/globals/Header'
+import { PostsCollection } from './src/collections/Posts'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -101,55 +85,7 @@ export default buildConfig({
         },
       ],
     },
-    {
-      slug: 'posts',
-      admin: {
-        useAsTitle: 'title',
-      },
-      fields: [
-        {
-          name: 'title',
-          type: 'text',
-        },
-        {
-          name: 'content',
-          type: 'richText',
-        },
-        {
-          name: 'status',
-          type: 'select',
-          options: [
-            {
-              value: 'draft',
-              label: 'Draft',
-            },
-            {
-              value: 'published',
-              label: 'Published',
-            },
-          ],
-          defaultValue: 'draft',
-          admin: {
-            position: 'sidebar',
-          },
-        },
-        {
-          name: 'publishedDate',
-          type: 'date',
-          admin: {
-            position: 'sidebar',
-          },
-        },
-        {
-          name: 'author',
-          type: 'relationship',
-          relationTo: 'users',
-          admin: {
-            position: 'sidebar',
-          },
-        },
-      ],
-    },
+    PostsCollection,
     {
       slug: 'media',
       upload: true,
