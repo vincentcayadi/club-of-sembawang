@@ -21,37 +21,28 @@
     "node": "^18.20.2 || >=20.9.0"
   },
   "dependencies": {
-    "@payloadcms/db-mongodb": "3.0.0-beta.108",
     "@payloadcms/db-postgres": "3.0.0-beta.108",
     "@payloadcms/next": "3.0.0-beta.108",
+    "@payloadcms/plugin-seo": "3.0.0-beta.110",
     "@payloadcms/richtext-lexical": "3.0.0-beta.108",
     "@payloadcms/richtext-slate": "3.0.0-beta.108",
     "@payloadcms/ui": "3.0.0-beta.108",
-    "@radix-ui/react-icons": "^1.3.0",
     "babel-plugin-react-compiler": "0.0.0-experimental-48eb8f4-20240822",
-    "class-variance-authority": "^0.7.0",
-    "clsx": "^2.1.1",
     "cross-env": "^7.0.3",
-    "graphql": "^16.9.0",
-    "lucide-react": "^0.446.0",
+    "graphql": "^16.8.2",
     "next": "15.0.0-canary.160",
     "payload": "3.0.0-beta.108",
     "react": "19.0.0-rc-5dcb0097-20240918",
     "react-dom": "19.0.0-rc-5dcb0097-20240918",
-    "sharp": "0.32.6",
-    "tailwind-merge": "^2.5.2",
-    "tailwindcss-animate": "^1.0.7"
+    "sharp": "0.32.6"
   },
   "devDependencies": {
     "@payloadcms/graphql": "3.0.0-beta.108",
-    "@types/node": "^20.16.10",
+    "@types/node": "^20.14.9",
     "@types/react": "npm:types-react@19.0.0-rc.0",
     "@types/react-dom": "npm:types-react-dom@19.0.0-rc.0",
-    "autoprefixer": "^10.4.20",
-    "eslint": "^8.57.1",
+    "eslint": "^8.57.0",
     "eslint-config-next": "15.0.0-canary.104",
-    "postcss": "^8.4.47",
-    "tailwindcss": "^3.4.13",
     "typescript": "5.5.4"
   },
   "pnpm": {

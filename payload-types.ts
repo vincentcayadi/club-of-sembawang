@@ -11,9 +11,9 @@ export interface Config {
     users: UserAuthOperations;
   };
   collections: {
-    users: User;
     pages: Page;
     posts: Post;
+    users: User;
     media: Media;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -24,6 +24,7 @@ export interface Config {
   };
   globals: {
     header: Header;
+    Footer: Footer;
   };
   locale: null;
   user: User & {
@@ -50,23 +51,6 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
- */
-export interface User {
-  id: number;
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  password?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
 export interface Page {
@@ -77,24 +61,10 @@ export interface Page {
     keywords?: string | null;
   };
   title: string;
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  status?: ('draft' | 'published') | null;
+  layout?: unknown[] | null;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -105,6 +75,36 @@ export interface Post {
   name: string;
   'Banner Image'?: (number | null) | Media;
   Description: string;
+  layout?:
+    | (
+        | {
+            image: number | Media;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'image';
+          }
+        | {
+            content: {
+              root: {
+                type: string;
+                children: {
+                  type: string;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'richText';
+          }
+      )[]
+    | null;
   publishedDate?: string | null;
   author?: (number | null) | User;
   slug?: string | null;
@@ -118,7 +118,7 @@ export interface Post {
  */
 export interface Media {
   id: number;
-  text?: string | null;
+  alt: string;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -133,15 +133,31 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: number;
+  firstName: string;
+  lastName: string;
+  roles?: ('admin' | 'editor')[] | null;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
   id: number;
   document?:
-    | ({
-        relationTo: 'users';
-        value: number | User;
-      } | null)
     | ({
         relationTo: 'pages';
         value: number | Page;
@@ -149,6 +165,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'posts';
         value: number | Post;
+      } | null)
+    | ({
+        relationTo: 'users';
+        value: number | User;
       } | null)
     | ({
         relationTo: 'media';
@@ -201,6 +221,19 @@ export interface PayloadMigration {
  * via the `definition` "header".
  */
 export interface Header {
+  id: number;
+  items: {
+    page: number | Page;
+    id?: string | null;
+  }[];
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Footer".
+ */
+export interface Footer {
   id: number;
   items: {
     page: number | Page;

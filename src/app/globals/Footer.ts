@@ -1,6 +1,6 @@
 import type { GlobalConfig } from 'payload'
 
-export const HeaderCollection: GlobalConfig = {
+export const Footer: GlobalConfig = {
   access: {
     read: () => true,
   },
@@ -20,5 +20,5 @@ export const HeaderCollection: GlobalConfig = {
       ],
     },
   ],
-  slug: 'header',
+  slug: 'Footer',
 }

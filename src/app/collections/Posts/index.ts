@@ -1,4 +1,6 @@
 import { CollectionConfig, FieldHook } from 'payload'
+import { Image } from '@/app/blocks/image/schema'
+import { richText } from '@/app/blocks/richText/schema'
 
 const format = (val: string): string =>
   val
@@ -53,7 +55,12 @@ export const PostsCollection: CollectionConfig = {
       minLength: 40,
       maxLength: 160,
     },
-
+    {
+      name: 'layout',
+      label: 'Layout',
+      type: 'blocks',
+      blocks: [Image, richText],
+    },
     {
       name: 'publishedDate',
       type: 'date',
