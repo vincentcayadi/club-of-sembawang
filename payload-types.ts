@@ -24,7 +24,7 @@ export interface Config {
   };
   globals: {
     header: Header;
-    Footer: Footer;
+    footer: Footer;
   };
   locale: null;
   user: User & {
@@ -222,8 +222,10 @@ export interface PayloadMigration {
  */
 export interface Header {
   id: number;
-  items: {
-    page: number | Page;
+  logo: number | Media;
+  nav: {
+    label?: string | null;
+    link?: string | null;
     id?: string | null;
   }[];
   updatedAt?: string | null;
@@ -231,14 +233,19 @@ export interface Header {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Footer".
+ * via the `definition` "footer".
  */
 export interface Footer {
   id: number;
-  items: {
-    page: number | Page;
-    id?: string | null;
-  }[];
+  logo: number | Media;
+  nav?:
+    | {
+        label?: string | null;
+        link?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  copyright?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }

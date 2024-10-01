@@ -6,18 +6,30 @@ export const Header: GlobalConfig = {
   },
   fields: [
     {
-      name: 'items',
-      type: 'array',
+      name: 'logo',
+      label: 'Logo',
+      type: 'upload',
       required: true,
-      maxRows: 8,
+      relationTo: 'media',
+    },
+    {
+      name: 'nav',
+      label: 'Navigation',
+      type: 'array',
       fields: [
         {
-          name: 'page',
-          type: 'relationship',
-          relationTo: 'pages',
-          required: true,
+          name: 'label',
+          label: 'Label',
+          type: 'text',
+        },
+        {
+          name: 'link',
+          label: 'Link',
+          type: 'text',
         },
       ],
+      minRows: 1,
+      required: true,
     },
   ],
   slug: 'header',
