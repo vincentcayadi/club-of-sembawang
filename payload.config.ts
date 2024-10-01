@@ -41,5 +41,6 @@ export default buildConfig({
     //   generateTitle,
     //   generateURL,
     // }),
+    // formBuilderPlugin(),
   ],
 })
