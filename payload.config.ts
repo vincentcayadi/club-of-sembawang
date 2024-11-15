@@ -1,13 +1,13 @@
 import path from 'path'
 import { postgresAdapter } from '@payloadcms/db-postgres'
+
 import { en } from 'payload/i18n/en'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
-// import { seoPlugin } from '@payloadcms/plugin-seo'
-// import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
 
+// Collections
 import { PagesCollection } from '@/app/collections/Pages'
 import { PostsCollection } from '@/app/collections/Posts'
 import { Users } from '@/app/collections/Users'
@@ -18,6 +18,10 @@ import { Footer } from '@/app/globals/Footer'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+const generateTitle: GenerateTitle = () => {
+  return 'Interact Club Of Sembawang'
+}
 
 export default buildConfig({
   editor: lexicalEditor(),
@@ -37,10 +41,25 @@ export default buildConfig({
   },
   sharp,
   plugins: [
-    // seoPlugin({
+    // seo({
+    //   collections: ['pages', 'posts'],
     //   generateTitle,
-    //   generateURL,
+    //   uploadsCollection: 'media',
     // }),
-    // formBuilderPlugin(),
+    // formBuilderPlugin({
+    //   // see below for a list of available options
+    //   fields: {
+    //     text: true,
+    //     textarea: true,
+    //     select: true,
+    //     email: true,
+    //     state: true,
+    //     country: true,
+    //     checkbox: true,
+    //     number: true,
+    //     message: true,
+    //     payment: false,
+    //   },
+    // }),
   ],
 })
