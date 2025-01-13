@@ -8,7 +8,7 @@ export const Logo = () => {
       width={193}
       height={43}
       className="max-w-[9.375rem] invert dark:invert-0 w-full"
-      src="./public/logo.png"
+      src="https://github.com/vincentcayadi/club-of-sembawang/blob/main/public/logo.png?raw=true"
     />
   )
 }
