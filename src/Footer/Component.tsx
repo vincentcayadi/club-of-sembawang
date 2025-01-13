@@ -10,7 +10,6 @@ export async function Footer() {
   const footer: Footer = await getCachedGlobal('footer', 1)()
 
   const navItems = footer?.navItems || []
-  const legalLinks = footer?.legalLinks || [] // Add this to pull legal links dynamically
   const currentYear = new Date().getFullYear()
 
   return (
@@ -33,27 +32,29 @@ export async function Footer() {
         </div>
 
         {/* Contact Section */}
-        <div className="col-span-2 text-sm">
+        <div className="col-span-2 text-sm flex flex-col">
           <h3 className="font-semibold text-lg mb-2">Contact Us</h3>
-          <p>interact.sembawang@gmail.com</p>
-          <p className="mt-2">Tel: +65 9172 6652</p>
-          <div className="flex gap-4 mt-4">
-            <a
-              href="https://instagram.com"
-              aria-label="Instagram"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-gray-300"
-            >
-              <img src="/icons/instagram.svg" alt="Instagram" width={24} height={24} />
-            </a>
+          <div className="flex flex-col gap-1">
+            <p>interact.sembawang@gmail.com</p>
+            <p className="">Tel: +65 9172 6652</p>
+            <div>
+              <Link
+                href="https://instagram.com"
+                aria-label="Instagram"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-gray-300"
+              >
+                Instagram
+              </Link>
+            </div>
           </div>
         </div>
 
         {/* Navigation Section */}
-        <div className="col-span-2 flex flex-col">
+        <div className="col-span-2 flex flex-col ">
           <h3 className="font-semibold text-lg mb-2">Navigation</h3>
-          <nav className="flex flex-col gap-2 text-sm" aria-label="Footer Navigation">
+          <nav className="flex flex-col gap-1 text-sm" aria-label="Footer Navigation">
             {navItems.map(({ link }, i) => (
               <CMSLink className="hover:underline" key={i} {...link} />
             ))}
@@ -63,18 +64,14 @@ export async function Footer() {
         {/* Legal Section */}
         <div className="col-span-2 flex flex-col">
           <h3 className="font-semibold text-lg mb-2">Legal</h3>
-          <nav className="flex flex-col gap-2 text-sm" aria-label="Legal Links">
-            {legalLinks.map(({ link }, i) => (
-              <CMSLink className="hover:underline" key={i} {...link} />
-            ))}
+          <nav className="flex flex-col gap-1 text-sm" aria-label="Legal Links">
+            Privacy Policy
           </nav>
         </div>
       </div>
 
       {/* Footer Bottom Section */}
-      <div className=" pt-4 text-sm text-center">
-        © {currentYear} Interact Club of Sembawang. All rights reserved.
-      </div>
+      <div className=" pt-6 text-sm text-center">© {currentYear} Interact Club of Sembawang.</div>
     </footer>
   )
 }
