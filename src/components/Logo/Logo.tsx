@@ -1,13 +1,28 @@
+import clsx from 'clsx'
 import React from 'react'
 
-export const Logo = () => {
+interface Props {
+  className?: string
+  loading?: 'lazy' | 'eager'
+  priority?: 'auto' | 'high' | 'low'
+}
+
+export const Logo = (props: Props) => {
+  const { loading: loadingFromProps, priority: priorityFromProps, className } = props
+
+  const loading = loadingFromProps || 'lazy'
+  const priority = priorityFromProps || 'low'
+
   return (
     /* eslint-disable @next/next/no-img-element */
     <img
-      alt="Interact Club Of Sembawang Logo"
+      alt="Payload Logo"
       width={193}
-      height={43}
-      className="max-w-[9.375rem] invert dark:invert-0 w-full"
+      height={34}
+      loading={loading}
+      fetchPriority={priority}
+      decoding="async"
+      className={clsx(' w-full h-14', className)}
       src="https://github.com/vincentcayadi/club-of-sembawang/blob/main/public/logo.png?raw=true"
     />
   )

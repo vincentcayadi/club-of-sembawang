@@ -1,24 +1,15 @@
 'use client'
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import React, { useState } from 'react'
-
-import type { Theme } from './types'
-
+import React, { useState, useEffect } from 'react'
+import { Sun, Moon, Monitor } from 'lucide-react' // Import Lucide icons
 import { useTheme } from '..'
 import { themeLocalStorageKey } from './types'
 
 export const ThemeSelector: React.FC = () => {
   const { setTheme } = useTheme()
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState<'light' | 'dark' | 'auto'>('auto')
 
-  const onThemeChange = (themeToSet: Theme & 'auto') => {
+  const onThemeChange = (themeToSet: 'light' | 'dark' | 'auto') => {
     if (themeToSet === 'auto') {
       setTheme(null)
       setValue('auto')
@@ -26,26 +17,41 @@ export const ThemeSelector: React.FC = () => {
       setTheme(themeToSet)
       setValue(themeToSet)
     }
+    window.localStorage.setItem(themeLocalStorageKey, themeToSet)
   }
 
-  React.useEffect(() => {
-    const preference = window.localStorage.getItem(themeLocalStorageKey)
+  useEffect(() => {
+    const preference = window.localStorage.getItem(themeLocalStorageKey) as
+      | 'light'
+      | 'dark'
+      | 'auto'
+      | null
     setValue(preference ?? 'auto')
   }, [])
 
   return (
-    <Select onValueChange={onThemeChange} value={value}>
-      <SelectTrigger
-        aria-label="Select a theme"
-        className="w-auto bg-transparent gap-2 pl-0 md:pl-3 border-none"
+    <div className="flex gap-4 justify-center items-center">
+      <button
+        onClick={() => onThemeChange('light')}
+        aria-label="Set light theme"
+        className={` ${value === 'light' ? ' text-neutral-100' : 'text-neutral-400'} duration-300 ease-in-out transition`}
       >
-        <SelectValue placeholder="Theme" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="auto">Auto</SelectItem>
-        <SelectItem value="light">Light</SelectItem>
-        <SelectItem value="dark">Dark</SelectItem>
-      </SelectContent>
-    </Select>
+        <Sun size={20} />
+      </button>
+      <button
+        onClick={() => onThemeChange('dark')}
+        aria-label="Set dark theme"
+        className={` ${value === 'dark' ? ' text-neutral-100' : 'text-neutral-400'} duration-300 ease-in-out transition`}
+      >
+        <Moon size={20} />
+      </button>
+      <button
+        onClick={() => onThemeChange('auto')}
+        aria-label="Set auto theme"
+        className={` ${value === 'auto' ? ' text-neutral-100' : 'text-neutral-400'} duration-300Z ease-in-out transition`}
+      >
+        <Monitor size={20} />
+      </button>
+    </div>
   )
 }
