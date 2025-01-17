@@ -30,10 +30,7 @@ export async function Footer() {
               />
             </picture>
           </Link>
-          <Separator
-            orientation="vertical"
-            className="ml-8 h-full bg-neutral-600 md:block hidden"
-          />
+          <Separator orientation="vertical" className=" h-full bg-neutral-600 md:block hidden" />
         </div>
 
         {/* Contact Section */}

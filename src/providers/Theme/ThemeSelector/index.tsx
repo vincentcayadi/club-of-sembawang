@@ -30,7 +30,7 @@ export const ThemeSelector: React.FC = () => {
   }, [])
 
   return (
-    <div className="flex gap-4 justify-center items-center">
+    <div className="flex gap-4 justify-end items-center">
       <button
         onClick={() => onThemeChange('light')}
         aria-label="Set light theme"
