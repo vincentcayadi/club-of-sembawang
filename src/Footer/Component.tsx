@@ -26,7 +26,7 @@ export async function Footer() {
                 width={150}
                 height={50}
                 className="w-auto h-auto max-h-36"
-                src="https://github.com/vincentcayadi/club-of-sembawang/blob/main/public/logo.png?raw=true"
+                src="https://github.com/vincentcayadi/club-of-sembawang/blob/main/public/logo.webp?raw=true"
               />
             </picture>
           </Link>
