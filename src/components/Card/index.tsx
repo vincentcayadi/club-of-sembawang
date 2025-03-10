@@ -3,6 +3,7 @@ import { cn } from '@/utilities/cn'
 import useClickableCard from '@/utilities/useClickableCard'
 import Link from 'next/link'
 import React, { Fragment } from 'react'
+import { Badge } from '@/components/ui/badge'
 
 import type { Post } from '@/payload-types'
 
@@ -44,24 +45,13 @@ export const Card: React.FC<{
           <div className="mb-4 text-sm uppercase">
             {showCategories && hasCategories && (
               <div>
-                {categories?.map((category, index) => {
-                  if (typeof category === 'object') {
-                    const { title: titleFromCategory } = category
-
-                    const categoryTitle = titleFromCategory || 'Untitled category'
-
-                    const isLast = index === categories.length - 1
-
-                    return (
-                      <Fragment key={index}>
-                        {categoryTitle}
-                        {!isLast && <Fragment>, &nbsp;</Fragment>}
-                      </Fragment>
-                    )
-                  }
-
-                  return null
-                })}
+                {categories
+                  ?.filter((cat) => typeof cat === 'object' && cat !== null)
+                  .map((category, index) => (
+                    <Badge key={index} variant="secondary">
+                      {category.title || 'Untitled category'}
+                    </Badge>
+                  ))}
               </div>
             )}
           </div>
