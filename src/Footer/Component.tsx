@@ -13,7 +13,7 @@ export async function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-neutral-900 pt-10 text-sm text-neutral-100">
+    <footer className="mt-24 bg-neutral-800 px-4 pt-10 text-neutral-100 md:px-0">
       <div className="container mx-auto grid grid-cols-1 gap-8 md:grid-cols-4 lg:grid-cols-8">
         <div className="col-span-2 flex items-center justify-center">
           <Link href="/" aria-label="Homepage">
@@ -22,17 +22,21 @@ export async function Footer() {
                 alt="Interact Club Of Sembawang Logo"
                 width={150}
                 height={50}
-                className="h-auto max-h-36 w-auto"
+                className="h-auto max-h-24 w-auto"
                 src="https://github.com/vincentcayadi/club-of-sembawang/blob/main/public/logo.webp?raw=true"
               />
             </picture>
           </Link>
-          <Separator orientation="vertical" className="hidden h-full bg-neutral-600 md:block" />
+          <Separator
+            orientation="vertical"
+            className="ml-8 hidden h-full bg-neutral-600 md:block"
+          />
         </div>
 
-        <div className="col-span-2 flex flex-col">
-          <p className="mb-1 font-medium">Contact Us</p>
+        {/* Contact Section */}
+        <div className="col-span-2 flex flex-col text-sm">
           <div className="flex flex-col gap-1">
+            <p className="font-medium">Contact Us</p>
             {contact?.email && (
               <Link
                 href={`mailto:${contact.email}`}
@@ -59,9 +63,11 @@ export async function Footer() {
             )}
           </div>
         </div>
+
         <div className="col-span-2 flex flex-col">
-          <p className="mb-1 font-medium">Navigation</p>
           <nav className="flex flex-col gap-1 text-sm" aria-label="Footer Navigation">
+            <p className="font-medium">Navigation</p>
+
             {navItems.map(({ link }, i) => (
               <CMSLink className="hover:underline" key={i} {...link} />
             ))}
@@ -69,7 +75,7 @@ export async function Footer() {
         </div>
       </div>
       <Separator className="mx-auto mt-6 w-5/6 bg-neutral-600" />
-      <div className="py-6 text-center text-sm">© {currentYear} Young Asians</div>
+      <div className="py-6 text-center text-sm">© {currentYear} Interact Club of Sembawang</div>
     </footer>
   )
 }
