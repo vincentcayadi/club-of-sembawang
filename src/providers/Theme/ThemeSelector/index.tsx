@@ -1,57 +1,36 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { Sun, Moon, Monitor } from 'lucide-react' // Import Lucide icons
+import { Sun, Moon } from 'lucide-react'
 import { useTheme } from '..'
-import { themeLocalStorageKey } from './types'
 
 export const ThemeSelector: React.FC = () => {
-  const { setTheme } = useTheme()
-  const [value, setValue] = useState<'light' | 'dark' | 'auto'>('auto')
-
-  const onThemeChange = (themeToSet: 'light' | 'dark' | 'auto') => {
-    if (themeToSet === 'auto') {
-      setTheme(null)
-      setValue('auto')
-    } else {
-      setTheme(themeToSet)
-      setValue(themeToSet)
-    }
-    window.localStorage.setItem(themeLocalStorageKey, themeToSet)
-  }
+  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    const preference = window.localStorage.getItem(themeLocalStorageKey) as
-      | 'light'
-      | 'dark'
-      | 'auto'
-      | null
-    setValue(preference ?? 'auto')
+    setMounted(true)
   }, [])
 
+  if (!mounted) {
+    return (
+      <button disabled>
+        <Sun className="h-5 w-5" />
+      </button>
+    )
+  }
+
   return (
-    <div className="flex gap-4 justify-end items-center">
-      <button
-        onClick={() => onThemeChange('light')}
-        aria-label="Set light theme"
-        className={` ${value === 'light' ? ' text-neutral-100' : 'text-neutral-400'} duration-300 ease-in-out transition`}
-      >
-        <Sun size={20} />
-      </button>
-      <button
-        onClick={() => onThemeChange('dark')}
-        aria-label="Set dark theme"
-        className={` ${value === 'dark' ? ' text-neutral-100' : 'text-neutral-400'} duration-300 ease-in-out transition`}
-      >
-        <Moon size={20} />
-      </button>
-      <button
-        onClick={() => onThemeChange('auto')}
-        aria-label="Set auto theme"
-        className={` ${value === 'auto' ? ' text-neutral-100' : 'text-neutral-400'} duration-300Z ease-in-out transition`}
-      >
-        <Monitor size={20} />
-      </button>
-    </div>
+    <button
+      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      aria-label="Toggle theme"
+      className="hover:bg-neutral-100/10 duration-200 rounded-md flex justify-items-center items-center h-8 w-8"
+    >
+      {theme === 'dark' ? (
+        <Sun className="h-5 w-5 mx-auto" />
+      ) : (
+        <Moon className="h-5 w-5 mx-auto" />
+      )}
+    </button>
   )
 }

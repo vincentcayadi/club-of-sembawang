@@ -1,11 +1,9 @@
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import Link from 'next/link'
 import React from 'react'
-
 import type { Footer } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
-import { Separator } from '@/components/ui/separator' // Import ShadCN Separator component
-import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
+import { Separator } from '@/components/ui/separator'
 
 export async function Footer() {
   const footer: Footer = await getCachedGlobal('footer', 1)()
@@ -73,17 +71,9 @@ export async function Footer() {
             ))}
           </nav>
         </div>
-
-        {/* Theme Selection*/}
-        <div className="col-span-2 flex flex-col content-end justify-end">
-          <ThemeSelector />
-        </div>
       </div>
       <Separator className="mt-6 bg-neutral-600 w-5/6 mx-auto" />
-      {/* Footer Bottom Section */}
-      <div className="text-sm text-center py-6">
-        © {currentYear} Interact Club of Sembawang. Privacy Policy
-      </div>
+      <div className="text-sm text-center py-6">© {currentYear} Interact Club of Sembawang</div>
     </footer>
   )
 }
