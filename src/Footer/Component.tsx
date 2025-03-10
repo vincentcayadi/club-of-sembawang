@@ -13,9 +13,8 @@ export async function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-neutral-900 pt-10 text-neutral-100">
+    <footer className="bg-neutral-900 pt-10 text-sm text-neutral-100">
       <div className="container mx-auto grid grid-cols-1 gap-8 md:grid-cols-4 lg:grid-cols-8">
-        {/* Logo Section */}
         <div className="col-span-2 flex items-center justify-center">
           <Link href="/" aria-label="Homepage">
             <picture>
@@ -31,9 +30,8 @@ export async function Footer() {
           <Separator orientation="vertical" className="hidden h-full bg-neutral-600 md:block" />
         </div>
 
-        {/* Contact Section */}
-        <div className="col-span-2 flex flex-col text-sm">
-          <h3 className="mb-2 text-lg font-semibold">Contact Us</h3>
+        <div className="col-span-2 flex flex-col">
+          <p className="mb-1 font-medium">Contact Us</p>
           <div className="flex flex-col gap-1">
             {contact?.email && (
               <Link
@@ -61,10 +59,8 @@ export async function Footer() {
             )}
           </div>
         </div>
-
-        {/* Navigation Section */}
         <div className="col-span-2 flex flex-col">
-          <h3 className="mb-2 text-lg font-semibold">Navigation</h3>
+          <p className="mb-1 font-medium">Navigation</p>
           <nav className="flex flex-col gap-1 text-sm" aria-label="Footer Navigation">
             {navItems.map(({ link }, i) => (
               <CMSLink className="hover:underline" key={i} {...link} />
@@ -73,7 +69,7 @@ export async function Footer() {
         </div>
       </div>
       <Separator className="mx-auto mt-6 w-5/6 bg-neutral-600" />
-      <div className="py-6 text-center text-sm">© {currentYear} Interact Club of Sembawang</div>
+      <div className="py-6 text-center text-sm">© {currentYear} Young Asians</div>
     </footer>
   )
 }
