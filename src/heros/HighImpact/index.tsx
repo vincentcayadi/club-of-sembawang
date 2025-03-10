@@ -45,10 +45,10 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
   return (
     <div
       ref={heroRef}
-      className="relative -mt-[10rem] flex items-center justify-center text-neutral-100 select-none overflow-hidden min-h-[100vh]"
+      className="relative -mt-[10rem] flex min-h-[100vh] select-none items-center justify-center overflow-hidden text-neutral-100"
       data-theme="dark"
     >
-      <div className="container z-10 relative flex items-center justify-center text-center">
+      <div className="container relative z-10 flex items-center justify-center text-center">
         <div className="max-w-[36.5rem]">
           {richText && <RichText className="mb-6" content={richText} enableGutter={false} />}
           {Array.isArray(links) && links.length > 0 && (
@@ -70,7 +70,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
               imgClassName="hero-image -z-10 object-cover w-full h-full"
               resource={media}
             />
-            <div className="absolute inset-0 pointer-events-none backdrop-blur-sm bg-neutral-900/20" />
+            <div className="pointer-events-none absolute inset-0 bg-neutral-900/20 backdrop-blur-sm" />
           </>
         )}
       </div>

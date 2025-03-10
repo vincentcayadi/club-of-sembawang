@@ -24,12 +24,12 @@ export const ThemeSelector: React.FC = () => {
     <button
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
       aria-label="Toggle theme"
-      className="hover:bg-neutral-100/10 duration-200 rounded-md flex justify-items-center items-center h-8 w-8"
+      className="flex h-8 w-8 items-center justify-items-center rounded-md duration-200 hover:bg-neutral-100/10"
     >
       {theme === 'dark' ? (
-        <Sun className="h-5 w-5 mx-auto" />
+        <Sun className="mx-auto h-5 w-5" />
       ) : (
-        <Moon className="h-5 w-5 mx-auto" />
+        <Moon className="mx-auto h-5 w-5" />
       )}
     </button>
   )

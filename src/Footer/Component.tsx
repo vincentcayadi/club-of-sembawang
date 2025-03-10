@@ -13,8 +13,8 @@ export async function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-neutral-900 text-neutral-100 pt-10">
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 lg:grid-cols-8 gap-8">
+    <footer className="bg-neutral-900 pt-10 text-neutral-100">
+      <div className="container mx-auto grid grid-cols-1 gap-8 md:grid-cols-4 lg:grid-cols-8">
         {/* Logo Section */}
         <div className="col-span-2 flex items-center justify-center">
           <Link href="/" aria-label="Homepage">
@@ -23,17 +23,17 @@ export async function Footer() {
                 alt="Interact Club Of Sembawang Logo"
                 width={150}
                 height={50}
-                className="w-auto h-auto max-h-36"
+                className="h-auto max-h-36 w-auto"
                 src="https://github.com/vincentcayadi/club-of-sembawang/blob/main/public/logo.webp?raw=true"
               />
             </picture>
           </Link>
-          <Separator orientation="vertical" className=" h-full bg-neutral-600 md:block hidden" />
+          <Separator orientation="vertical" className="hidden h-full bg-neutral-600 md:block" />
         </div>
 
         {/* Contact Section */}
-        <div className="col-span-2 text-sm flex flex-col">
-          <h3 className="font-semibold text-lg mb-2">Contact Us</h3>
+        <div className="col-span-2 flex flex-col text-sm">
+          <h3 className="mb-2 text-lg font-semibold">Contact Us</h3>
           <div className="flex flex-col gap-1">
             {contact?.email && (
               <Link
@@ -64,7 +64,7 @@ export async function Footer() {
 
         {/* Navigation Section */}
         <div className="col-span-2 flex flex-col">
-          <h3 className="font-semibold text-lg mb-2">Navigation</h3>
+          <h3 className="mb-2 text-lg font-semibold">Navigation</h3>
           <nav className="flex flex-col gap-1 text-sm" aria-label="Footer Navigation">
             {navItems.map(({ link }, i) => (
               <CMSLink className="hover:underline" key={i} {...link} />
@@ -72,8 +72,8 @@ export async function Footer() {
           </nav>
         </div>
       </div>
-      <Separator className="mt-6 bg-neutral-600 w-5/6 mx-auto" />
-      <div className="text-sm text-center py-6">© {currentYear} Interact Club of Sembawang</div>
+      <Separator className="mx-auto mt-6 w-5/6 bg-neutral-600" />
+      <div className="py-6 text-center text-sm">© {currentYear} Interact Club of Sembawang</div>
     </footer>
   )
 }
