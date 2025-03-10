@@ -48,7 +48,7 @@ export async function Footer() {
                   aria-label={`Visit our ${platform}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-neutral-300"
+                  className="duration-200 hover:text-neutral-300"
                 >
                   {platform}
                 </Link>
@@ -61,7 +61,7 @@ export async function Footer() {
           <nav className="flex flex-col gap-1 text-sm" aria-label="Footer Navigation">
             <p className="font-medium">Navigation</p>
             {navItems.map(({ link }, i) => {
-              return <CMSLink key={i} {...link} />
+              return <CMSLink className="duration-200 hover:text-neutral-300" key={i} {...link} />
             })}
           </nav>
         </div>
