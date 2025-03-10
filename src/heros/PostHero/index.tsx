@@ -2,9 +2,13 @@ import { formatDateTime } from 'src/utilities/formatDateTime'
 import React from 'react'
 
 import type { Post } from '@/payload-types'
+import Link from 'next/link'
 
 import { Media } from '@/components/Media'
 import { Badge } from '@/components/ui/badge'
+import { buttonVariants } from '@/components/ui/button'
+
+import { ChevronLeft } from 'lucide-react'
 
 export const PostHero: React.FC<{
   post: Post
@@ -13,24 +17,32 @@ export const PostHero: React.FC<{
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12 md:px-0">
-      <div className="mb-8 max-h-[400px] overflow-hidden rounded-xl">
-        {metaImage && typeof metaImage !== 'string' && (
-          <Media className="w-full object-cover" resource={metaImage} />
-        )}
-      </div>
-      <div className="mb-8 space-y-4">
-        <div className="flex flex-wrap gap-2">
-          {categories
-            ?.filter((cat) => typeof cat === 'object' && cat !== null)
-            .map((category, index) => (
-              <Badge key={index} variant="secondary">
-                {category.title || 'Untitled category'}
-              </Badge>
-            ))}
+      <Link className={buttonVariants({ variant: 'outline' })} href="/posts">
+        <ChevronLeft className="h-4 w-4" />
+        Back
+      </Link>
+
+      <div className="mt-4 flex flex-col gap-8">
+        <div className="max-h-[400px] overflow-hidden rounded-xl">
+          {metaImage && typeof metaImage !== 'string' && (
+            <Media className="w-full object-cover" resource={metaImage} />
+          )}
         </div>
-        <h1 className="text-4xl font-semibold tracking-tight md:text-5xl">{title}</h1>
-        <div className="flex items-center gap-4">
-          <div>
+
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-wrap gap-2">
+            {categories
+              ?.filter((cat) => typeof cat === 'object' && cat !== null)
+              .map((category, index) => (
+                <Badge key={index} variant="secondary">
+                  {category.title || 'Untitled category'}
+                </Badge>
+              ))}
+          </div>
+
+          <h1 className="text-4xl font-semibold tracking-tight md:text-5xl">{title}</h1>
+
+          <div className="flex items-center gap-4">
             {populatedAuthors && (
               <div className="flex flex-col gap-1 font-medium">
                 {populatedAuthors.map((author, index) => {

@@ -16,7 +16,7 @@ export async function Footer() {
   return (
     <>
       <Separator className="mx-auto mt-24 w-5/6 bg-neutral-200" />
-      <footer className="px-4 pt-10 md:px-0">
+      <footer className="my-12 px-4 md:px-0">
         <div className="container mx-auto grid grid-cols-1 gap-8 md:grid-cols-4 lg:grid-cols-8">
           <div className="col-span-2 flex flex-col">
             <Link href="/" aria-label="Homepage" className="w-full">
