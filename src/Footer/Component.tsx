@@ -4,12 +4,13 @@ import React from 'react'
 import type { Footer } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
 import { Separator } from '@/components/ui/separator'
+import { Logo } from '@/components/Logo/Logo'
 
 export async function Footer() {
-  const footer: Footer = await getCachedGlobal('footer', 1)()
+  const footerData: Footer = await getCachedGlobal('footer', 1)()
 
-  const navItems = footer?.navItems || []
-  const contact = footer?.contact || {}
+  const navItems = footerData?.navItems || []
+  const contact = footerData?.contact || {}
   const currentYear = new Date().getFullYear()
 
   return (
@@ -17,15 +18,7 @@ export async function Footer() {
       <div className="container mx-auto grid grid-cols-1 gap-8 md:grid-cols-4 lg:grid-cols-8">
         <div className="col-span-2 flex items-center justify-center">
           <Link href="/" aria-label="Homepage">
-            <picture>
-              <img
-                alt="Interact Club Of Sembawang Logo"
-                width={150}
-                height={50}
-                className="h-auto max-h-24 w-auto"
-                src="https://github.com/vincentcayadi/club-of-sembawang/blob/main/public/logo.webp?raw=true"
-              />
-            </picture>
+            <Logo />
           </Link>
           <Separator
             orientation="vertical"
@@ -67,9 +60,9 @@ export async function Footer() {
         <div className="col-span-2 flex flex-col">
           <nav className="flex flex-col gap-1 text-sm" aria-label="Footer Navigation">
             <p className="font-medium">Navigation</p>
-            {navItems.map(({ link }, i) => (
-              <CMSLink className="hover:underline" key={i} {...link} />
-            ))}
+            {navItems.map(({ link }, i) => {
+              return <CMSLink key={i} {...link} />
+            })}
           </nav>
         </div>
       </div>
