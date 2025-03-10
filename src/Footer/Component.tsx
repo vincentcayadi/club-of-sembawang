@@ -67,7 +67,6 @@ export async function Footer() {
         <div className="col-span-2 flex flex-col">
           <nav className="flex flex-col gap-1 text-sm" aria-label="Footer Navigation">
             <p className="font-medium">Navigation</p>
-
             {navItems.map(({ link }, i) => (
               <CMSLink className="hover:underline" key={i} {...link} />
             ))}
