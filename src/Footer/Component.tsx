@@ -19,7 +19,7 @@ export async function Footer() {
       <footer className="px-4 pt-10 md:px-0">
         <div className="container mx-auto grid grid-cols-1 gap-8 md:grid-cols-4 lg:grid-cols-8">
           <div className="col-span-2 flex flex-col">
-            <Link href="/" aria-label="Homepage">
+            <Link href="/" aria-label="Homepage" className="w-full">
               <Logo />
             </Link>
             <div className="py-6 text-left text-sm">© {currentYear} Club of Sembawang</div>

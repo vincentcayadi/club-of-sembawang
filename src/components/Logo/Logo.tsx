@@ -17,13 +17,13 @@ export const Logo = (props: Props) => {
     /* eslint-disable @next/next/no-img-element */
     <img
       alt="ICS Logo"
-      width={193}
-      height={34}
+      width={150}
+      height={30}
       loading={loading}
       fetchPriority={priority}
       decoding="async"
-      className={clsx('h-14 w-full', className)}
-      src="https://github.com/vincentcayadi/club-of-sembawang/blob/main/public/logo.webp?raw=true"
+      className={clsx('mx-auto h-auto w-auto max-w-[150px]', className)}
+      src="https://raw.githubusercontent.com/vincentcayadi/club-of-sembawang/main/public/logo.webp"
     />
   )
 }
