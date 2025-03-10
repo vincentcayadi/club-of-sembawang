@@ -16,13 +16,13 @@ export async function Footer() {
   return (
     <>
       <Separator className="mx-auto mt-24 w-5/6 bg-neutral-200" />
-      <footer className="my-12 px-4 md:px-0">
+      <footer className="my-4 px-4 md:my-12 md:px-0">
         <div className="container mx-auto grid grid-cols-1 gap-8 md:grid-cols-4 lg:grid-cols-8">
-          <div className="col-span-2 flex flex-col">
-            <Link href="/" aria-label="Homepage" className="w-full">
-              <Logo />
+          <div className="col-span-2 flex flex-col items-start md:items-center">
+            <Link href="/">
+              <Logo loading="eager" priority="high" className="invert dark:invert-0" />
             </Link>
-            <div className="py-6 text-left text-sm">© {currentYear} Club of Sembawang</div>
+            <div className="text-left text-sm">© {currentYear} Club of Sembawang</div>
           </div>
 
           {/* Contact Section */}
