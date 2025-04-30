@@ -5,7 +5,7 @@ import Image from 'next/image'
 export default function Logo() {
   return (
     <div>
-      <Image className="h-20 object-contain dark:invert" src={logo} alt="" />
+      <Image className="h-40 object-contain md:h-60 dark:invert" src={logo} alt="" />
     </div>
   )
 }

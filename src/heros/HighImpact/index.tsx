@@ -70,7 +70,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
               imgClassName="hero-image -z-10 object-cover w-full h-full"
               resource={media}
             />
-            <div className="pointer-events-none absolute inset-0 bg-neutral-900/20 backdrop-blur-sm" />
+            <div className="pointer-events-none absolute inset-0 bg-neutral-900/20 backdrop-blur-xs" />
           </>
         )}
       </div>
