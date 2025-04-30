@@ -40,7 +40,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
 
   return (
     <header
-      className="sticky top-0 z-50 border-b bg-white/95 shadow-sm"
+      className="sticky top-0 z-50 border-b bg-neutral-100/95 shadow-sm backdrop-blur transition-colors dark:bg-neutral-800"
       {...(theme ? { 'data-theme': theme } : {})}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center px-4">
@@ -56,7 +56,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
               key={link.label ?? i}
               {...link}
               appearance="link"
-              className="hover:text-primary font-medium text-black transition-colors dark:text-white"
+              className="font-medium text-black transition-colors hover:text-primary dark:text-white"
             />
           ))}
           <ThemeSelector />
@@ -79,7 +79,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                     <CMSLink
                       {...link}
                       appearance="link"
-                      className="hover:text-primary text-lg font-medium text-black transition-colors dark:text-white"
+                      className="text-lg font-medium text-black transition-colors hover:text-primary dark:text-white"
                     />
                   </div>
                 ))}
