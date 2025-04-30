@@ -25,7 +25,8 @@ export default buildConfig({
   admin: {
     components: {
       graphics: {
-        Logo: 'src/components/CustomLogo#Logo',
+        Logo: '/components/payload/Logo',
+        Icon: '/components/payload/Icon',
       },
     },
     importMap: {
