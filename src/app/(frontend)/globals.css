@@ -2,7 +2,7 @@
 /*
   ---break---
 */
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 @config '../../../tailwind.config.mjs';
 

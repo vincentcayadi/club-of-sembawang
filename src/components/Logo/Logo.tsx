@@ -23,7 +23,7 @@ export const Logo = (props: Props) => {
       fetchPriority={priority}
       decoding="async"
       className={clsx('mr-auto h-auto w-auto max-w-48', className)}
-      src="https://raw.githubusercontent.com/vincentcayadi/club-of-sembawang/main/public/logo.webp"
+      src="/logo.webp"
     />
   )
 }

@@ -17,15 +17,11 @@ const nextConfig = {
           protocol: url.protocol.replace(':', ''),
         }
       }),
-      // GitHub pattern for images
       {
-        hostname: 'github.com',
-        protocol: 'https',
-      },
-      // Also include raw.githubusercontent.com for raw content
-      {
-        hostname: 'raw.githubusercontent.com',
-        protocol: 'https',
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '3000',
+        pathname: '/api/media/**',
       },
     ],
   },
