@@ -56,7 +56,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
       className="relative flex min-h-[100vh] select-none items-center justify-center overflow-hidden text-neutral-100"
     >
       <div className="container relative z-10 flex items-center justify-center text-center">
-        <div ref={contentRef} className="max-w-7xl" data-theme="dark">
+        <div ref={contentRef} className="max-w-7xl">
           {richText && (
             <RichText className="fade-up mb-6" content={richText} enableGutter={false} />
           )}
