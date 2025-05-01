@@ -7,16 +7,17 @@ import { CMSLink } from '@/components/Link'
 
 export const CallToActionBlock: React.FC<CTABlockProps> = ({ links, richText }) => {
   return (
-    <div className="container">
-      <div className="flex flex-col gap-8 rounded border border-border bg-card p-6 md:flex-row md:items-center md:justify-between">
-        <div className="flex max-w-[48rem] items-center">
-          {richText && <RichText className="mb-0" content={richText} enableGutter={false} />}
+    <div className="mx-auto flex max-w-4xl flex-col items-center justify-between gap-8 rounded-lg border border-border bg-gradient-to-r from-violet-500 to-blue-600 p-8 text-center text-neutral-100 md:flex-row md:text-left">
+      {richText && (
+        <div className="flex-1">
+          <RichText className="mb-0" content={richText} enableGutter={false} />
         </div>
-        <div className="flex flex-col gap-8">
-          {(links || []).map(({ link }, i) => {
-            return <CMSLink key={i} size="lg" {...link} />
-          })}
-        </div>
+      )}
+
+      <div className="flex flex-wrap justify-center gap-4 md:justify-end">
+        {(links || []).map(({ link }, i) => (
+          <CMSLink key={i} size="lg" {...link} />
+        ))}
       </div>
     </div>
   )
