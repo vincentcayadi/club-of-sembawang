@@ -1,4 +1,3 @@
-// src/components/HeaderClient.tsx
 'use client'
 
 import React, { useState, useEffect } from 'react'
@@ -56,7 +55,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
               key={link.label ?? i}
               {...link}
               appearance="link"
-              className="font-medium text-black transition-colors hover:text-primary dark:text-white"
+              className="font-medium text-neutral-900 transition-colors hover:text-primary dark:text-neutral-100"
             />
           ))}
           <ThemeSelector />
@@ -71,19 +70,24 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                 <span className="sr-only">Toggle menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right">
-              <div className="mt-6 flex flex-col space-y-4 px-4">
+            <SheetContent side="bottom" className="h-[85vh] rounded-t-xl pt-6">
+              {/* Centered navigation links with theme selector below */}
+              <div className="flex h-full flex-col items-center justify-center space-y-6 px-4">
                 {navItems.map(({ link }, i) => (
                   // Wrap in a div so we can close the sheet on click
                   <div key={link.label ?? i} onClick={() => setIsOpen(false)}>
                     <CMSLink
                       {...link}
                       appearance="link"
-                      className="text-lg font-medium text-black transition-colors hover:text-primary dark:text-white"
+                      className="text-lg font-medium text-neutral-900 transition-colors hover:text-primary dark:text-neutral-100"
                     />
                   </div>
                 ))}
-                <ThemeSelector />
+
+                {/* Theme selector below links with additional spacing */}
+                <div className="mt-4">
+                  <ThemeSelector />
+                </div>
               </div>
             </SheetContent>
           </Sheet>
