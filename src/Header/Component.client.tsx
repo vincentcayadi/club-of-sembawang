@@ -70,7 +70,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                 <span className="sr-only">Toggle menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="bottom" className="h-[50vh] rounded-t-xl pt-6">
+            <SheetContent side="bottom" className="h-[50vh] rounded-t-xl pt-6 dark:bg-neutral-800">
               {/* Centered navigation links with theme selector below */}
               <div className="flex h-full flex-col items-center justify-center space-y-6 px-4">
                 {navItems.map(({ link }, i) => (
