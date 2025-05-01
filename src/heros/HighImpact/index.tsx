@@ -61,7 +61,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
           {richText && (
             <RichText
               // dont do this again wtf
-              className="fade-up font-semibold tracking-tighter"
+              className="fade-up"
               content={richText}
               enableGutter={false}
             />
@@ -77,11 +77,11 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
           )}
         </div>
       </div>
-      <div className="absolute inset-0 min-h-[100vh] w-full">
+      <div className="absolute inset-0 min-h-screen w-full">
         {media && typeof media === 'object' && (
           <>
             <Media fill imgClassName="object-cover w-full h-full" resource={media} />
-            <div className="pointer-events-none absolute inset-0 bg-neutral-900/20 backdrop-blur-sm" />
+            <div className="pointer-events-none absolute inset-0 bg-neutral-900/30 backdrop-blur-sm" />
           </>
         )}
       </div>
