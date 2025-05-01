@@ -16,7 +16,7 @@ export async function Footer() {
   return (
     <>
       <Separator className="mx-auto mt-24 w-5/6 bg-neutral-200" />
-      <footer className="my-4 px-4 md:my-12 md:px-0">
+      <footer className="my-4 px-4 transition-colors md:my-12 md:px-0">
         <div className="container mx-auto grid grid-cols-1 gap-8 md:grid-cols-4 lg:grid-cols-8">
           <div className="col-span-2 flex flex-col items-start md:items-center">
             <Link href="/">
@@ -33,7 +33,7 @@ export async function Footer() {
                 <Link
                   href={`mailto:${contact.email}`}
                   aria-label="Send an email"
-                  className="hover:text-neutral-300"
+                  className="hover:text-neutral-600 dark:hover:text-neutral-300"
                 >
                   {contact.email}
                 </Link>
@@ -47,7 +47,7 @@ export async function Footer() {
                     aria-label={`Visit our ${platform}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="duration-200 hover:text-neutral-300"
+                    className="hover:text-neutral-600 dark:hover:text-neutral-300"
                   >
                     {platform}
                   </Link>
@@ -60,7 +60,13 @@ export async function Footer() {
             <nav className="flex flex-col gap-1 text-sm" aria-label="Footer Navigation">
               <p className="font-medium">Navigation</p>
               {navItems.map(({ link }, i) => {
-                return <CMSLink className="duration-200 hover:text-neutral-300" key={i} {...link} />
+                return (
+                  <CMSLink
+                    className="hover:text-neutral-600 dark:hover:text-neutral-300"
+                    key={i}
+                    {...link}
+                  />
+                )
               })}
             </nav>
           </div>
