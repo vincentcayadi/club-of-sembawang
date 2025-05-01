@@ -23,6 +23,16 @@ const nextConfig = {
         port: '3000',
         pathname: '/api/media/**',
       },
+      {
+        protocol: 'https',
+        hostname: '**.uploadthing.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: new URL(NEXT_PUBLIC_SERVER_URL).hostname,
+        pathname: '/api/media/**',
+      },
     ],
   },
   reactStrictMode: true,
