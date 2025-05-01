@@ -17,8 +17,6 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
   const contentRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    setHeaderTheme('dark')
-
     // Reset scroll position when navigating between pages
     window.scrollTo(0, 0)
 
@@ -53,12 +51,17 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
   return (
     <div
       ref={heroRef}
-      className="relative flex min-h-[100vh] select-none items-center justify-center overflow-hidden text-neutral-100"
+      className="relative flex min-h-[100vh] select-none items-center justify-center overflow-hidden"
     >
       <div className="container relative z-10 flex items-center justify-center text-center">
         <div ref={contentRef} className="max-w-7xl">
           {richText && (
-            <RichText className="fade-up mb-6" content={richText} enableGutter={false} />
+            <RichText
+              className="fade-up mb-6"
+              content={richText}
+              enableGutter={false}
+              data-theme="dark"
+            />
           )}
           {Array.isArray(links) && links.length > 0 && (
             <ul className="fade-up flex justify-center gap-4">
