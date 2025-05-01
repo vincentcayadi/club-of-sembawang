@@ -1,5 +1,4 @@
 import { withPayload } from '@payloadcms/next/withPayload'
-
 import redirects from './redirects.js'
 
 const NEXT_PUBLIC_SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
@@ -8,30 +7,17 @@ const NEXT_PUBLIC_SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://loc
 const nextConfig = {
   images: {
     remotePatterns: [
-      // Original server URL pattern
-      ...[NEXT_PUBLIC_SERVER_URL].map((item) => {
-        const url = new URL(item)
-
-        return {
-          hostname: url.hostname,
-          protocol: url.protocol.replace(':', ''),
-        }
-      }),
+      // Parse the server URL to get hostname and protocol
       {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: '3000',
+        protocol: new URL(NEXT_PUBLIC_SERVER_URL).protocol.replace(':', ''),
+        hostname: new URL(NEXT_PUBLIC_SERVER_URL).hostname,
         pathname: '/api/media/**',
       },
+      // Additional allowed patterns
       {
         protocol: 'https',
         hostname: '**.uploadthing.com',
         pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: new URL(NEXT_PUBLIC_SERVER_URL).hostname,
-        pathname: '/api/media/**',
       },
     ],
   },
