@@ -25,13 +25,13 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
 
   useEffect(() => {
     setHeaderTheme(null)
-  }, [pathname])
+  }, [pathname, setHeaderTheme]) // Added setHeaderTheme to dependency array
 
   useEffect(() => {
     if (headerTheme && headerTheme !== theme) {
       setTheme(headerTheme)
     }
-  }, [headerTheme])
+  }, [headerTheme, theme]) // Added theme to dependency array
 
   // Mobile menu state
   const [isOpen, setIsOpen] = useState(false)
@@ -70,7 +70,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                 <span className="sr-only">Toggle menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="bottom" className="h-[85vh] rounded-t-xl pt-6">
+            <SheetContent side="bottom" className="h-[50vh] rounded-t-xl pt-6">
               {/* Centered navigation links with theme selector below */}
               <div className="flex h-full flex-col items-center justify-center space-y-6 px-4">
                 {navItems.map(({ link }, i) => (
