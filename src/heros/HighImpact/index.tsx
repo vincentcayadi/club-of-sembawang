@@ -54,7 +54,6 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
     <div
       ref={heroRef}
       className="relative -mt-[10rem] flex min-h-[100vh] select-none items-center justify-center overflow-hidden text-neutral-100"
-      data-theme="dark"
     >
       <div className="container relative z-10 flex items-center justify-center text-center">
         <div ref={contentRef} className="max-w-[36.5rem]">
