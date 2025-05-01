@@ -2,45 +2,53 @@
 
 import { useHeaderTheme } from '@/providers/HeaderTheme'
 import React, { useEffect, useRef } from 'react'
-import gsap from 'gsap'
-import ScrollTrigger from 'gsap/ScrollTrigger'
+import { gsap } from 'gsap'
+import { usePathname } from 'next/navigation'
 
 import type { Page } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
 
-gsap.registerPlugin(ScrollTrigger)
-
 export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText }) => {
+  const pathname = usePathname() // Detects when the page changes
   const { setHeaderTheme } = useHeaderTheme()
   const heroRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     setHeaderTheme('dark')
 
-    if (heroRef.current) {
-      const heroImage = heroRef.current.querySelector('.hero-image')
+    // Reset scroll position when navigating between pages
+    window.scrollTo(0, 0)
 
-      if (heroImage) {
-        gsap.fromTo(
-          heroImage,
-          { scale: 1.2 },
-          {
-            scale: 1,
-            duration: 1,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: heroRef.current,
-              start: 'top top',
-              end: 'bottom top',
-              scrub: true,
-            },
-          },
-        )
-      }
+    // Only run animation if the content exists
+    if (contentRef.current) {
+      // Get all elements with fade-up class
+      const fadeElements = contentRef.current.querySelectorAll('.fade-up')
+
+      // Kill any existing animations to prevent duplicates
+      gsap.killTweensOf(fadeElements)
+
+      // Set initial state (invisible and below final position)
+      gsap.set(fadeElements, {
+        opacity: 0,
+        y: 30,
+        visibility: 'hidden', // This helps with autoAlpha
+      })
+
+      // Create the animation with a slight delay
+      gsap.to(fadeElements, {
+        opacity: 1,
+        y: 0,
+        visibility: 'visible',
+        duration: 1.8,
+        ease: 'power3.out',
+        stagger: 0.2,
+        delay: 0.2, // Small delay to ensure animation runs after component is fully mounted
+      })
     }
-  }, [])
+  }, [pathname]) // Re-run when pathname changes
 
   return (
     <div
@@ -49,10 +57,12 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
       data-theme="dark"
     >
       <div className="container relative z-10 flex items-center justify-center text-center">
-        <div className="max-w-[36.5rem]">
-          {richText && <RichText className="mb-6" content={richText} enableGutter={false} />}
+        <div ref={contentRef} className="max-w-[36.5rem]">
+          {richText && (
+            <RichText className="fade-up mb-6" content={richText} enableGutter={false} />
+          )}
           {Array.isArray(links) && links.length > 0 && (
-            <ul className="flex justify-center gap-4">
+            <ul className="fade-up flex justify-center gap-4">
               {links.map(({ link }, i) => (
                 <li key={i}>
                   <CMSLink {...link} />
@@ -65,11 +75,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
       <div className="absolute inset-0 min-h-[100vh] w-full">
         {media && typeof media === 'object' && (
           <>
-            <Media
-              fill
-              imgClassName="hero-image -z-10 object-cover w-full h-full"
-              resource={media}
-            />
+            <Media fill imgClassName="object-cover w-full h-full" resource={media} />
             <div className="pointer-events-none absolute inset-0 bg-neutral-900/20 backdrop-blur-sm" />
           </>
         )}
