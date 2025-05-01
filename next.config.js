@@ -18,6 +18,12 @@ const nextConfig = {
           protocol: url.protocol.replace(':', ''),
         }
       }),
+      {
+        protocol: 'https',
+        hostname: '**.uploadthing.com',
+        port: '',
+        pathname: '/**', // allow anywhere on UploadThing
+      },
     ],
   },
   reactStrictMode: true,
