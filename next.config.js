@@ -5,6 +5,10 @@ const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
   ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
   : undefined || process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
 
+const S3_ENDPOINT = process.env.S3_ENDPOINT || ''
+const s3Url = new URL(S3_ENDPOINT)
+
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   eslint: {
@@ -21,9 +25,9 @@ const nextConfig = {
         }
       }),
       {
-        protocol: 'https',
-        hostname: '*.r2.cloudflarestorage.com',
-        pathname: '/**',
+        protocol: s3Url.protocol.replace(':', ''),
+        hostname: s3Url.hostname,
+        pathname: `${s3Url.pathname.replace(/\/$/, '')}/**`,
       },
     ],
   },
