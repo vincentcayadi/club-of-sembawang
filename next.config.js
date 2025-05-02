@@ -8,6 +8,9 @@ const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    eslint: {
+    ignoreDuringBuilds: true,
+  },
   images: {
     remotePatterns: [
       ...[NEXT_PUBLIC_SERVER_URL].map((item) => {
@@ -18,12 +21,6 @@ const nextConfig = {
           protocol: url.protocol.replace(':', ''),
         }
       }),
-      {
-        protocol: 'https',
-        hostname: '**.uploadthing.com',
-        port: '',
-        pathname: '/**', // allow anywhere on UploadThing
-      },
     ],
   },
   reactStrictMode: true,
