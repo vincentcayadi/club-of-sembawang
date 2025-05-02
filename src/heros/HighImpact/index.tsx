@@ -81,7 +81,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
         {media && typeof media === 'object' && (
           <>
             <Media fill imgClassName="object-cover w-full h-full" resource={media} />
-            <div className="pointer-events-none absolute inset-0 bg-neutral-900/30 backdrop-blur-sm" />
+            <div className="pointer-events-none absolute inset-0 bg-neutral-900/30 backdrop-blur-xs" />
           </>
         )}
       </div>
