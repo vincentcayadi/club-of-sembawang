@@ -1,18 +1,19 @@
 'use client'
-import { cn } from '@/utilities/cn'
+import { cn } from '@/utilities/ui'
 import useClickableCard from '@/utilities/useClickableCard'
 import Link from 'next/link'
 import React, { Fragment } from 'react'
-import { Badge } from '@/components/ui/badge'
 
 import type { Post } from '@/payload-types'
 
 import { Media } from '@/components/Media'
 
+export type CardPostData = Pick<Post, 'slug' | 'categories' | 'meta' | 'title'>
+
 export const Card: React.FC<{
   alignItems?: 'center'
   className?: string
-  doc?: Post
+  doc?: CardPostData
   relationTo?: 'posts'
   showCategories?: boolean
   title?: string
@@ -31,27 +32,38 @@ export const Card: React.FC<{
   return (
     <article
       className={cn(
-        'overflow-hidden rounded-lg border border-border bg-card hover:cursor-pointer',
+        'border border-border rounded-lg overflow-hidden bg-card hover:cursor-pointer',
         className,
       )}
       ref={card.ref}
     >
-      <div className="relative w-full">
+      <div className="relative w-full ">
         {!metaImage && <div className="">No image</div>}
-        {metaImage && typeof metaImage !== 'string' && <Media resource={metaImage} size="360px" />}
+        {metaImage && typeof metaImage !== 'string' && <Media resource={metaImage} size="33vw" />}
       </div>
       <div className="p-4">
         {showCategories && hasCategories && (
-          <div className="mb-4 text-sm uppercase">
+          <div className="uppercase text-sm mb-4">
             {showCategories && hasCategories && (
               <div>
-                {categories
-                  ?.filter((cat) => typeof cat === 'object' && cat !== null)
-                  .map((category, index) => (
-                    <Badge key={index} variant="secondary">
-                      {category.title || 'Untitled category'}
-                    </Badge>
-                  ))}
+                {categories?.map((category, index) => {
+                  if (typeof category === 'object') {
+                    const { title: titleFromCategory } = category
+
+                    const categoryTitle = titleFromCategory || 'Untitled category'
+
+                    const isLast = index === categories.length - 1
+
+                    return (
+                      <Fragment key={index}>
+                        {categoryTitle}
+                        {!isLast && <Fragment>, &nbsp;</Fragment>}
+                      </Fragment>
+                    )
+                  }
+
+                  return null
+                })}
               </div>
             )}
           </div>

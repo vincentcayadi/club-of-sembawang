@@ -1,11 +1,10 @@
-// storage-adapter-import-placeholder
 import { postgresAdapter } from '@payloadcms/db-postgres'
 
 import sharp from 'sharp' // sharp-import
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
-import { uploadthingStorage } from '@payloadcms/storage-uploadthing'
+import { s3Storage } from '@payloadcms/storage-s3'
 
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
@@ -68,13 +67,18 @@ export default buildConfig({
   globals: [Header, Footer],
   plugins: [
     ...plugins,
-    // storage-adapter-placeholder
-    uploadthingStorage({
+    s3Storage({
       collections: {
         media: true,
       },
-      options: {
-        token: process.env.UPLOADTHING_TOKEN,
+      bucket: process.env.S3_BUCKET || '',
+      config: {
+        credentials: {
+          accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
+          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
+        },
+        region: 'auto',
+        endpoint: process.env.S3_ENDPOINT || '',
       },
     }),
   ],

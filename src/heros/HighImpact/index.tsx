@@ -12,7 +12,6 @@ import RichText from '@/components/RichText'
 
 export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText }) => {
   const pathname = usePathname() // Detects when the page changes
-  const { setHeaderTheme } = useHeaderTheme()
   const heroRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
 
@@ -62,7 +61,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
             <RichText
               // dont do this again wtf
               className="fade-up"
-              content={richText}
+              data={richText}
               enableGutter={false}
             />
           )}
@@ -81,7 +80,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
         {media && typeof media === 'object' && (
           <>
             <Media fill imgClassName="object-cover w-full h-full" resource={media} />
-            <div className="pointer-events-none absolute inset-0 bg-neutral-900/30 backdrop-blur-xs" />
+            <div className="backdrop-blur-xs pointer-events-none absolute inset-0 bg-neutral-900/30" />
           </>
         )}
       </div>
