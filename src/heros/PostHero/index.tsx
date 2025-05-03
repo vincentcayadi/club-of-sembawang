@@ -36,13 +36,13 @@ export const PostHero: React.FC<{
             {categories
               ?.filter((cat) => typeof cat === 'object' && cat !== null)
               .map((category, index) => (
-                <Badge key={index} variant="secondary">
+                <Badge key={index} variant="default">
                   {category.title || 'Untitled category'}
                 </Badge>
               ))}
           </div>
 
-          <h1 className="text-4xl font-semibold tracking-tight md:text-5xl">{title}</h1>
+          <h1 className="text-4xl tracking-tight md:text-5xl">{title}</h1>
 
           <div className="flex items-center gap-4">
             {populatedAuthors && (

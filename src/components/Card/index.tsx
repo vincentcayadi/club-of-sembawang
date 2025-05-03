@@ -7,6 +7,7 @@ import React, { Fragment } from 'react'
 import type { Post } from '@/payload-types'
 
 import { Media } from '@/components/Media'
+import { Badge } from '../ui/badge'
 
 export type CardPostData = Pick<Post, 'slug' | 'categories' | 'meta' | 'title'>
 
@@ -45,7 +46,7 @@ export const Card: React.FC<{
         {showCategories && hasCategories && (
           <div className="mb-4 text-sm uppercase">
             {showCategories && hasCategories && (
-              <div>
+              <Badge>
                 {categories?.map((category, index) => {
                   if (typeof category === 'object') {
                     const { title: titleFromCategory } = category
@@ -64,7 +65,7 @@ export const Card: React.FC<{
 
                   return null
                 })}
-              </div>
+              </Badge>
             )}
           </div>
         )}
