@@ -71,7 +71,7 @@ export const PostHero: React.FC<{
               </div>
             )}
             {publishedAt && (
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 <time dateTime={publishedAt}>{formatDateTime(publishedAt)}</time>
               </p>
             )}

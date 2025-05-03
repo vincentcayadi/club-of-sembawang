@@ -8,9 +8,11 @@ const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
 const S3_ENDPOINT = process.env.S3_ENDPOINT || ''
 const s3Url = new URL(S3_ENDPOINT)
 
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  turbopack: {
+    // ...
+  },
   eslint: {
     ignoreDuringBuilds: true,
   },

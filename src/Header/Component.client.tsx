@@ -53,7 +53,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
               key={link.label ?? i}
               {...link}
               appearance="link"
-              className="font-medium text-neutral-900 transition-colors hover:text-primary dark:text-neutral-100"
+              className="hover:text-primary font-medium text-neutral-900 transition-colors dark:text-neutral-100"
             />
           ))}
           <ThemeSelector />
@@ -75,7 +75,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                     <CMSLink
                       {...link}
                       appearance="link"
-                      className="text-lg font-medium text-neutral-900 transition-colors hover:text-primary dark:text-neutral-100"
+                      className="hover:text-primary text-lg font-medium text-neutral-900 transition-colors dark:text-neutral-100"
                     />
                   </div>
                 ))}

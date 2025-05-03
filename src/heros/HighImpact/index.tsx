@@ -50,12 +50,12 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
   return (
     <div
       ref={heroRef}
-      className="relative flex min-h-[100vh] select-none items-center justify-center overflow-hidden"
+      className="relative flex min-h-[100vh] items-center justify-center overflow-hidden select-none"
     >
       <div className="relative z-10 flex items-center justify-center text-center">
         <div
           ref={contentRef}
-          className="max-w-7xl prose-headings:text-neutral-100 prose-p:text-neutral-100"
+          className="prose-headings:text-neutral-100 prose-p:text-neutral-100 max-w-7xl"
         >
           {richText && (
             <RichText
@@ -80,7 +80,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
         {media && typeof media === 'object' && (
           <>
             <Media fill imgClassName="object-cover w-full h-full" resource={media} />
-            <div className="backdrop-blur-xs pointer-events-none absolute inset-0 bg-neutral-900/30" />
+            <div className="pointer-events-none absolute inset-0 bg-neutral-900/30 backdrop-blur-xs" />
           </>
         )}
       </div>
