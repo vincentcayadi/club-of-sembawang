@@ -34,6 +34,8 @@ export default buildConfig({
         images: [{ url: '/OG.webp', width: 1200, height: 630, alt: 'Club Of Sembawang' }],
       },
       robots: 'noindex, nofollow',
+      defaultOGImageType: 'dynamic',
+      defaultOGImage: '/OG.webp',
     },
     components: {
       graphics: {
