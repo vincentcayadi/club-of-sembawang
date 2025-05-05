@@ -20,7 +20,7 @@ import { getServerSideURL } from './utilities/getURL'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-const PROD_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+const PROD_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
 
 export default buildConfig({
   admin: {
