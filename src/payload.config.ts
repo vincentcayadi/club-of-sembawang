@@ -35,7 +35,6 @@ export default buildConfig({
       },
       robots: 'noindex, nofollow',
       defaultOGImageType: 'dynamic',
-      defaultOGImage: '/OG.webp',
     },
     components: {
       graphics: {
