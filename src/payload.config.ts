@@ -20,6 +20,8 @@ import { getServerSideURL } from './utilities/getURL'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+const PROD_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+
 export default buildConfig({
   admin: {
     meta: {
@@ -31,10 +33,11 @@ export default buildConfig({
         title: 'Club Of Sembawang Admin Panel',
         siteName: 'Club Of Sembawang',
         description: 'With Great Power Comes Great Responsibility',
-        images: [{ url: '/OG.webp', width: 1200, height: 630, alt: 'Club Of Sembawang' }],
+        images: [
+          { url: `${PROD_URL}/OG.webp`, width: 1200, height: 630, alt: 'Club Of Sembawang' },
+        ],
       },
       robots: 'noindex, nofollow',
-      defaultOGImageType: 'dynamic',
     },
     components: {
       graphics: {
