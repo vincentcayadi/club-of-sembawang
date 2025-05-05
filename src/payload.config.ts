@@ -22,6 +22,16 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   admin: {
+    meta: {
+      title: 'Club Of Sembawang Admin Panel',
+      description: 'With Great Power Comes Great Responsibility',
+      icons: [{ rel: 'icon', type: 'image/ico', url: '/favicon.ico' }],
+      openGraph: {
+        title: 'Club Of Sembawang Admin',
+        description: 'With Great Power Comes Great Responsibility',
+      },
+      robots: 'noindex, nofollow',
+    },
     components: {
       graphics: {
         Logo: '/components/payload/Logo',
