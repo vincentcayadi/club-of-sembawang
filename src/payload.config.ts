@@ -24,20 +24,14 @@ export default buildConfig({
   admin: {
     meta: {
       title: 'Club Of Sembawang Admin Panel',
+      titleSuffix: '',
       description: 'With Great Power Comes Great Responsibility',
       icons: [{ rel: 'icon', type: 'image/ico', url: '/favicon.ico' }],
       openGraph: {
-        title: 'Admin Panel',
+        title: 'Club Of Sembawang Admin Panel',
         siteName: 'Club Of Sembawang',
         description: 'With Great Power Comes Great Responsibility',
-        images: [
-          {
-            url: '/OG.webp',
-            width: 1200,
-            height: 630,
-            alt: 'Club Of Sembawang',
-          },
-        ],
+        images: [{ url: '/OG.webp', width: 1200, height: 630, alt: 'Club Of Sembawang' }],
       },
       robots: 'noindex, nofollow',
     },
