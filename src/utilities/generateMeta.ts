@@ -1,18 +1,26 @@
 import type { Metadata } from 'next'
 
-import type { Page, Post } from '../payload-types'
+import type { Page, Post, Config, Media } from '../payload-types'
 
 import { mergeOpenGraph } from './mergeOpenGraph'
 import { getServerSideURL } from './getURL'
 
+const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
+  const serverURL = getServerSideURL()
+  let url = serverURL + '/OG.webp' // Default image URL
+
+  if (image && typeof image === 'object' && 'url' in image) {
+    // If image is an object with a url property, use it
+    url = image.url ? (image.url.startsWith('http') ? image.url : serverURL + image.url) : url
+  }
+
+  return url
+}
+
 export const generateMeta = async (args: { doc: Page | Post }): Promise<Metadata> => {
   const { doc } = args || {}
 
-  const ogImage =
-    typeof doc?.meta?.image === 'object' &&
-    doc.meta.image !== null &&
-    'url' in doc.meta.image &&
-    `${getServerSideURL()}`
+  const ogImage = getImageURL(doc?.meta?.image)
 
   const title = doc?.meta?.title
     ? doc?.meta?.title + ' | Interact Club Of Sembawang'
