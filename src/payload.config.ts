@@ -27,8 +27,17 @@ export default buildConfig({
       description: 'With Great Power Comes Great Responsibility',
       icons: [{ rel: 'icon', type: 'image/ico', url: '/favicon.ico' }],
       openGraph: {
-        title: 'Club Of Sembawang Admin',
+        title: 'Admin Panel',
+        siteName: 'Club Of Sembawang',
         description: 'With Great Power Comes Great Responsibility',
+        images: [
+          {
+            url: '/OG.webp',
+            width: 1200,
+            height: 630,
+            alt: 'Club Of Sembawang',
+          },
+        ],
       },
       robots: 'noindex, nofollow',
     },
