@@ -1,4 +1,4 @@
-import type { Testimonial, TestimonialsBlock as TestimonialsBlockProps } from '@/payload-types'
+import type { Testimonial, Testimonials as TestimonialsBlockProps } from '@/payload-types'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -14,7 +14,7 @@ import { Marquee } from '@devnomic/marquee'
 export const TestimonialsBlock: React.FC<TestimonialsBlockProps & { id?: string }> = async (
   props,
 ) => {
-  const { id, title, subtitle, populateBy, limit: limitFromProps, selectedDocs } = props
+  const { id, title, subtitle, populateBy, limit: limitFromProps, selectedTestimonials } = props
 
   const limit = limitFromProps || 3
 
@@ -31,8 +31,8 @@ export const TestimonialsBlock: React.FC<TestimonialsBlockProps & { id?: string 
 
     testimonials = fetchedTestimonials.docs
   } else {
-    if (selectedDocs?.length) {
-      const filteredSelectedTestimonials = selectedDocs.map((testimonial) => {
+    if (selectedTestimonials?.length) {
+      const filteredSelectedTestimonials = selectedTestimonials.map((testimonial) => {
         if (typeof testimonial.value === 'object') return testimonial.value
       }) as Testimonial[]
 
@@ -53,13 +53,13 @@ export const TestimonialsBlock: React.FC<TestimonialsBlockProps & { id?: string 
             <Card className="max-w-xs">
               <CardHeader>
                 <div className="flex items-center space-x-4">
-                  {/* <Avatar>
-                    {testimonial.avatar?.url ? (
+                  <Avatar>
+                    {typeof testimonial.avatar === 'object' && testimonial.avatar?.url ? (
                       <AvatarImage src={testimonial.avatar.url} alt={testimonial.name} />
                     ) : (
                       <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
                     )}
-                  </Avatar> */}
+                  </Avatar>
                   <div>
                     <CardTitle>{testimonial.name}</CardTitle>
                     {testimonial.designation && (

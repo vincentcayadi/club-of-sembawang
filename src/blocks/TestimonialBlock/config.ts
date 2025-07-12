@@ -2,7 +2,11 @@ import type { Block } from 'payload'
 
 export const Testimonials: Block = {
   slug: 'testimonials',
-  interfaceName: 'TestimonialsBlock',
+  interfaceName: 'Testimonials',
+  labels: {
+    plural: 'Testimonials',
+    singular: 'Testimonial',
+  },
   fields: [
     {
       name: 'title',
@@ -40,7 +44,7 @@ export const Testimonials: Block = {
       label: 'Limit',
     },
     {
-      name: 'selectedDocs',
+      name: 'selectedTestimonials',
       type: 'relationship',
       admin: {
         condition: (_, siblingData) => siblingData.populateBy === 'selection',
@@ -50,8 +54,4 @@ export const Testimonials: Block = {
       relationTo: ['testimonials'],
     },
   ],
-  labels: {
-    plural: 'Testimonials',
-    singular: 'Testimonial',
-  },
 }
