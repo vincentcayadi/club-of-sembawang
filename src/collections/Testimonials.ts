@@ -11,6 +11,9 @@ export const Testimonials: CollectionConfig<'testimonials'> = {
     read: authenticatedOrPublished,
     update: authenticated,
   },
+  admin: {
+    useAsTitle: 'name',
+  },
   fields: [
     {
       name: 'name',
