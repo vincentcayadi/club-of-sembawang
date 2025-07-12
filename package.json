@@ -19,6 +19,7 @@
     "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
   },
   "dependencies": {
+    "@devnomic/marquee": "^1.0.3",
     "@payloadcms/admin-bar": "3.33.0",
     "@payloadcms/db-postgres": "3.33.0",
     "@payloadcms/live-preview-react": "3.33.0",
