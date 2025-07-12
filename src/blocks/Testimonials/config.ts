@@ -8,14 +8,14 @@ export const TestimonialsBlock: Block = {
   },
   fields: [
     {
-      name: 'title',
+      name: 'heading',
       type: 'text',
       label: 'Section Title',
       defaultValue: 'What Our Clients Say',
     },
     {
-      name: 'subtitle',
-      type: 'textarea',
+      name: 'subheading',
+      type: 'richText',
       label: 'Section Subtitle',
       defaultValue:
         "Don't just take our word for it. Here's what our satisfied clients have to say about their experience.",
@@ -28,8 +28,8 @@ export const TestimonialsBlock: Block = {
       maxRows: 20,
       fields: [
         { name: 'name', type: 'text', label: 'Full Name', required: true },
-        { name: 'designation', type: 'text', label: 'Job Title/Designation', required: true },
-        { name: 'company', type: 'text', label: 'Company Name', required: true },
+        { name: 'designation', type: 'text', label: 'Designation', required: true },
+        { name: 'company', type: 'text', label: 'Company Name', required: false },
         { name: 'testimonial', type: 'textarea', label: 'Testimonial Text', required: true },
         {
           name: 'avatar',
