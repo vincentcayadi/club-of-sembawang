@@ -72,7 +72,7 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
-    testimonials: Testimonial;
+    testimonial: Testimonial;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -89,7 +89,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
-    testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
+    testimonial: TestimonialSelect<false> | TestimonialSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -193,7 +193,7 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | TestimonialsBlock)[];
+  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -731,24 +731,7 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "testimonialsBlock".
- */
-export interface TestimonialsBlock {
-  title: string;
-  subtitle?: string | null;
-  selectedTestimonials?:
-    | {
-        relationTo: 'testimonials';
-        value: number | Testimonial;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'testimonials';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "testimonials".
+ * via the `definition` "testimonial".
  */
 export interface Testimonial {
   id: number;
@@ -952,7 +935,7 @@ export interface PayloadLockedDocument {
         value: number | User;
       } | null)
     | ({
-        relationTo: 'testimonials';
+        relationTo: 'testimonial';
         value: number | Testimonial;
       } | null)
     | ({
@@ -1053,7 +1036,6 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
-        testimonials?: T | TestimonialsBlockSelect<T>;
       };
   meta?:
     | T
@@ -1150,17 +1132,6 @@ export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "testimonialsBlock_select".
- */
-export interface TestimonialsBlockSelect<T extends boolean = true> {
-  title?: T;
-  subtitle?: T;
-  selectedTestimonials?: T;
   id?: T;
   blockName?: T;
 }
@@ -1326,9 +1297,9 @@ export interface UsersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "testimonials_select".
+ * via the `definition` "testimonial_select".
  */
-export interface TestimonialsSelect<T extends boolean = true> {
+export interface TestimonialSelect<T extends boolean = true> {
   name?: T;
   designation?: T;
   content?: T;

@@ -3,8 +3,8 @@ import type { CollectionConfig } from 'payload'
 import { authenticated } from '@/access/authenticated'
 import { anyone } from '@/access/anyone'
 
-export const Testimonials: CollectionConfig<'testimonials'> = {
-  slug: 'testimonials',
+export const Testimonial: CollectionConfig = {
+  slug: 'testimonial',
   access: {
     create: authenticated,
     delete: authenticated,
@@ -13,6 +13,7 @@ export const Testimonials: CollectionConfig<'testimonials'> = {
   },
   admin: {
     useAsTitle: 'name',
+    group: 'Content',
   },
   fields: [
     {
