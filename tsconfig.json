@@ -28,6 +28,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "redirects.js", "next.config.js", "src/collections/Testimonials"],
+  "include": ["**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "redirects.js", "next.config.js"],
   "exclude": ["node_modules"]
 }
