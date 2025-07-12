@@ -1,6 +1,5 @@
 'use client'
 
-import { useHeaderTheme } from '@/providers/HeaderTheme'
 import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { usePathname } from 'next/navigation'

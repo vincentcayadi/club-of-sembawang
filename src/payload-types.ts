@@ -89,7 +89,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
-    testimonials: TestimonialsSelect1<false> | TestimonialsSelect1<true>;
+    testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -193,7 +193,7 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | Testimonials)[];
+  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | TestimonialsBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -731,13 +731,11 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Testimonials".
+ * via the `definition` "testimonialsBlock".
  */
-export interface Testimonials {
+export interface TestimonialsBlock {
   title: string;
   subtitle?: string | null;
-  populateBy?: ('collection' | 'selection') | null;
-  limit?: number | null;
   selectedTestimonials?:
     | {
         relationTo: 'testimonials';
@@ -1055,7 +1053,7 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
-        testimonials?: T | TestimonialsSelect<T>;
+        testimonials?: T | TestimonialsBlockSelect<T>;
       };
   meta?:
     | T
@@ -1157,13 +1155,11 @@ export interface FormBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Testimonials_select".
+ * via the `definition` "testimonialsBlock_select".
  */
-export interface TestimonialsSelect<T extends boolean = true> {
+export interface TestimonialsBlockSelect<T extends boolean = true> {
   title?: T;
   subtitle?: T;
-  populateBy?: T;
-  limit?: T;
   selectedTestimonials?: T;
   id?: T;
   blockName?: T;
@@ -1332,7 +1328,7 @@ export interface UsersSelect<T extends boolean = true> {
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "testimonials_select".
  */
-export interface TestimonialsSelect1<T extends boolean = true> {
+export interface TestimonialsSelect<T extends boolean = true> {
   name?: T;
   designation?: T;
   content?: T;
@@ -1777,22 +1773,6 @@ export interface CodeBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'code';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TableOfContents".
- */
-export interface TableOfContents {
-  contents?:
-    | {
-        header?: string | null;
-        link?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'tableOfContents';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
