@@ -52,18 +52,8 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
       className="relative flex min-h-[100vh] items-center justify-center overflow-hidden select-none"
     >
       <div className="relative z-10 flex items-center justify-center text-center">
-        <div
-          ref={contentRef}
-          className="prose-headings:text-neutral-100 prose-p:text-neutral-100 max-w-7xl"
-        >
-          {richText && (
-            <RichText
-              // dont do this again wtf
-              className="fade-up"
-              data={richText}
-              enableGutter={false}
-            />
-          )}
+        <div ref={contentRef} className="max-w-7xl invert transition-colors dark:invert-0">
+          {richText && <RichText className="fade-up" data={richText} enableGutter={false} />}
           {Array.isArray(links) && links.length > 0 && (
             <ul className="fade-up flex justify-center gap-4">
               {links.map(({ link }, i) => (
