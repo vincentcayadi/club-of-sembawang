@@ -49,10 +49,10 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
   return (
     <div
       ref={heroRef}
-      className="select-none transition-colors relative flex min-h-[100vh] items-center justify-center overflow-hidden"
+      className="relative flex min-h-[100vh] items-center justify-center overflow-hidden select-none"
     >
       <div className="relative z-10 flex items-center justify-center text-center">
-        <div ref={contentRef} className="max-w-7xl invert dark:invert-0">
+        <div ref={contentRef} className="max-w-7xl invert transition-colors dark:invert-0">
           {richText && <RichText className="fade-up" data={richText} enableGutter={false} />}
           {Array.isArray(links) && links.length > 0 && (
             <ul className="fade-up flex justify-center gap-4">
@@ -69,7 +69,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
         {media && typeof media === 'object' && (
           <>
             <Media fill imgClassName="object-cover w-full h-full" resource={media} />
-            <div className="pointer-events-none absolute inset-0 bg-neutral-900/30 backdrop-blur-xs" />
+            <div className="pointer-events-none absolute inset-0 bg-neutral-800/30 backdrop-blur" />
           </>
         )}
       </div>
