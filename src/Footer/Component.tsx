@@ -20,7 +20,7 @@ export async function Footer() {
         <div className="container mx-auto grid grid-cols-1 gap-8 md:grid-cols-4 lg:grid-cols-8">
           <div className="col-span-2 flex flex-col items-start md:items-center">
             <Link href="/">
-              <Logo loading="eager" priority="high" className="invert dark:invert-0" />
+              <Logo loading="eager" priority="high" className="dark:invert-0" />
             </Link>
             <div className="text-left text-sm">© {currentYear} Club of Sembawang</div>
           </div>

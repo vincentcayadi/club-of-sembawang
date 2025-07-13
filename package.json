@@ -20,6 +20,8 @@
   },
   "dependencies": {
     "@devnomic/marquee": "^1.0.3",
+    "@innovixx/payload-color-picker-field": "^2.0.2",
+    "@nouance/payload-better-fields-plugin": "^2.0.2",
     "@payloadcms/admin-bar": "3.33.0",
     "@payloadcms/db-postgres": "3.33.0",
     "@payloadcms/live-preview-react": "3.33.0",

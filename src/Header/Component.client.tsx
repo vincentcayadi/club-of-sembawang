@@ -44,7 +44,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center px-4">
         <Link href="/" className="flex items-center space-x-4">
-          <Logo loading="eager" priority="high" className="invert dark:invert-0" />
+          <Logo loading="eager" priority="high" className="dark:invert-0" />
         </Link>
 
         <div className="ml-auto hidden md:flex md:items-center md:space-x-6">
