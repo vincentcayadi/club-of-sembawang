@@ -72,7 +72,10 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
+<<<<<<< HEAD
     testimonial: Testimonial;
+=======
+>>>>>>> parent of 16151ac (Testimonial Collections)
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -89,7 +92,10 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+<<<<<<< HEAD
     testimonial: TestimonialSelect<false> | TestimonialSelect<true>;
+=======
+>>>>>>> parent of 16151ac (Testimonial Collections)
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -731,6 +737,7 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+<<<<<<< HEAD
  * via the `definition` "testimonialBlock".
  */
 export interface TestimonialBlock {
@@ -761,6 +768,8 @@ export interface Testimonial {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+=======
+>>>>>>> parent of 16151ac (Testimonial Collections)
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -952,10 +961,13 @@ export interface PayloadLockedDocument {
         value: number | User;
       } | null)
     | ({
+<<<<<<< HEAD
         relationTo: 'testimonial';
         value: number | Testimonial;
       } | null)
     | ({
+=======
+>>>>>>> parent of 16151ac (Testimonial Collections)
         relationTo: 'redirects';
         value: number | Redirect;
       } | null)
@@ -1326,6 +1338,7 @@ export interface UsersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+<<<<<<< HEAD
  * via the `definition` "testimonial_select".
  */
 export interface TestimonialSelect<T extends boolean = true> {
@@ -1338,6 +1351,8 @@ export interface TestimonialSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+=======
+>>>>>>> parent of 16151ac (Testimonial Collections)
  * via the `definition` "redirects_select".
  */
 export interface RedirectsSelect<T extends boolean = true> {
