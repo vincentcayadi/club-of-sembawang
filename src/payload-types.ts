@@ -73,7 +73,10 @@ export interface Config {
     categories: Category;
     users: User;
 <<<<<<< HEAD
+<<<<<<< HEAD
     testimonial: Testimonial;
+=======
+>>>>>>> parent of 16151ac (Testimonial Collections)
 =======
 >>>>>>> parent of 16151ac (Testimonial Collections)
     redirects: Redirect;
@@ -93,7 +96,10 @@ export interface Config {
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
 <<<<<<< HEAD
+<<<<<<< HEAD
     testimonial: TestimonialSelect<false> | TestimonialSelect<true>;
+=======
+>>>>>>> parent of 16151ac (Testimonial Collections)
 =======
 >>>>>>> parent of 16151ac (Testimonial Collections)
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
@@ -738,6 +744,7 @@ export interface Form {
 /**
  * This interface was referenced by `Config`'s JSON-Schema
 <<<<<<< HEAD
+<<<<<<< HEAD
  * via the `definition` "testimonialBlock".
  */
 export interface TestimonialBlock {
@@ -768,6 +775,8 @@ export interface Testimonial {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+=======
+>>>>>>> parent of 16151ac (Testimonial Collections)
 =======
 >>>>>>> parent of 16151ac (Testimonial Collections)
  * via the `definition` "redirects".
@@ -962,10 +971,13 @@ export interface PayloadLockedDocument {
       } | null)
     | ({
 <<<<<<< HEAD
+<<<<<<< HEAD
         relationTo: 'testimonial';
         value: number | Testimonial;
       } | null)
     | ({
+=======
+>>>>>>> parent of 16151ac (Testimonial Collections)
 =======
 >>>>>>> parent of 16151ac (Testimonial Collections)
         relationTo: 'redirects';
@@ -1339,6 +1351,7 @@ export interface UsersSelect<T extends boolean = true> {
 /**
  * This interface was referenced by `Config`'s JSON-Schema
 <<<<<<< HEAD
+<<<<<<< HEAD
  * via the `definition` "testimonial_select".
  */
 export interface TestimonialSelect<T extends boolean = true> {
@@ -1351,6 +1364,8 @@ export interface TestimonialSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+=======
+>>>>>>> parent of 16151ac (Testimonial Collections)
 =======
 >>>>>>> parent of 16151ac (Testimonial Collections)
  * via the `definition` "redirects_select".
