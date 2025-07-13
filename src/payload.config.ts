@@ -16,13 +16,6 @@ import { Header } from './Header/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
-<<<<<<< HEAD
-<<<<<<< HEAD
-import { Testimonial } from './collections/Testimonial'
-=======
->>>>>>> parent of 16151ac (Testimonial Collections)
-=======
->>>>>>> parent of 16151ac (Testimonial Collections)
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -86,15 +79,7 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URI || '',
     },
   }),
-<<<<<<< HEAD
-<<<<<<< HEAD
-  collections: [Pages, Posts, Media, Categories, Users, Testimonial],
-=======
   collections: [Pages, Posts, Media, Categories, Users],
->>>>>>> parent of 16151ac (Testimonial Collections)
-=======
-  collections: [Pages, Posts, Media, Categories, Users],
->>>>>>> parent of 16151ac (Testimonial Collections)
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins: [

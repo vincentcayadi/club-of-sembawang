@@ -72,13 +72,6 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
-<<<<<<< HEAD
-<<<<<<< HEAD
-    testimonial: Testimonial;
-=======
->>>>>>> parent of 16151ac (Testimonial Collections)
-=======
->>>>>>> parent of 16151ac (Testimonial Collections)
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -95,13 +88,6 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
-<<<<<<< HEAD
-<<<<<<< HEAD
-    testimonial: TestimonialSelect<false> | TestimonialSelect<true>;
-=======
->>>>>>> parent of 16151ac (Testimonial Collections)
-=======
->>>>>>> parent of 16151ac (Testimonial Collections)
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -205,7 +191,7 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | TestimonialBlock)[];
+  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -743,42 +729,6 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
-<<<<<<< HEAD
-<<<<<<< HEAD
- * via the `definition` "testimonialBlock".
- */
-export interface TestimonialBlock {
-  title: string;
-  subtitle?: string | null;
-  selectedTestimonial?:
-    | {
-        relationTo: 'testimonial';
-        value: number | Testimonial;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'testimonialBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "testimonial".
- */
-export interface Testimonial {
-  id: number;
-  name: string;
-  designation: string;
-  content: string;
-  avatar?: (number | null) | Media;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
-=======
->>>>>>> parent of 16151ac (Testimonial Collections)
-=======
->>>>>>> parent of 16151ac (Testimonial Collections)
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -970,16 +920,6 @@ export interface PayloadLockedDocument {
         value: number | User;
       } | null)
     | ({
-<<<<<<< HEAD
-<<<<<<< HEAD
-        relationTo: 'testimonial';
-        value: number | Testimonial;
-      } | null)
-    | ({
-=======
->>>>>>> parent of 16151ac (Testimonial Collections)
-=======
->>>>>>> parent of 16151ac (Testimonial Collections)
         relationTo: 'redirects';
         value: number | Redirect;
       } | null)
@@ -1077,7 +1017,6 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
-        testimonialBlock?: T | TestimonialBlockSelect<T>;
       };
   meta?:
     | T
@@ -1174,17 +1113,6 @@ export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "testimonialBlock_select".
- */
-export interface TestimonialBlockSelect<T extends boolean = true> {
-  title?: T;
-  subtitle?: T;
-  selectedTestimonial?: T;
   id?: T;
   blockName?: T;
 }
@@ -1350,24 +1278,6 @@ export interface UsersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
-<<<<<<< HEAD
-<<<<<<< HEAD
- * via the `definition` "testimonial_select".
- */
-export interface TestimonialSelect<T extends boolean = true> {
-  name?: T;
-  designation?: T;
-  content?: T;
-  avatar?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
-=======
->>>>>>> parent of 16151ac (Testimonial Collections)
-=======
->>>>>>> parent of 16151ac (Testimonial Collections)
  * via the `definition` "redirects_select".
  */
 export interface RedirectsSelect<T extends boolean = true> {
