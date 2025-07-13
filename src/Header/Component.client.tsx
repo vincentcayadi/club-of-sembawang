@@ -39,15 +39,15 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
 
   return (
     <header
-      className="sticky top-0 z-50 bg-neutral-400/40 backdrop-blur-lg transition-colors dark:bg-neutral-700/40"
+      className="sticky top-0 z-50 bg-neutral-400/40 backdrop-blur-lg transition-colors dark:bg-neutral-700/20"
       {...(theme ? { 'data-theme': theme } : {})}
     >
-      <div className="mx-auto flex h-16 max-w-7xl items-center px-4">
+      <div className="mx-auto flex h-20 max-w-7xl items-center px-4">
         <Link href="/" className="flex items-center space-x-4">
-          <Logo loading="eager" priority="high" className="dark:invert-0" />
+          <Logo loading="eager" priority="high" className="transition-colors dark:invert-0" />
         </Link>
 
-        <div className="ml-auto hidden md:flex md:items-center md:space-x-6">
+        <div className="ml-auto hidden transition-colors md:flex md:items-center md:space-x-6">
           {navItems.map(({ link }, i) => (
             <CMSLink key={link.label ?? i} {...link} appearance="link" />
           ))}
