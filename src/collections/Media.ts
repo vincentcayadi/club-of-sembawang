@@ -5,6 +5,25 @@ export const Media: CollectionConfig = {
   access: {
     read: () => true,
   },
+  upload: {
+    formatOptions: {
+      format: 'webp',
+    },
+    imageSizes: [
+      {
+        name: 'thumbnail',
+        width: 400,
+      },
+      {
+        name: 'tablet',
+        width: 768,
+      },
+      {
+        name: 'desktop',
+        width: 1920,
+      },
+    ],
+  },
   fields: [
     {
       name: 'alt',
@@ -12,5 +31,4 @@ export const Media: CollectionConfig = {
       required: true,
     },
   ],
-  upload: true,
 }
