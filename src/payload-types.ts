@@ -183,6 +183,9 @@ export interface Page {
     | MediaBlock
     | AccordionBlock
   )[];
+  /**
+   * SEO and social overrides.
+   */
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -394,6 +397,9 @@ export interface Post {
     };
     [k: string]: unknown;
   };
+  /**
+   * SEO and social overrides.
+   */
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -1040,9 +1046,13 @@ export interface SiteSetting {
    */
   siteName: string;
   /**
-   * Short description of your site
+   * Short tagline or slogan
    */
   tagline?: string | null;
+  /**
+   * Default meta description for the site (used for SEO and social sharing)
+   */
+  description?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1113,6 +1123,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   squareLogo?: T;
   siteName?: T;
   tagline?: T;
+  description?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

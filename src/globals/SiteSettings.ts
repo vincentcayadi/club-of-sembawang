@@ -1,5 +1,5 @@
 import type { GlobalConfig } from 'payload'
-import { SITE_NAME_DEFAULT } from '@/constants'
+import { SITE_NAME_DEFAULT, SITE_DESCRIPTION_DEFAULT } from '@/constants'
 
 export const SiteSettings: GlobalConfig = {
   slug: 'siteSettings',
@@ -35,9 +35,17 @@ export const SiteSettings: GlobalConfig = {
     {
       name: 'tagline',
       type: 'text',
-      defaultValue: "Singapore's first public health initiative",
+      defaultValue: SITE_DESCRIPTION_DEFAULT,
       admin: {
-        description: 'Short description of your site',
+        description: 'Short tagline or slogan',
+      },
+    },
+    {
+      name: 'description',
+      type: 'textarea',
+      defaultValue: SITE_DESCRIPTION_DEFAULT,
+      admin: {
+        description: 'Default meta description for the site (used for SEO and social sharing)',
       },
     },
   ],

@@ -1,9 +1,37 @@
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { draftMode } from 'next/headers'
+import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 
-export async function generateMetadata(): Promise<Metadata> {
+interface PageProps {
+  params: Promise<{
+    slug: string
+  }>
+}
+
+export async function generateStaticParams() {
+  const payload = await getPayload({ config: configPromise })
+
+  const pages = await payload.find({
+    collection: 'pages',
+    limit: 1000,
+    where: {
+      _status: {
+        equals: 'published',
+      },
+    },
+  })
+
+  return pages.docs
+    .filter((page) => page.slug !== 'home')
+    .map((page) => ({
+      slug: page.slug,
+    }))
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params
   const payload = await getPayload({ config: configPromise })
   const { isEnabled: isDraftMode } = await draftMode()
 
@@ -12,7 +40,7 @@ export async function generateMetadata(): Promise<Metadata> {
     limit: 1,
     where: {
       slug: {
-        equals: 'home',
+        equals: slug,
       },
     },
     draft: isDraftMode,
@@ -35,7 +63,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: page.meta?.title || page.title || '',
       description: page.meta?.description || page.excerpt || '',
-      url: process.env.NEXT_PUBLIC_SERVER_URL || '',
+      url: `${process.env.NEXT_PUBLIC_SERVER_URL}/${slug}`,
       images: ogImage
         ? [
             {
@@ -55,7 +83,8 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default async function HomePage() {
+export default async function Page({ params }: PageProps) {
+  const { slug } = await params
   const payload = await getPayload({ config: configPromise })
   const { isEnabled: isDraftMode } = await draftMode()
 
@@ -64,7 +93,7 @@ export default async function HomePage() {
     limit: 1,
     where: {
       slug: {
-        equals: 'home',
+        equals: slug,
       },
     },
     draft: isDraftMode,
@@ -73,12 +102,7 @@ export default async function HomePage() {
   const page = result.docs[0]
 
   if (!page) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold mb-8">Welcome</h1>
-        <p>No home page found. Create a page with slug "home" in the admin panel.</p>
-      </div>
-    )
+    return notFound()
   }
 
   return (

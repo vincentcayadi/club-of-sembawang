@@ -83,13 +83,14 @@ export const Posts: CollectionConfig = {
           ],
         },
         {
-          label: 'SEO & Social',
-          description:
-            'How this post appears on Google and social media (optional - fills automatically from content above)',
+          label: 'SEO',
           fields: [
             {
               name: 'meta',
               type: 'group',
+              admin: {
+                description: 'SEO and social overrides.',
+              },
               fields: [
                 OverviewField({
                   titlePath: 'meta.title',

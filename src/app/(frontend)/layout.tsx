@@ -1,18 +1,29 @@
 import React from 'react'
-import './styles.css'
+import './globals.css'
+import { LenisProvider } from './components/LenisProvider'
+import { getSiteName } from '@/utilities/getSiteName'
 
-export const metadata = {
-  description: 'A blank template using Payload in a Next.js app.',
-  title: 'Payload Blank Template',
+export async function generateMetadata() {
+  const siteName = 'Club of Sembawang'
+
+  return {
+    title: {
+      default: siteName,
+      template: `%s | ${siteName}`,
+    },
+    description: "Singapore's first public health initiative",
+  }
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
-        <main>{children}</main>
+        <LenisProvider>
+          <main>{children}</main>
+        </LenisProvider>
       </body>
     </html>
   )
