@@ -92,8 +92,16 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    siteSettings: SiteSetting;
+    header: Header;
+    footer: Footer;
+  };
+  globalsSelect: {
+    siteSettings: SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    header: HeaderSelect<false> | HeaderSelect<true>;
+    footer: FooterSelect<false> | FooterSelect<true>;
+  };
   locale: null;
   user: User & {
     collection: 'users';
@@ -1012,6 +1020,136 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "siteSettings".
+ */
+export interface SiteSetting {
+  id: number;
+  /**
+   * Primary logo (horizontal/full version)
+   */
+  logo?: (number | null) | Media;
+  /**
+   * Square/icon version of logo (optional, for mobile or compact displays)
+   */
+  squareLogo?: (number | null) | Media;
+  /**
+   * Displayed when no logo is uploaded
+   */
+  siteName: string;
+  /**
+   * Short description of your site
+   */
+  tagline?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "header".
+ */
+export interface Header {
+  id: number;
+  /**
+   * Maximum of 6 navigation links
+   */
+  navItems?:
+    | {
+        /**
+         * The text shown in the navigation
+         */
+        label: string;
+        /**
+         * Internal path (/about) or external URL (https://example.com)
+         */
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer".
+ */
+export interface Footer {
+  id: number;
+  /**
+   * Copyright text displayed in footer
+   */
+  copyright?: string | null;
+  /**
+   * Add links to your social media profiles
+   */
+  socialLinks?:
+    | {
+        /**
+         * Select the social media platform
+         */
+        platform: 'twitter' | 'instagram' | 'facebook' | 'linkedin' | 'youtube' | 'tiktok' | 'other';
+        /**
+         * Enter custom platform name
+         */
+        customPlatform?: string | null;
+        /**
+         * Internal path (/about) or external URL (https://example.com)
+         */
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "siteSettings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  logo?: T;
+  squareLogo?: T;
+  siteName?: T;
+  tagline?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "header_select".
+ */
+export interface HeaderSelect<T extends boolean = true> {
+  navItems?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer_select".
+ */
+export interface FooterSelect<T extends boolean = true> {
+  copyright?: T;
+  socialLinks?:
+    | T
+    | {
+        platform?: T;
+        customPlatform?: T;
+        url?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

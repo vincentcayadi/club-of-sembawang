@@ -3,7 +3,8 @@ export const PRODUCTION_ENVIRONMENT = 'production'
 export const DEVELOPMENT_ENVIRONMENT = 'development'
 
 // Site
-export const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || 'Your Site Name'
+export const SITE_NAME_DEFAULT = 'Club of Sembawang'
+export const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || SITE_NAME_DEFAULT
 export const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
 
 // Collections

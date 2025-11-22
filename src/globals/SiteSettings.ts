@@ -1,4 +1,5 @@
 import type { GlobalConfig } from 'payload'
+import { SITE_NAME_DEFAULT } from '@/constants'
 
 export const SiteSettings: GlobalConfig = {
   slug: 'siteSettings',
@@ -25,7 +26,7 @@ export const SiteSettings: GlobalConfig = {
     {
       name: 'siteName',
       type: 'text',
-      defaultValue: 'Club of Sembawang',
+      defaultValue: SITE_NAME_DEFAULT,
       required: true,
       admin: {
         description: 'Displayed when no logo is uploaded',

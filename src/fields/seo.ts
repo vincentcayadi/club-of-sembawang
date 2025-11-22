@@ -6,6 +6,7 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
+import { getSiteName } from '@/utilities/getSiteName'
 
 /**
  * Creates a reusable SEO tab with auto-population
@@ -55,16 +56,16 @@ export const createSeoTab = (config?: { includeImage?: boolean }): Field => ({
  * @param config.imageField - Name of the image field to use for meta.image (e.g., 'headerImage')
  */
 
-export const createSeoHook = (
-  config?: { imageField?: string },
-): CollectionBeforeValidateHook => {
-  return ({ data }) => {
+export const createSeoHook = (config?: { imageField?: string }): CollectionBeforeValidateHook => {
+  return async ({ data, req }) => {
     if (!data) return data
 
     const title = data.title as string | undefined
     const excerpt = data.excerpt as string | undefined
     const meta = data.meta || {}
-    const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Your Site Name'
+
+    // Fetch site name from SiteSettings global
+    const siteName = await getSiteName(req)
 
     // Auto-fill meta title
     if (!meta.title && title) {

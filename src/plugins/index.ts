@@ -7,15 +7,16 @@ import type {
 } from '@payloadcms/plugin-seo/types'
 import type { Page, Post } from '../payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
+import { getSiteName } from '@/utilities/getSiteName'
 
-const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Your Site Name'
-
-const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
+const generateTitle: GenerateTitle<Post | Page> = async ({ doc, req }) => {
+  const siteName = await getSiteName(req)
   const base = doc?.title || siteName
   return `${base} | ${siteName}`
 }
 
-const generateDescription: GenerateDescription<Post | Page> = ({ doc }) => {
+const generateDescription: GenerateDescription<Post | Page> = async ({ doc, req }) => {
+  const siteName = await getSiteName(req)
   return doc?.excerpt || `Welcome to ${siteName}`
 }
 

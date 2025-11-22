@@ -8,6 +8,9 @@ import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
+import { Header } from './globals/Header'
+import { Footer } from './globals/Footer'
+import { SiteSettings } from './globals/SiteSettings'
 import { plugins } from './plugins'
 
 const filename = fileURLToPath(import.meta.url)
@@ -21,6 +24,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Pages, Posts, Media],
+  globals: [SiteSettings, Header, Footer],
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
