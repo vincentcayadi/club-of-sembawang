@@ -19,15 +19,13 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   admin: {
     meta: {
-      title: 'Club Of Sembawang Admin Panel',
-      description: 'With Great Power Comes Great Responsibility',
-      icons: [
-        {
-          rel: 'icon',
-          type: 'image/png',
-          url: '/favicon.png',
-        },
-      ],
+      title: 'Club Of Sembawang Admin',
+      titleSuffix: '',
+      description: 'Content dashboard for Club Of Sembawang',
+      icons: {
+        icon: '/favicon.ico',
+        shortcut: '/favicon.ico',
+      },
     },
     user: Users.slug,
     importMap: {

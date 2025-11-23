@@ -2,8 +2,8 @@
 
 import React from 'react'
 import type { MediaBlock as MediaBlockProps, Media } from '@/payload-types'
-import { RichText } from '@payloadcms/richtext-lexical/react'
 import { MediaImage } from '@/components/MediaImage'
+import { RenderLexical } from '@/components/RenderLexical'
 
 type ValidMedia = Media
 
@@ -27,9 +27,12 @@ export const MediaBlockComponent: React.FC<MediaBlockProps> = ({
   )
 
   const captionElement = caption && (
-    <div className="prose prose-sm text-muted-foreground">
-      <RichText data={caption} disableIndent disableTextAlign />
-    </div>
+    <RenderLexical
+      content={caption}
+      className="prose prose-sm max-w-3xl text-muted-foreground"
+      disableIndent
+      disableTextAlign
+    />
   )
 
   return (

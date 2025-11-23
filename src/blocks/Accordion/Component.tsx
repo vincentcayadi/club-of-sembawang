@@ -40,8 +40,11 @@ export function AccordionBlockComponent({ header, description, alignment, items 
             <AccordionTrigger className="text-left text-lg font-medium text-gray-700 hover:text-gray-600">
               {item.title}
             </AccordionTrigger>
-            <AccordionContent className="text-gray-500">
-              <RenderLexical content={item.content} />
+            <AccordionContent>
+              <RenderLexical
+                content={item.content}
+                className="prose prose-sm max-w-3xl text-muted-foreground"
+              />
             </AccordionContent>
           </AccordionItem>
         ))}
