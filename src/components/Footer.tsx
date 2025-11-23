@@ -20,7 +20,7 @@ export async function Footer() {
 
   return (
     <footer className="border-t border-border/60 text-sm text-muted-foreground">
-      <div className="mx-auto flex w-full max-w-5xl flex-col gap-4 px-6 py-8 md:flex-row md:items-center md:justify-between">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-4 py-8 md:flex-row md:items-center md:justify-between">
         <div className="text-left">
           <div className="font-medium text-foreground">
             © {year} {footerGlobal?.copyright || siteName}
@@ -30,7 +30,7 @@ export async function Footer() {
         {socialLinks.length > 0 && (
           <div className="flex flex-col items-start gap-2 md:items-end">
             <div className="text-xs uppercase tracking-wide text-muted-foreground">Connect</div>
-            <div className="flex flex-wrap items-center justify-start gap-2">
+            <div className="flex flex-col items-start gap-1 md:items-end">
               {socialLinks.map((link, idx) => {
                 if (!link?.url) return null
                 const platform =
