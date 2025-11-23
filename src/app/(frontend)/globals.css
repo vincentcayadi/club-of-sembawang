@@ -84,6 +84,16 @@
     @apply bg-background text-foreground;
   }
 
+  /* Hide scrollbar */
+  html {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+
+  html::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+
   /* Prevent GSAP animation flash */
   .fade-up {
     opacity: 0;

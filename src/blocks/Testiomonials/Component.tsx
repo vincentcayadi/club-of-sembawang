@@ -41,19 +41,28 @@ function TestimonialCard({ quote, name, role, avatar, highlight }: Testimonial) 
   return (
     <div
       className={cn(
-        'flex h-full w-full flex-col justify-between gap-3 rounded-2xl border border-border/60 bg-card p-6 shadow-sm min-h-48',
-        highlight && 'ring-2 ring-primary/40',
+        'flex h-full w-full flex-col justify-between gap-4 rounded-2xl border border-border/60 bg-card p-6 shadow-md transition-all duration-300 hover:shadow-xl min-h-48',
+        highlight && 'ring-2 ring-primary/40 bg-primary/5',
       )}
     >
-      {quote && (
-        typeof quote === 'object' ? (
-          <RichText data={quote as any} disableIndent disableTextAlign />
-        ) : (
-          <p className="text-base text-foreground">"{quote}"</p>
-        )
-      )}
-      <div className="mt-4 flex items-center gap-3">
-        <Avatar className="h-12 w-12 border border-border/60 bg-muted">
+      <div className="flex-1">
+        {quote && (
+          <div className="relative">
+            <span className="absolute -top-2 -left-1 text-5xl text-muted-foreground/20 leading-none">"</span>
+            <div className="relative pl-4">
+              {typeof quote === 'object' ? (
+                <div className="prose prose-sm max-w-none [&>p]:text-foreground [&>p]:leading-relaxed [&>p]:m-0">
+                  <RichText data={quote as any} disableIndent disableTextAlign />
+                </div>
+              ) : (
+                <p className="text-base text-foreground leading-relaxed italic">{quote}</p>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+      <div className="mt-4 flex items-center gap-3 border-t border-border/40 pt-4">
+        <Avatar className="h-12 w-12 border-2 border-border/60 bg-muted">
           {avatarInfo?.url ? (
             <AvatarImage src={avatarInfo.url} alt={avatarInfo.alt} />
           ) : (
@@ -61,7 +70,7 @@ function TestimonialCard({ quote, name, role, avatar, highlight }: Testimonial) 
           )}
         </Avatar>
         <div>
-          {name && <div className="font-semibold">{name}</div>}
+          {name && <div className="font-semibold text-foreground">{name}</div>}
           {role && <div className="text-sm text-muted-foreground">{role}</div>}
         </div>
       </div>
@@ -83,43 +92,41 @@ export function TestimonialsBlockComponent({
     () => (layout === 'grid' ? safeTestimonials.slice(0, showCount || 3) : safeTestimonials),
     [layout, safeTestimonials, showCount],
   )
-  const marqueeItems = useMemo(
-    () => (layout === 'marquee' ? [...visible, ...visible] : []),
-    [layout, visible],
-  )
+  const marqueeItems = useMemo(() => {
+    if (layout !== 'marquee') return []
+    // Duplicate twice for seamless infinite loop
+    return [...visible, ...visible]
+  }, [layout, visible])
 
   const trackRef = useRef<HTMLDivElement | null>(null)
   const tweenRef = useRef<gsap.core.Tween | null>(null)
 
   useLayoutEffect(() => {
-    if (layout !== 'marquee') return
+    if (layout !== 'marquee' || visible.length === 0) return
     const track = trackRef.current
     if (!track) return
 
-    const dupCount = 2
-    const totalWidth = track.scrollWidth / dupCount
+    // Calculate the width of one complete set of items
+    const totalWidth = track.scrollWidth / 2
     if (!totalWidth) return
 
     tweenRef.current?.kill()
+
+    // Create seamless infinite loop
     tweenRef.current = gsap.to(track, {
       x: -totalWidth,
-      duration: Math.max(30, totalWidth / 25),
+      duration: totalWidth / 30, // Adjust speed: smaller = faster
       ease: 'none',
       repeat: -1,
       modifiers: {
-        x: (x) => {
-          const val = parseFloat(x)
-          if (!Number.isFinite(val)) return '0px'
-          const mod = val % -totalWidth
-          return `${mod}px`
-        },
-      },
+        x: gsap.utils.unitize((x) => parseFloat(x) % totalWidth)
+      }
     })
 
     return () => {
       tweenRef.current?.kill()
     }
-  }, [layout, marqueeItems])
+  }, [layout, visible.length])
 
   const handlePause = () => {
     tweenRef.current?.pause()
@@ -132,35 +139,37 @@ export function TestimonialsBlockComponent({
   if (safeTestimonials.length === 0) return null
 
   return (
-    <section className="px-4 py-14">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-6">
+    <section className="px-4 py-16 md:py-24">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-10">
         {heading && (
           <div className="mx-auto max-w-3xl text-center">
             {typeof heading === 'object' ? (
-              <RichText data={heading as any} disableIndent disableTextAlign />
+              <div className="prose prose-lg mx-auto [&>h2]:text-3xl [&>h2]:font-bold [&>h2]:tracking-tight [&>h2]:md:text-4xl [&>p]:text-muted-foreground">
+                <RichText data={heading as any} disableIndent disableTextAlign />
+              </div>
             ) : (
-              <h2 className="text-3xl font-bold tracking-tight">{heading}</h2>
+              <h2 className="text-3xl font-bold tracking-tight md:text-4xl">{heading}</h2>
             )}
           </div>
         )}
         {layout === 'marquee' ? (
           <div
-            className="relative w-full overflow-hidden"
+            className="relative w-full overflow-hidden py-4"
             onMouseEnter={handlePause}
             onMouseLeave={handleResume}
           >
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-background to-transparent" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-background to-transparent" />
-            <div ref={trackRef} className="flex gap-4">
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background via-background/80 to-transparent z-10" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background via-background/80 to-transparent z-10" />
+            <div ref={trackRef} className="flex gap-6">
               {marqueeItems.map((item, idx) => (
-                <div key={`${item?.id || idx}-${idx}`} className="min-w-[320px] max-w-sm shrink-0">
+                <div key={`${item?.id || idx}-${idx}`} className="min-w-[380px] max-w-md shrink-0">
                   <TestimonialCard {...(item as Testimonial)} />
                 </div>
               ))}
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
             {visible.map((item, idx) => (
               <TestimonialCard key={(item?.id as string) || idx} {...(item as Testimonial)} />
             ))}

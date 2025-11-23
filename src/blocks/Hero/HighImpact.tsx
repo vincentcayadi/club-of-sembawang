@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { RenderLexical } from '@/components/RenderLexical'
 import { CMSLink } from '@/components/CMSLink'
 import { useUIStore } from '@/stores/uiStore'
+import { useHeaderStore } from '@/stores/useHeaderStore'
 import { ANIMATION_SPEEDS } from '@/constants'
 import type { HeroBlock } from '@/payload-types'
 
@@ -18,6 +19,12 @@ export function HighImpactHero({ richText, links, media }: HeroBlock) {
   const [imageLoaded, setImageLoaded] = useState(false)
   const prefersReducedMotion = useUIStore((state) => state.prefersReducedMotion)
   const setPrefersReducedMotion = useUIStore((state) => state.setPrefersReducedMotion)
+  const setHasHighImpactHero = useHeaderStore((state) => state.setHasHighImpactHero)
+
+  useEffect(() => {
+    setHasHighImpactHero(true)
+    return () => setHasHighImpactHero(false)
+  }, [setHasHighImpactHero])
 
   useEffect(() => {
     setImageLoaded(false)

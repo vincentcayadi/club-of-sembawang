@@ -1,6 +1,13 @@
+'use client'
+
+import { useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { RenderLexical } from '@/components/RenderLexical'
 import { cn } from '@/lib/utils'
 import type { Media, ParagraphBlock } from '@/payload-types'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const alignmentClasses = {
   left: 'text-left',
@@ -88,6 +95,9 @@ export function ParagraphBlockComponent({
   gradientTo,
   backgroundImage,
 }: ParagraphBlock) {
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+
   const safeAlignment = (alignment || 'left') as keyof typeof alignmentClasses
   const darkText =
     backgroundType === 'solid'
@@ -103,9 +113,30 @@ export function ParagraphBlockComponent({
     'url' in backgroundImage &&
     backgroundImage.url
 
+  useEffect(() => {
+    if (!contentRef.current) return
+
+    const ctx = gsap.context(() => {
+      gsap.from(contentRef.current, {
+        opacity: 0,
+        y: 40,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: contentRef.current,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+      })
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
     <section
-      className="relative flex min-h-48 items-center overflow-hidden px-4 py-12"
+      ref={sectionRef}
+      className="relative flex min-h-48 items-center overflow-hidden px-4 py-16 md:py-24"
       style={
         backgroundType === 'solid' && backgroundColor
           ? { backgroundColor }
@@ -126,20 +157,26 @@ export function ParagraphBlockComponent({
           }}
         />
       )}
-      {hasImage && <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" />}
+      {hasImage && <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-black/30 to-black/40" />}
       <div
         className={cn(
-          'relative mx-auto flex max-w-4xl',
+          'relative mx-auto flex w-full max-w-4xl',
           safeAlignment === 'left' && 'justify-start text-left',
           safeAlignment === 'center' && 'justify-center text-center',
           safeAlignment === 'right' && 'justify-end text-right',
         )}
       >
         <div
+          ref={contentRef}
           className={cn(
-            'prose prose-lg',
+            'prose prose-xl max-w-none',
             alignmentClasses[safeAlignment],
             darkText ? 'text-white prose-invert' : 'text-foreground',
+            'prose-headings:font-bold prose-headings:tracking-tight',
+            'prose-p:leading-relaxed prose-p:text-lg',
+            'prose-a:text-primary prose-a:no-underline hover:prose-a:underline',
+            'prose-strong:font-semibold prose-strong:text-foreground',
+            backgroundType === 'none' && safeAlignment === 'left' && 'border-l-4 border-primary/20 pl-6',
           )}
         >
           <RenderLexical content={content} />

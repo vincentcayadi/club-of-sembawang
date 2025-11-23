@@ -1,12 +1,13 @@
 "use client"
 
-import React from "react"
+import React, { useEffect, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Menu } from "lucide-react"
 
 import type { Header as HeaderType, SiteSetting } from "@/payload-types"
 import { useMobileMenuStore } from "@/stores/useMobileMenuStore"
+import { useHeaderStore } from "@/stores/useHeaderStore"
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -31,6 +32,19 @@ interface HeaderProps {
 
 export function Header({ navItems, logo, squareLogo, siteName }: HeaderProps) {
   const { isOpen, open, close } = useMobileMenuStore()
+  const hasHighImpactHero = useHeaderStore((state) => state.hasHighImpactHero)
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    if (!hasHighImpactHero) return
+
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [hasHighImpactHero])
 
   const desktopLogo =
     (logo && typeof logo === "object" && "url" in logo
@@ -45,12 +59,24 @@ export function Header({ navItems, logo, squareLogo, siteName }: HeaderProps) {
   const label = siteName || "Club of Sembawang"
   const hasLogo = Boolean(desktopLogo?.url || mobileLogo?.url)
 
+  const isTransparent = hasHighImpactHero && !isScrolled
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md">
+    <header
+      className={cn(
+        "fixed top-0 z-50 w-full transition-all duration-300",
+        isTransparent
+          ? "border-transparent bg-transparent"
+          : "border-b border-border/40 bg-background/80 backdrop-blur-md"
+      )}
+    >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:py-4">
         <Link
           href="/"
-          className="flex items-center gap-3 text-lg font-bold tracking-tight transition-colors hover:text-primary"
+          className={cn(
+            "flex items-center gap-3 text-lg font-bold tracking-tight transition-colors hover:text-primary",
+            isTransparent && "text-white hover:text-white/80"
+          )}
         >
           {desktopLogo?.url ? (
             <span className="relative hidden h-12 w-40 md:block">
@@ -87,7 +113,10 @@ export function Header({ navItems, logo, squareLogo, siteName }: HeaderProps) {
                   <NavigationMenuLink asChild>
                     <Link
                       href={item.url}
-                      className="group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50"
+                      className={cn(
+                        "group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50",
+                        isTransparent && "text-white hover:bg-white/10 hover:text-white"
+                      )}
                     >
                       {item.label}
                     </Link>
@@ -102,26 +131,32 @@ export function Header({ navItems, logo, squareLogo, siteName }: HeaderProps) {
           <SheetTrigger asChild className="md:hidden">
             <button
               type="button"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-md border"
+              className={cn(
+                "inline-flex h-10 w-10 items-center justify-center rounded-md border",
+                isTransparent && "border-white text-white"
+              )}
               aria-label="Open navigation"
             >
               <Menu className="h-5 w-5" />
             </button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-72 max-w-[80vw]">
-            <SheetHeader>
-              <SheetTitle>Navigation</SheetTitle>
+          <SheetContent side="right" className="w-full max-w-sm border-l-0 bg-background/95 backdrop-blur-xl">
+            <SheetHeader className="border-b border-border/40 pb-4">
+              <SheetTitle className="text-left text-lg font-bold">{label}</SheetTitle>
             </SheetHeader>
-            <nav className="mt-6">
-              <ul className="flex flex-col gap-1">
-                {navItems?.map((item) => (
+            <nav className="mt-8">
+              <ul className="flex flex-col gap-2">
+                {navItems?.map((item, index) => (
                   <li key={item.id || item.url}>
                     <Link
                       href={item.url}
-                      className="block rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+                      className="group block rounded-lg px-4 py-3 text-base font-medium transition-all hover:bg-primary hover:text-primary-foreground active:scale-[0.98]"
                       onClick={close}
                     >
-                      {item.label}
+                      <span className="flex items-center justify-between">
+                        {item.label}
+                        <span className="opacity-0 transition-opacity group-hover:opacity-100">→</span>
+                      </span>
                     </Link>
                   </li>
                 ))}

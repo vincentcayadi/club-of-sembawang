@@ -3,6 +3,7 @@ import './globals.css'
 import { LenisProvider } from './components/LenisProvider'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
+import { PageWrapper } from '@/components/PageWrapper'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import type { Header as HeaderGlobal } from '@/payload-types'
@@ -59,7 +60,9 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
             squareLogo={siteSettings?.squareLogo ?? undefined}
             siteName={siteSettings?.siteName ?? undefined}
           />
-          <main>{children}</main>
+          <PageWrapper>
+            {children}
+          </PageWrapper>
           <Footer />
         </LenisProvider>
       </body>
