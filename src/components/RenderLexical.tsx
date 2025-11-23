@@ -5,6 +5,7 @@ import { CTABlockComponent } from '@/blocks/CTA/Component'
 import { GalleryBlockComponent } from '@/blocks/Gallery/Component'
 import { MediaBlockComponent } from '@/blocks/MediaBlock/Component'
 import { QuoteBlockComponent } from '@/blocks/Quote/Component'
+import { InstagramBlockComponent } from '@/blocks/Instagram/Component'
 
 interface RenderLexicalProps {
   content: any
@@ -100,6 +101,7 @@ const converters: JSXConvertersFunction = ({ defaultConverters }) => ({
     gallery: ({ node }: { node: { fields: any } }) => <GalleryBlockComponent {...node.fields} />,
     mediaBlock: ({ node }: { node: { fields: any } }) => <MediaBlockComponent {...node.fields} />,
     quote: ({ node }: { node: { fields: any } }) => <QuoteBlockComponent {...node.fields} />,
+    instagram: ({ node }: { node: { fields: any } }) => <InstagramBlockComponent {...node.fields} />,
   },
 })
 

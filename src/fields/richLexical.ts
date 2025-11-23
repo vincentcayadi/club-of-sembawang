@@ -17,6 +17,8 @@ import { MediaBlock } from '@/blocks/MediaBlock/config'
 import { Gallery } from '@/blocks/Gallery/config'
 import { CTA } from '@/blocks/CTA/config'
 import { Accordion } from '@/blocks/Accordion/config'
+import { Quote } from '@/blocks/Quote/config'
+import { Instagram } from '@/blocks/Instagram/config'
 
 export const richLexical = lexicalEditor({
   features: [
@@ -33,7 +35,7 @@ export const richLexical = lexicalEditor({
     }),
     HorizontalRuleFeature(),
     BlocksFeature({
-      blocks: [Accordion, MediaBlock, Gallery, CTA],
+      blocks: [Accordion, MediaBlock, Gallery, CTA, Quote, Instagram],
     }),
     FixedToolbarFeature(),
   ],

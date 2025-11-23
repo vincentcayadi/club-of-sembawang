@@ -209,7 +209,7 @@ export interface Page {
  */
 export interface HeroBlock {
   /**
-   * Choose the hero style
+   * High Impact = dramatic full-screen hero. Medium = text + side image. Low = simple banner.
    */
   type: 'highImpact' | 'mediumImpact' | 'lowImpact';
   richText: {
@@ -529,9 +529,11 @@ export interface CTABlock {
   } | null;
   layout?: ('standard' | 'fullWidth') | null;
   /**
-   * Any valid CSS color (e.g. #f4f4f5, rgb(), hsl(), named color).
+   * Choose a background color for the CTA section
    */
-  backgroundColor?: string | null;
+  backgroundColor?:
+    | ('#f4f4f5' | '#ffffff' | '#dbeafe' | '#d1fae5' | '#fef3c7' | '#fce7f3' | '#ede9fe' | '#1f2937' | '#000000')
+    | null;
   buttons: {
     text: string;
     url: string;
@@ -560,8 +562,17 @@ export interface GalleryBlock {
  * via the `definition` "MediaBlock".
  */
 export interface MediaBlock {
+  /**
+   * The image that will appear on one side
+   */
   media: number | Media;
+  /**
+   * Where should the image appear?
+   */
   imagePosition: 'left' | 'right';
+  /**
+   * The text that appears next to the image
+   */
   caption?: {
     root: {
       type: string;
@@ -1299,6 +1310,40 @@ export interface TaskSchedulePublish {
     user?: (number | null) | User;
   };
   output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "QuoteBlock".
+ */
+export interface QuoteBlock {
+  /**
+   * The main quote or callout message
+   */
+  quoteText: string;
+  /**
+   * Who said this? (optional)
+   */
+  author?: string | null;
+  /**
+   * Choose how this should look
+   */
+  style: 'quote' | 'callout' | 'info' | 'warning' | 'success';
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'quote';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstagramBlock".
+ */
+export interface InstagramBlock {
+  /**
+   * Paste the Instagram post URL (e.g. https://www.instagram.com/p/ABC123/)
+   */
+  url: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'instagram';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
