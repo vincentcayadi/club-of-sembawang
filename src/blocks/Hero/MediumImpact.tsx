@@ -87,10 +87,10 @@ export function MediumImpactHero({ richText, links, media }: HeroBlock) {
       <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
         <div ref={contentRef}>
           <div className="fade-up opacity-0 translate-y-4">
-            <RenderLexical content={richText} className="mb-8" />
+            <RenderLexical content={richText} className="mb-4" />
           </div>
           {links && links.length > 0 && (
-            <div className="fade-up opacity-0 translate-y-4 flex flex-wrap gap-4">
+            <div className="fade-up opacity-0 translate-y-4 mt-4 flex flex-wrap gap-4">
               {links.map((linkItem, i) => (
                 <CMSLink key={i} {...linkItem.link} />
               ))}
