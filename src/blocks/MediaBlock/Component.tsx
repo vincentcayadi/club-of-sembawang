@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import type { MediaBlock as MediaBlockProps, Media } from '@/payload-types'
-import { MediaImage } from '@/components/MediaImage'
+import { OptimizedImage } from '@/components/OptimizedImage'
 import { RenderLexical } from '@/components/RenderLexical'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -65,12 +65,14 @@ export const MediaBlockComponent: React.FC<MediaBlockProps> = ({
   const imageElement = (
     <div
       ref={imageRef}
-      className="group relative w-full overflow-hidden rounded-xl border border-border/50 bg-card shadow-lg transition-all duration-500 hover:shadow-2xl aspect-video"
+      className="group relative w-full overflow-hidden rounded-xl border border-border/50 bg-card shadow-lg transition-all duration-500 hover:shadow-2xl"
     >
       <div className="absolute inset-0 bg-gradient-to-br from-black/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10" />
-      <MediaImage
+      <OptimizedImage
         media={typedMedia}
-        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+        className="h-full w-full transition-transform duration-700 group-hover:scale-105"
+        aspectRatio="16 / 9"
+        objectFit="cover"
         sizes="(max-width: 768px) 100vw, 50vw"
       />
     </div>

@@ -1,11 +1,11 @@
 'use client'
 
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React, { useLayoutEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { usePathname } from 'next/navigation'
-import Image from 'next/image'
 import { RenderLexical } from '@/components/RenderLexical'
 import { CMSLink } from '@/components/CMSLink'
+import { OptimizedImage } from '@/components/OptimizedImage'
 import { useUIStore } from '@/stores/uiStore'
 import { ANIMATION_SPEEDS } from '@/constants'
 import type { HeroBlock } from '@/payload-types'
@@ -15,13 +15,8 @@ export function MediumImpactHero({ richText, links, media }: HeroBlock) {
   const heroRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
   const mediaRef = useRef<HTMLDivElement>(null)
-  const [imageLoaded, setImageLoaded] = useState(false)
   const prefersReducedMotion = useUIStore((state) => state.prefersReducedMotion)
   const setPrefersReducedMotion = useUIStore((state) => state.setPrefersReducedMotion)
-
-  useEffect(() => {
-    setImageLoaded(false)
-  }, [pathname])
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0)
@@ -99,15 +94,13 @@ export function MediumImpactHero({ richText, links, media }: HeroBlock) {
         </div>
         <div ref={mediaRef} className="relative aspect-[4/3] overflow-hidden rounded-lg bg-gray-200">
           {media && typeof media === 'object' && media.url ? (
-            <Image
-              src={media.url}
-              alt={media.alt || ''}
+            <OptimizedImage
+              media={media}
               fill
-              className={`object-cover transition-opacity duration-700 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+              className="object-cover"
               priority
               sizes="(max-width: 1024px) 100vw, 50vw"
-              quality={90}
-              onLoadingComplete={() => setImageLoaded(true)}
+              objectFit="cover"
             />
           ) : (
             <div className="flex h-full items-center justify-center">

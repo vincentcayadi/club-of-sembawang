@@ -1,11 +1,11 @@
 'use client'
 
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { usePathname } from 'next/navigation'
-import Image from 'next/image'
 import { RenderLexical } from '@/components/RenderLexical'
 import { CMSLink } from '@/components/CMSLink'
+import { OptimizedImage } from '@/components/OptimizedImage'
 import { useUIStore } from '@/stores/uiStore'
 import { useHeaderStore } from '@/stores/useHeaderStore'
 import { ANIMATION_SPEEDS } from '@/constants'
@@ -16,7 +16,6 @@ export function HighImpactHero({ richText, links, media }: HeroBlock) {
   const heroRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
   const mediaRef = useRef<HTMLDivElement>(null)
-  const [imageLoaded, setImageLoaded] = useState(false)
   const prefersReducedMotion = useUIStore((state) => state.prefersReducedMotion)
   const setPrefersReducedMotion = useUIStore((state) => state.setPrefersReducedMotion)
   const setHasHighImpactHero = useHeaderStore((state) => state.setHasHighImpactHero)
@@ -25,10 +24,6 @@ export function HighImpactHero({ richText, links, media }: HeroBlock) {
     setHasHighImpactHero(true)
     return () => setHasHighImpactHero(false)
   }, [setHasHighImpactHero])
-
-  useEffect(() => {
-    setImageLoaded(false)
-  }, [pathname])
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0)
@@ -110,19 +105,14 @@ export function HighImpactHero({ richText, links, media }: HeroBlock) {
       <div ref={mediaRef} className="absolute inset-0 h-full w-full">
         {media && typeof media === 'object' && media.url && (
           <>
-            <Image
-              src={media.url}
-              alt={media.alt || ''}
+            <OptimizedImage
+              media={media}
               fill
-              className={`object-cover transition-opacity duration-700 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+              className="object-cover"
               priority
               sizes="100vw"
-              quality={90}
-              onLoadingComplete={() => setImageLoaded(true)}
+              objectFit="cover"
             />
-            {!imageLoaded && (
-              <div className="absolute inset-0 bg-gradient-to-br from-[#0b0f17] via-[#0f1623] to-[#0b0f17] blur-sm transition-opacity duration-500" />
-            )}
             <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
           </>
         )}
