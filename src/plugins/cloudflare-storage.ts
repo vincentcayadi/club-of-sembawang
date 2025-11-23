@@ -14,9 +14,32 @@ export const cloudflareStorage = (): Plugin | null => {
     process.env.R2_SECRET_ACCESS_KEY &&
     process.env.R2_BUCKET_NAME
 
-  if (!hasR2Config) {
+  // Always return the plugin configuration for import map generation
+  // Use dummy values if credentials aren't available (for import map only)
+  const isGeneratingImportMap = process.argv.includes('generate:importmap')
+
+  if (!hasR2Config && !isGeneratingImportMap) {
     console.log('R2 credentials not found - using local storage')
     return null
+  }
+
+  if (!hasR2Config && isGeneratingImportMap) {
+    console.log('Generating import map with placeholder R2 config')
+    return s3Storage({
+      collections: {
+        media: true,
+      },
+      bucket: 'placeholder',
+      config: {
+        endpoint: 'https://placeholder.r2.cloudflarestorage.com',
+        region: 'auto',
+        credentials: {
+          accessKeyId: 'placeholder',
+          secretAccessKey: 'placeholder',
+        },
+        forcePathStyle: true,
+      },
+    })
   }
 
   console.log('Cloudflare R2 storage enabled')
