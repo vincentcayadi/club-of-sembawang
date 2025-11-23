@@ -1,5 +1,5 @@
 import type { PayloadRequest } from 'payload'
-import { SITE_NAME_DEFAULT, SITE_NAME } from '@/constants'
+import { SITE_NAME } from '@/constants'
 
 /**
  * Fetches the site name from SiteSettings global with fallbacks
@@ -13,7 +13,7 @@ export const getSiteName = async (req: PayloadRequest): Promise<string> => {
       req,
     })
     return siteSettings.siteName || SITE_NAME
-  } catch (error) {
+  } catch (_error) {
     return SITE_NAME
   }
 }

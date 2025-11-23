@@ -37,7 +37,7 @@ export const createUrlField = ({
 
     // Internal path
     if (trimmedValue.startsWith('/')) {
-      if (!/^\/[a-zA-Z0-9\-_\/]*$/.test(trimmedValue)) {
+      if (!/^\/[a-zA-Z0-9-_/]*$/.test(trimmedValue)) {
         return 'Internal path can only contain letters, numbers, hyphens, and slashes'
       }
 

@@ -14,7 +14,7 @@ import { getSiteName } from '@/utilities/getSiteName'
  * @param config.includeImage - Whether to include header/featured image auto-fill (for Posts)
  */
 
-export const createSeoTab = (config?: { includeImage?: boolean }): Field => ({
+export const createSeoTab = (_config?: { includeImage?: boolean }): Field => ({
   type: 'tabs',
   tabs: [
     {

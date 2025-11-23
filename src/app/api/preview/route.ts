@@ -43,7 +43,7 @@ export async function GET(req: Request): Promise<Response> {
     if (docs.docs.length === 0) {
       return new Response('Document not found', { status: 404 })
     }
-  } catch (error) {
+  } catch (_error) {
     return new Response('Error fetching document', { status: 500 })
   }
 

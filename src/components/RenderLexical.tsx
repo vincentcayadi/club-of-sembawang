@@ -60,13 +60,14 @@ export function RenderLexical({ content, className }: RenderLexicalProps) {
         )
       }
 
-      case 'list':
+      case 'list': {
         const ListTag = node.listType === 'bullet' ? 'ul' : 'ol'
         return (
           <ListTag key={index} className="mb-4 ml-6 list-inside">
             {node.children?.map((child: any, i: number) => renderNode(child, i))}
           </ListTag>
         )
+      }
 
       case 'listitem':
         return (
@@ -75,7 +76,7 @@ export function RenderLexical({ content, className }: RenderLexicalProps) {
           </li>
         )
 
-      case 'text':
+      case 'text': {
         let text = <span key={index}>{node.text}</span>
 
         if (node.format & 1) {
@@ -92,6 +93,7 @@ export function RenderLexical({ content, className }: RenderLexicalProps) {
         }
 
         return text
+      }
 
       case 'link':
         return (

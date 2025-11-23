@@ -10,8 +10,6 @@ import { ParagraphBlockComponent } from '@/blocks/Paragraph/Component'
 import { ArchiveBlockComponent } from '@/blocks/Archive/Component'
 import type { Page } from '@/payload-types'
 
-type PageBlock = Page['layout'][number]
-
 interface RenderBlocksProps {
   blocks: Page['layout']
   draft?: boolean
