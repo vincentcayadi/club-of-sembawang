@@ -146,7 +146,7 @@ export function Header({ navItems, logo, squareLogo, siteName }: HeaderProps) {
             </SheetHeader>
             <nav className="mt-8">
               <ul className="flex flex-col gap-2">
-                {navItems?.map((item, index) => (
+                {navItems?.map((item) => (
                   <li key={item.id || item.url}>
                     <Link
                       href={item.url}
