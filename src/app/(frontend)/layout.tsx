@@ -9,7 +9,7 @@ import type { Header as HeaderGlobal } from '@/payload-types'
 import type { SiteSetting } from '@/payload-types'
 
 export async function generateMetadata() {
-  const siteName = 'Club of Sembawang'
+  const siteName = 'Club Of Sembawang'
 
   return {
     title: {
@@ -17,6 +17,10 @@ export async function generateMetadata() {
       template: `%s | ${siteName}`,
     },
     description: "Singapore's first public health initiative",
+    icons: {
+      icon: '/favicon.ico',
+      shortcut: '/favicon.ico',
+    },
   }
 }
 

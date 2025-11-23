@@ -87,10 +87,12 @@ const converters: JSXConvertersFunction = ({ defaultConverters }) => ({
   },
   blocks: {
     ...(defaultConverters.blocks ?? {}),
-    accordion: ({ node }) => <AccordionBlockComponent {...node.fields} />,
-    ctaBlock: ({ node }) => <CTABlockComponent {...node.fields} />,
-    gallery: ({ node }) => <GalleryBlockComponent {...node.fields} />,
-    mediaBlock: ({ node }) => <MediaBlockComponent {...node.fields} />,
+    accordion: ({ node }: { node: { fields: any } }) => (
+      <AccordionBlockComponent {...node.fields} />
+    ),
+    ctaBlock: ({ node }: { node: { fields: any } }) => <CTABlockComponent {...node.fields} />,
+    gallery: ({ node }: { node: { fields: any } }) => <GalleryBlockComponent {...node.fields} />,
+    mediaBlock: ({ node }: { node: { fields: any } }) => <MediaBlockComponent {...node.fields} />,
   },
 })
 

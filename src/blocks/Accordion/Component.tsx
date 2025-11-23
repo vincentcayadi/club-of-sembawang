@@ -18,11 +18,11 @@ export function AccordionBlockComponent({ header, description, alignment, items 
   }
 
   return (
-    <section className="mx-auto w-full max-w-4xl px-4 py-16">
+    <section className="mx-auto w-full max-w-4xl px-4 py-12 md:py-16">
       {header && (
         <h2
           className={cn(
-            'mb-4 text-4xl font-bold tracking-tight',
+            'mb-3 text-3xl font-bold leading-tight tracking-tight md:mb-4 md:text-4xl',
             alignmentClasses[alignment || 'center'],
           )}
         >
@@ -30,14 +30,19 @@ export function AccordionBlockComponent({ header, description, alignment, items 
         </h2>
       )}
       {description && (
-        <p className={cn('mb-12 text-lg text-gray-500', alignmentClasses[alignment || 'center'])}>
+        <p
+          className={cn(
+            'mb-8 text-base text-gray-500 md:mb-12 md:text-lg',
+            alignmentClasses[alignment || 'center'],
+          )}
+        >
           {description}
         </p>
       )}
       <Accordion type="single" collapsible className="mt-8">
         {items?.map((item) => (
           <AccordionItem key={item.id} value={item.id || ''}>
-            <AccordionTrigger className="text-left text-lg font-medium text-gray-700 hover:text-gray-600">
+            <AccordionTrigger className="text-left text-base font-medium text-gray-700 hover:text-gray-600 md:text-lg">
               {item.title}
             </AccordionTrigger>
             <AccordionContent>
