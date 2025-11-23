@@ -35,7 +35,6 @@ export function OptimizedImage({
 
   const mediaData = typeof media === 'string' ? null : media
   const imageUrl = typeof media === 'string' ? media : mediaData?.url
-  const blurDataURL = mediaData && 'blurDataURL' in mediaData ? (mediaData as any).blurDataURL : undefined
 
   useEffect(() => {
     setIsLoaded(false)
@@ -69,19 +68,14 @@ export function OptimizedImage({
   }
 
   const wrapperClasses = cn(
-    'progressive-image-wrapper relative overflow-hidden',
+    'progressive-image-wrapper relative overflow-hidden bg-muted/30',
     !isLoaded && 'animate-pulse',
     className,
   )
 
   const imageClasses = cn(
-    'progressive-image-full transition-opacity duration-700 ease-out',
+    'transition-opacity duration-700 ease-out',
     isLoaded ? 'opacity-100' : 'opacity-0',
-  )
-
-  const blurClasses = cn(
-    'progressive-image-lqip absolute inset-0 transition-opacity duration-700 ease-out',
-    isLoaded ? 'opacity-0' : 'opacity-100',
   )
 
   const commonProps = {
@@ -91,35 +85,12 @@ export function OptimizedImage({
     priority,
     sizes: sizes || '100vw',
     style: { objectFit } as React.CSSProperties,
+    placeholder: 'blur' as const,
+    blurDataURL: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzIwMjAyMCIvPjwvc3ZnPg==',
   }
 
   return (
     <div className={wrapperClasses} style={{ aspectRatio }}>
-      {blurDataURL && (
-        <div className={blurClasses}>
-          {fill ? (
-            <Image
-              src={blurDataURL}
-              alt=""
-              fill
-              style={{ objectFit }}
-              className="scale-110 blur-xl"
-              aria-hidden="true"
-            />
-          ) : (
-            <Image
-              src={blurDataURL}
-              alt=""
-              width={width || 1200}
-              height={height || 800}
-              style={{ objectFit, width: '100%', height: '100%' }}
-              className="scale-110 blur-xl"
-              aria-hidden="true"
-            />
-          )}
-        </div>
-      )}
-
       {fill ? (
         <Image
           src={imageUrl}
