@@ -177,16 +177,6 @@ export default async function Post({ params }: PostProps) {
         <div className="prose prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-img:rounded-lg prose-img:border prose-img:border-border/50">
           <RenderLexical content={post.content} />
         </div>
-
-        <footer className="mt-16 pt-8 border-t border-border/50">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            <span>Back to home</span>
-          </Link>
-        </footer>
       </div>
     </article>
   )
