@@ -4,6 +4,7 @@ import { AccordionBlockComponent } from '@/blocks/Accordion/Component'
 import { CTABlockComponent } from '@/blocks/CTA/Component'
 import { GalleryBlockComponent } from '@/blocks/Gallery/Component'
 import { MediaBlockComponent } from '@/blocks/MediaBlock/Component'
+import { QuoteBlockComponent } from '@/blocks/Quote/Component'
 
 interface RenderLexicalProps {
   content: any
@@ -98,6 +99,7 @@ const converters: JSXConvertersFunction = ({ defaultConverters }) => ({
     ctaBlock: ({ node }: { node: { fields: any } }) => <CTABlockComponent {...node.fields} />,
     gallery: ({ node }: { node: { fields: any } }) => <GalleryBlockComponent {...node.fields} />,
     mediaBlock: ({ node }: { node: { fields: any } }) => <MediaBlockComponent {...node.fields} />,
+    quote: ({ node }: { node: { fields: any } }) => <QuoteBlockComponent {...node.fields} />,
   },
 })
 

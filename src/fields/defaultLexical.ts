@@ -8,8 +8,10 @@ import {
   lexicalEditor,
   UnderlineFeature,
   FixedToolbarFeature,
+  BlocksFeature,
   type LinkFields,
 } from '@payloadcms/richtext-lexical'
+import { Quote } from '@/blocks/Quote/config'
 
 export const defaultLexical = lexicalEditor({
   features: [
@@ -21,6 +23,9 @@ export const defaultLexical = lexicalEditor({
     BoldFeature(),
     ItalicFeature(),
     FixedToolbarFeature(),
+    BlocksFeature({
+      blocks: [Quote],
+    }),
     LinkFeature({
       enabledCollections: ['posts'],
       fields: ({ defaultFields }) => {

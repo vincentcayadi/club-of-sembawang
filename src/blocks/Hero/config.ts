@@ -17,22 +17,23 @@ export const Hero: Block = {
               type: 'select',
               defaultValue: 'mediumImpact',
               required: true,
+              label: 'Hero Style',
               options: [
                 {
-                  label: 'High Impact',
+                  label: 'High Impact - Full screen with background image (homepage style)',
                   value: 'highImpact',
                 },
                 {
-                  label: 'Medium Impact',
+                  label: 'Medium Impact - Split layout with image on side',
                   value: 'mediumImpact',
                 },
                 {
-                  label: 'Low Impact',
+                  label: 'Low Impact - Simple centered text, no image',
                   value: 'lowImpact',
                 },
               ],
               admin: {
-                description: 'Choose the hero style',
+                description: 'High Impact = dramatic full-screen hero. Medium = text + side image. Low = simple banner.',
               },
             },
             {
