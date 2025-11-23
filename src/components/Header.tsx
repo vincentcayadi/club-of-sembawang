@@ -1,37 +1,74 @@
-'use client'
+"use client"
 
-import React from 'react'
-import Link from 'next/link'
-import { Menu } from 'lucide-react'
-import type { Header as HeaderType } from '@/payload-types'
-import { useMobileMenuStore } from '@/stores/useMobileMenuStore'
-import { Button } from '@/components/ui/button'
+import React from "react"
+import Link from "next/link"
+import Image from "next/image"
+import { Menu } from "lucide-react"
+
+import type { Header as HeaderType, SiteSetting } from "@/payload-types"
+import { useMobileMenuStore } from "@/stores/useMobileMenuStore"
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+} from "@/components/ui/navigation-menu"
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet'
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-} from '@/components/ui/navigation-menu'
+} from "@/components/ui/sheet"
 
 interface HeaderProps {
-  navItems: NonNullable<HeaderType['navItems']>
+  navItems: NonNullable<HeaderType["navItems"]>
+  logo?: SiteSetting["logo"]
+  squareLogo?: SiteSetting["squareLogo"]
+  siteName?: string | null
 }
 
-export function Header({ navItems }: HeaderProps) {
-  const { isOpen, close, toggle } = useMobileMenuStore()
+export function Header({ navItems, logo, squareLogo, siteName }: HeaderProps) {
+  const { isOpen, open, close } = useMobileMenuStore()
+
+  const desktopLogo =
+    logo && typeof logo === "object" && "url" in logo ? (logo as any) : null
+  const mobileLogo =
+    squareLogo && typeof squareLogo === "object" && "url" in squareLogo
+      ? (squareLogo as any)
+      : desktopLogo
+  const label = siteName || "Club of Sembawang"
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:py-4">
-        <Link href="/" className="text-lg font-bold tracking-tight transition-colors hover:text-primary">
-          Club of Sembawang
+        <Link
+          href="/"
+          className="flex items-center gap-3 text-lg font-bold tracking-tight transition-colors hover:text-primary"
+        >
+          {desktopLogo?.url ? (
+            <span className="relative hidden h-8 w-auto md:block">
+              <Image
+                src={desktopLogo.url}
+                alt={desktopLogo.alt || label}
+                fill
+                className="object-contain"
+                sizes="160px"
+              />
+            </span>
+          ) : null}
+          {mobileLogo?.url ? (
+            <span className="relative h-8 w-8 md:hidden">
+              <Image
+                src={mobileLogo.url}
+                alt={mobileLogo.alt || label}
+                fill
+                className="object-contain"
+                sizes="64px"
+              />
+            </span>
+          ) : null}
+          <span className="text-base font-semibold md:text-lg">{label}</span>
         </Link>
 
         <div className="hidden md:block">
@@ -53,11 +90,15 @@ export function Header({ navItems }: HeaderProps) {
           </NavigationMenu>
         </div>
 
-        <Sheet open={isOpen} onOpenChange={toggle}>
+        <Sheet open={isOpen} onOpenChange={(val) => (val ? open() : close())}>
           <SheetTrigger asChild className="md:hidden">
-            <Button variant="outline" size="icon" aria-label="Open navigation">
+            <button
+              type="button"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-md border"
+              aria-label="Open navigation"
+            >
               <Menu className="h-5 w-5" />
-            </Button>
+            </button>
           </SheetTrigger>
           <SheetContent side="right" className="w-72 max-w-[80vw]">
             <SheetHeader>
