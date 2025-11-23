@@ -29,6 +29,8 @@ export async function generateMetadata() {
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
+  const siteUrl = process.env.NEXT_PUBLIC_SERVER_URL || ''
+  const iconHref = siteUrl ? `${siteUrl}/favicon.ico` : '/favicon.ico'
 
   let navItems: NonNullable<HeaderGlobal['navItems']> = []
   let siteSettings: SiteSetting | null = null

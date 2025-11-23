@@ -33,7 +33,11 @@ export function Header({ navItems, logo, squareLogo, siteName }: HeaderProps) {
   const { isOpen, open, close } = useMobileMenuStore()
 
   const desktopLogo =
-    logo && typeof logo === "object" && "url" in logo ? (logo as any) : null
+    (logo && typeof logo === "object" && "url" in logo
+      ? (logo as any)
+      : squareLogo && typeof squareLogo === "object" && "url" in squareLogo
+        ? (squareLogo as any)
+        : null)
   const mobileLogo =
     squareLogo && typeof squareLogo === "object" && "url" in squareLogo
       ? (squareLogo as any)
@@ -49,18 +53,18 @@ export function Header({ navItems, logo, squareLogo, siteName }: HeaderProps) {
           className="flex items-center gap-3 text-lg font-bold tracking-tight transition-colors hover:text-primary"
         >
           {desktopLogo?.url ? (
-            <span className="relative hidden h-8 w-auto md:block">
+            <span className="relative hidden h-12 w-40 md:block">
               <Image
                 src={desktopLogo.url}
                 alt={desktopLogo.alt || label}
                 fill
                 className="object-contain"
-                sizes="160px"
+                sizes="200px"
               />
             </span>
           ) : null}
           {mobileLogo?.url ? (
-            <span className="relative h-8 w-8 md:hidden">
+            <span className="relative h-10 w-10 md:hidden">
               <Image
                 src={mobileLogo.url}
                 alt={mobileLogo.alt || label}
