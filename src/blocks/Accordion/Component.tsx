@@ -34,9 +34,9 @@ export function AccordionBlockComponent({ header, description, alignment, items 
           {description}
         </p>
       )}
-      <Accordion type="single" collapsible defaultValue="item-0" className="mt-8">
-        {items?.map((item, index) => (
-          <AccordionItem key={index} value={`item-${index}`}>
+      <Accordion type="single" collapsible className="mt-8">
+        {items?.map((item) => (
+          <AccordionItem key={item.id} value={item.id || ''}>
             <AccordionTrigger className="text-left text-lg font-medium text-gray-700 hover:text-gray-600">
               {item.title}
             </AccordionTrigger>

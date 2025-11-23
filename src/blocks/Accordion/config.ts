@@ -51,6 +51,9 @@ export const Accordion: Block = {
               name: 'items',
               type: 'array',
               minRows: 1,
+              admin: {
+                initCollapsed: true,
+              },
               fields: [
                 {
                   name: 'title',
