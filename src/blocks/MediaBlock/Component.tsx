@@ -37,7 +37,7 @@ export const MediaBlockComponent: React.FC<MediaBlockProps> = ({
 
   return (
     <section className="my-10 w-full px-4">
-      <div className="mx-auto grid w-full max-w-4xl grid-cols-1 items-center gap-6 md:grid-cols-2 md:gap-10">
+      <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-10">
         {imagePosition === 'right' ? (
           <>
             {captionElement}
