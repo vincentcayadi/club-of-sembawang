@@ -111,7 +111,7 @@ export function RenderLexical({
     return null
   }
 
-  const wrapperClass = cn('max-w-3xl w-full', className)
+  const wrapperClass = cn('max-w-4xl w-full', className)
 
   return (
     <RichText

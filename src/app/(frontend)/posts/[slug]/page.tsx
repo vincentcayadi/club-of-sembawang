@@ -127,7 +127,7 @@ export default async function Post({ params }: PostProps) {
         )}
         <h1 className="mb-4 text-4xl font-bold">{post.title}</h1>
         {post.excerpt && <p className="mb-8 text-xl text-muted-foreground">{post.excerpt}</p>}
-        <div className="prose prose-lg max-w-3xl">
+        <div className="prose prose-lg max-w-4xl">
           <RenderLexical content={post.content} />
         </div>
       </div>

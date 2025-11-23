@@ -10,6 +10,8 @@ import type { SiteSetting } from '@/payload-types'
 
 export async function generateMetadata() {
   const siteName = 'Club Of Sembawang'
+  const siteUrl = process.env.NEXT_PUBLIC_SERVER_URL || ''
+  const iconHref = siteUrl ? `${siteUrl}/favicon.ico` : '/favicon.ico'
 
   return {
     title: {
@@ -18,9 +20,9 @@ export async function generateMetadata() {
     },
     description: "Singapore's first public health initiative",
     icons: {
-      icon: '/favicon.ico',
-      shortcut: '/favicon.ico',
-      apple: '/favicon.ico',
+      icon: { url: iconHref, type: 'image/x-icon' },
+      shortcut: { url: iconHref, type: 'image/x-icon' },
+      apple: { url: iconHref },
     },
   }
 }
@@ -43,9 +45,9 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="shortcut icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/favicon.ico" />
+        <link rel="icon" href={iconHref} type="image/x-icon" />
+        <link rel="shortcut icon" href={iconHref} type="image/x-icon" />
+        <link rel="apple-touch-icon" href={iconHref} />
       </head>
       <body>
         <LenisProvider>
