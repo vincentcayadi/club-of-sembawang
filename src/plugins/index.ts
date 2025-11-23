@@ -20,7 +20,7 @@ const generateDescription: GenerateDescription<Post | Page> = async ({ doc, req 
   return doc?.excerpt || `Welcome to ${siteName}`
 }
 
-const generateURL: GenerateURL<Post | Page> = ({ doc, req }) => {
+const generateURL: GenerateURL<Post | Page> = ({ doc }) => {
   const url = getServerSideURL()
 
   // Handle home page
@@ -28,8 +28,8 @@ const generateURL: GenerateURL<Post | Page> = ({ doc, req }) => {
     return url
   }
 
-  // Check if this is a post by looking at the collection context
-  const isPost = req?.collection?.config?.slug === 'posts'
+  // Check if this is a post by checking for headerImage field (Posts have it, Pages don't)
+  const isPost = 'headerImage' in doc
 
   if (isPost && doc?.slug) {
     return `${url.replace(/\/$/, '')}/posts/${doc.slug}`
@@ -38,20 +38,20 @@ const generateURL: GenerateURL<Post | Page> = ({ doc, req }) => {
   return doc?.slug ? `${url.replace(/\/$/, '')}/${doc.slug}` : url
 }
 
-const generateImage = ({ doc }: any) => {
+const generateImage = ({ doc }: any): string => {
   // Try to get the header image for posts
   if (doc?.headerImage && typeof doc.headerImage === 'object') {
     const media = doc.headerImage as Media
-    return media.url || undefined
+    if (media.url) return media.url
   }
 
   // Try to get the meta image if explicitly set
   if (doc?.meta?.image && typeof doc.meta.image === 'object') {
     const media = doc.meta.image as Media
-    return media.url || undefined
+    if (media.url) return media.url
   }
 
-  return undefined
+  return ''
 }
 
 export const plugins: Plugin[] = [

@@ -3,6 +3,8 @@ import configPromise from '@payload-config'
 import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import Image from 'next/image'
+import { RenderLexical } from '@/components/RenderLexical'
 
 interface PostProps {
   params: Promise<{
@@ -54,9 +56,9 @@ export async function generateMetadata({ params }: PostProps): Promise<Metadata>
   let ogImage: string | undefined
 
   if (post.headerImage && typeof post.headerImage === 'object' && 'url' in post.headerImage) {
-    ogImage = post.headerImage.url
+    ogImage = post.headerImage.url || undefined
   } else if (post.meta?.image && typeof post.meta.image === 'object' && 'url' in post.meta.image) {
-    ogImage = post.meta.image.url
+    ogImage = post.meta.image.url || undefined
   }
 
   return {
@@ -109,11 +111,26 @@ export default async function Post({ params }: PostProps) {
   }
 
   return (
-    <article className="container mx-auto px-4 py-8 max-w-4xl">
-      <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
-      {post.excerpt && <p className="text-xl text-muted-foreground mb-8">{post.excerpt}</p>}
-      {/* TODO: Render rich text content from post.content */}
-      <pre>{JSON.stringify(post, null, 2)}</pre>
+    <article className="container mx-auto px-4 py-16">
+      <div className="mx-auto max-w-4xl">
+        {post.headerImage && typeof post.headerImage === 'object' && post.headerImage.url && (
+          <div className="relative mb-8 aspect-video overflow-hidden rounded-lg">
+            <Image
+              src={post.headerImage.url}
+              alt={post.headerImage.alt || post.title}
+              fill
+              className="object-cover"
+              priority
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+            />
+          </div>
+        )}
+        <h1 className="mb-4 text-4xl font-bold">{post.title}</h1>
+        {post.excerpt && <p className="mb-8 text-xl text-muted-foreground">{post.excerpt}</p>}
+        <div className="prose prose-lg max-w-none">
+          <RenderLexical content={post.content} />
+        </div>
+      </div>
     </article>
   )
 }

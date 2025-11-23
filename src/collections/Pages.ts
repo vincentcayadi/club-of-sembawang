@@ -8,6 +8,7 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
+import { Hero } from '@/blocks/Hero/config'
 import { Paragraph } from '@/blocks/Paragraph'
 import { Accordion } from '@/blocks/Accordion/config'
 import { Archive } from '@/blocks/Archive/config'
@@ -56,10 +57,7 @@ export const Pages: CollectionConfig = {
         and: [
           { _status: { equals: 'published' } },
           {
-            or: [
-              { publishedAt: { exists: false } },
-              { publishedAt: { less_than_equal: now } },
-            ],
+            or: [{ publishedAt: { exists: false } }, { publishedAt: { less_than_equal: now } }],
           },
         ],
       }
@@ -91,6 +89,7 @@ export const Pages: CollectionConfig = {
               type: 'blocks',
               required: true,
               blocks: [
+                Hero,
                 Paragraph,
                 Testimonials,
                 Sponsors,

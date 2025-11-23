@@ -2,6 +2,7 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { draftMode } from 'next/headers'
 import type { Metadata } from 'next'
+import { RenderBlocks } from '@/components/RenderBlocks'
 
 export async function generateMetadata(): Promise<Metadata> {
   const payload = await getPayload({ config: configPromise })
@@ -81,11 +82,5 @@ export default async function HomePage() {
     )
   }
 
-  return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-8">{page.title}</h1>
-      {/* TODO: Render blocks from page.layout */}
-      <pre>{JSON.stringify(page, null, 2)}</pre>
-    </div>
-  )
+  return <RenderBlocks blocks={page.layout} draft={isDraftMode} />
 }

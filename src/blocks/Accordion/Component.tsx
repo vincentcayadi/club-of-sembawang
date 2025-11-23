@@ -1,0 +1,51 @@
+'use client'
+
+import React from 'react'
+import { cn } from '@/lib/utils'
+import { RenderLexical } from '@/components/RenderLexical'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
+import type { AccordionBlock } from '@/payload-types'
+
+export function AccordionBlockComponent({ header, description, alignment, items }: AccordionBlock) {
+  const alignmentClasses = {
+    center: 'text-center',
+    left: 'text-left',
+  }
+
+  return (
+    <section className="mx-auto w-full max-w-4xl px-4 py-16">
+      {header && (
+        <h2
+          className={cn(
+            'mb-4 text-4xl font-bold tracking-tight',
+            alignmentClasses[alignment || 'center'],
+          )}
+        >
+          {header}
+        </h2>
+      )}
+      {description && (
+        <p className={cn('mb-12 text-lg text-gray-500', alignmentClasses[alignment || 'center'])}>
+          {description}
+        </p>
+      )}
+      <Accordion type="single" collapsible defaultValue="item-0" className="mt-8">
+        {items?.map((item, index) => (
+          <AccordionItem key={index} value={`item-${index}`}>
+            <AccordionTrigger className="text-left text-lg font-medium text-gray-700 hover:text-gray-600">
+              {item.title}
+            </AccordionTrigger>
+            <AccordionContent className="text-gray-500">
+              <RenderLexical content={item.content} />
+            </AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+    </section>
+  )
+}

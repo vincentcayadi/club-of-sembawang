@@ -174,6 +174,7 @@ export interface Page {
    */
   excerpt?: string | null;
   layout: (
+    | HeroBlock
     | ParagraphBlock
     | TestimonialsBlock
     | SponsorsBlock
@@ -204,9 +205,80 @@ export interface Page {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ParagraphBlock".
+ * via the `definition` "HeroBlock".
  */
-export interface ParagraphBlock {
+export interface HeroBlock {
+  /**
+   * Choose the hero style
+   */
+  type: 'highImpact' | 'mediumImpact' | 'lowImpact';
+  richText: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+          /**
+           * The text displayed for the link
+           */
+          label: string;
+          /**
+           * Choose how the link should be displayed
+           */
+          appearance?: ('default' | 'primary' | 'secondary') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Background image or side image depending on hero type
+   */
+  media?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'hero';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: number;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  title: string;
+  /**
+   * Main image shown at the top of the post (also used for social media preview)
+   */
+  headerImage?: (number | null) | Media;
+  /**
+   * A short summary (1-2 sentences) that appears in search results and social media previews.
+   */
+  excerpt?: string | null;
   content: {
     root: {
       type: string;
@@ -223,42 +295,24 @@ export interface ParagraphBlock {
     [k: string]: unknown;
   };
   /**
-   * Number of columns the text should span
+   * SEO and social overrides.
    */
-  columns?: ('1' | '2' | '3') | null;
-  alignment?: ('left' | 'center' | 'right') | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
   /**
-   * Maximum width of the container
+   * Schedule when this post goes live (leave blank to publish immediately)
    */
-  maxWidth?: ('2xl' | '4xl' | '5xl' | '7xl' | 'full') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'paragraph';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TestimonialsBlock".
- */
-export interface TestimonialsBlock {
-  heading?: string | null;
-  layout: 'grid' | 'carousel';
-  /**
-   * Number of testimonials to show.
-   */
-  showCount?: number | null;
-  testimonials?:
-    | {
-        quote: string;
-        name: string;
-        role?: string | null;
-        avatar?: (number | null) | Media;
-        highlight?: boolean | null;
-        id?: string | null;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'testimonials';
+  publishedAt?: string | null;
+  author?: (number | null) | User;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -304,6 +358,93 @@ export interface Media {
       filename?: string | null;
     };
   };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ParagraphBlock".
+ */
+export interface ParagraphBlock {
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Optional alignment for the text block.
+   */
+  alignment?: ('left' | 'center' | 'right') | null;
+  backgroundType?: ('none' | 'solid' | 'gradient' | 'image') | null;
+  /**
+   * Any valid CSS color for solid backgrounds.
+   */
+  backgroundColor?: string | null;
+  gradientFrom?: string | null;
+  gradientTo?: string | null;
+  /**
+   * Image shown behind the text.
+   */
+  backgroundImage?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'paragraph';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialsBlock".
+ */
+export interface TestimonialsBlock {
+  /**
+   * Optional heading shown above testimonials.
+   */
+  heading?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Choose between a grid or infinite scrolling marquee.
+   */
+  layout: 'grid' | 'marquee';
+  /**
+   * Maximum testimonials to display in grid mode.
+   */
+  showCount?: number | null;
+  /**
+   * Add testimonial entries.
+   */
+  testimonials?:
+    | {
+        quote: string;
+        name: string;
+        role?: string | null;
+        avatar?: (number | null) | Media;
+        highlight?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'testimonials';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -364,58 +505,6 @@ export interface ArchiveBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'archive';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
- */
-export interface Post {
-  id: number;
-  slug?: string | null;
-  slugLock?: boolean | null;
-  title: string;
-  /**
-   * Main image shown at the top of the post (also used for social media preview)
-   */
-  headerImage?: (number | null) | Media;
-  /**
-   * A short summary (1-2 sentences) that appears in search results and social media previews.
-   */
-  excerpt?: string | null;
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  /**
-   * SEO and social overrides.
-   */
-  meta?: {
-    title?: string | null;
-    description?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (number | null) | Media;
-  };
-  /**
-   * Schedule when this post goes live (leave blank to publish immediately)
-   */
-  publishedAt?: string | null;
-  author?: (number | null) | User;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -498,6 +587,7 @@ export interface MediaBlock {
  */
 export interface AccordionBlock {
   header?: string | null;
+  description?: string | null;
   alignment?: ('left' | 'center') | null;
   items?:
     | {
@@ -733,6 +823,7 @@ export interface PagesSelect<T extends boolean = true> {
   layout?:
     | T
     | {
+        hero?: T | HeroBlockSelect<T>;
         paragraph?: T | ParagraphBlockSelect<T>;
         testimonials?: T | TestimonialsBlockSelect<T>;
         sponsors?: T | SponsorsBlockSelect<T>;
@@ -756,13 +847,42 @@ export interface PagesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroBlock_select".
+ */
+export interface HeroBlockSelect<T extends boolean = true> {
+  type?: T;
+  richText?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        id?: T;
+      };
+  media?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ParagraphBlock_select".
  */
 export interface ParagraphBlockSelect<T extends boolean = true> {
   content?: T;
-  columns?: T;
   alignment?: T;
-  maxWidth?: T;
+  backgroundType?: T;
+  backgroundColor?: T;
+  gradientFrom?: T;
+  gradientTo?: T;
+  backgroundImage?: T;
   id?: T;
   blockName?: T;
 }
@@ -869,6 +989,7 @@ export interface MediaBlockSelect<T extends boolean = true> {
  */
 export interface AccordionBlockSelect<T extends boolean = true> {
   header?: T;
+  description?: T;
   alignment?: T;
   items?:
     | T

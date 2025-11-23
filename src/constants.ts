@@ -28,3 +28,10 @@ export const CONTENT_STATUS = {
   DRAFT: 'draft',
   PUBLISHED: 'published',
 } as const
+
+// Animation speeds (seconds)
+export const ANIMATION_SPEEDS = {
+  FAST: 0.35,
+  NORMAL: 0.8,
+  SLOW: 1.2,
+} as const

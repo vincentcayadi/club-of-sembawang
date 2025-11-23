@@ -20,9 +20,17 @@ export const Accordion: Block = {
               },
             },
             {
+              name: 'description',
+              type: 'textarea',
+              required: false,
+              admin: {
+                placeholder: 'Optional description text below the header',
+              },
+            },
+            {
               name: 'alignment',
               type: 'select',
-              defaultValue: 'left',
+              defaultValue: 'center',
               options: [
                 {
                   label: 'Left',

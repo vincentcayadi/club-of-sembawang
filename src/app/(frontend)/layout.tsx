@@ -1,7 +1,7 @@
 import React from 'react'
 import './globals.css'
 import { LenisProvider } from './components/LenisProvider'
-import { getSiteName } from '@/utilities/getSiteName'
+import { Footer } from '@/components/Footer'
 
 export async function generateMetadata() {
   const siteName = 'Club of Sembawang'
@@ -23,6 +23,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
       <body>
         <LenisProvider>
           <main>{children}</main>
+          <Footer />
         </LenisProvider>
       </body>
     </html>
