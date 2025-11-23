@@ -38,6 +38,7 @@ export function Header({ navItems, logo, squareLogo, siteName }: HeaderProps) {
       ? (squareLogo as any)
       : desktopLogo
   const label = siteName || "Club of Sembawang"
+  const hasLogo = Boolean(desktopLogo?.url || mobileLogo?.url)
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md">
@@ -68,7 +69,9 @@ export function Header({ navItems, logo, squareLogo, siteName }: HeaderProps) {
               />
             </span>
           ) : null}
-          <span className="text-base font-semibold md:text-lg">{label}</span>
+          <span className={cn("text-base font-semibold md:text-lg", hasLogo && "sr-only")}>
+            {label}
+          </span>
         </Link>
 
         <div className="hidden md:block">

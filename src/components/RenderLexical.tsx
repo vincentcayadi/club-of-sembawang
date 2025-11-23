@@ -80,7 +80,12 @@ const converters: JSXConvertersFunction = ({ defaultConverters }) => ({
     }
 
     return (
-      <a href={href} rel={rel} target={target} className="text-primary underline underline-offset-4">
+      <a
+        href={href}
+        rel={rel}
+        target={target}
+        className="text-current underline underline-offset-4 decoration-primary/70 hover:decoration-primary"
+      >
         {children}
       </a>
     )

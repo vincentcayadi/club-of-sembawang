@@ -20,6 +20,7 @@ export async function generateMetadata() {
     icons: {
       icon: '/favicon.ico',
       shortcut: '/favicon.ico',
+      apple: '/favicon.ico',
     },
   }
 }
@@ -41,6 +42,11 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
 
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/favicon.ico" />
+      </head>
       <body>
         <LenisProvider>
           <Header
