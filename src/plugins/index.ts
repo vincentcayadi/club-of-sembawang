@@ -8,6 +8,7 @@ import type {
 import type { Page, Post, Media } from '../payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
 import { getSiteName } from '@/utilities/getSiteName'
+import { cloudflareStorage } from './cloudflare-storage'
 
 const generateTitle: GenerateTitle<Post | Page> = async ({ doc, req }) => {
   const siteName = await getSiteName(req)
@@ -63,4 +64,5 @@ export const plugins: Plugin[] = [
     generateURL,
     generateImage,
   }),
-]
+  cloudflareStorage(),
+].filter(Boolean) as Plugin[]
