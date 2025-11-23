@@ -80,6 +80,11 @@ const formatDate = (dateString?: string | null): string => {
 }
 
 const ArchiveCard = ({ post }: { post: Post }) => {
+  if (!post.slug) {
+    console.error('Post missing slug:', post)
+    return null
+  }
+
   const href = `/posts/${post.slug}`
   const heroMedia = getMediaInfo(
     (post as Post & { headerImage?: Media | number | null }).headerImage as
@@ -165,7 +170,9 @@ export const ArchiveBlockComponent = async ({
     console.error('Archive block failed to load posts', error)
   }
 
-  if (!posts || posts.length === 0) {
+  const validPosts = posts.filter(post => post && post.slug)
+
+  if (!validPosts || validPosts.length === 0) {
     return (
       <section className="my-12" id={id ? `block-${id}` : undefined}>
         <div className="mx-auto max-w-5xl px-6">
@@ -193,7 +200,7 @@ export const ArchiveBlockComponent = async ({
           />
         )}
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-          {posts.map((post) => (
+          {validPosts.map((post) => (
             <ArchiveCard key={`${post.id ?? post.slug ?? 'post'}`} post={post} />
           ))}
         </div>
