@@ -33,7 +33,9 @@ export const Pages: CollectionConfig = {
       const secret = process.env.PAYLOAD_PUBLIC_DRAFT_SECRET
 
       if (!secret) {
-        throw new Error('PAYLOAD_PUBLIC_DRAFT_SECRET environment variable is required for preview mode')
+        throw new Error(
+          'PAYLOAD_PUBLIC_DRAFT_SECRET environment variable is required for preview mode',
+        )
       }
 
       const params = new URLSearchParams({
@@ -49,7 +51,8 @@ export const Pages: CollectionConfig = {
   versions: {
     drafts: {
       autosave: {
-        interval: 375,
+        interval: 1500,
+        showSaveDraftButton: true,
       },
     },
   },
