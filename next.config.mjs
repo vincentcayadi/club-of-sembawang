@@ -6,7 +6,17 @@ const nextConfig = {
     remotePatterns: (() => {
       const patterns = []
 
-      // Only allow R2 bucket images for optimization (saves Vercel costs)
+      // Allow R2 public URL for image optimization
+      const r2PublicUrl = process.env.R2_PUBLIC_URL
+      if (r2PublicUrl) {
+        patterns.push({
+          protocol: 'https',
+          hostname: r2PublicUrl,
+          pathname: '/**',
+        })
+      }
+
+      // Fallback to R2 storage hostname if public URL not set
       const r2AccountId = process.env.R2_ACCOUNT_ID
       if (r2AccountId) {
         patterns.push({
