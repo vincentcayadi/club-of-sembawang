@@ -5,22 +5,26 @@ const nextConfig = {
   images: {
     remotePatterns: (() => {
       const patterns = []
-      const envURL = process.env.NEXT_PUBLIC_SERVER_URL || process.env.SERVER_URL
-      const addHost = (urlString) => {
-        try {
-          const parsed = new URL(urlString)
-          patterns.push({
-            protocol: parsed.protocol.replace(':', ''),
-            hostname: parsed.hostname,
-            port: parsed.port || undefined,
-          })
-        } catch {
-          // ignore invalid URLs
-        }
+
+      // Only allow R2 bucket images for optimization (saves Vercel costs)
+      const r2AccountId = process.env.R2_ACCOUNT_ID
+      if (r2AccountId) {
+        patterns.push({
+          protocol: 'https',
+          hostname: `${r2AccountId}.r2.cloudflarestorage.com`,
+          pathname: '/**',
+        })
       }
-      if (envURL) addHost(envURL)
-      addHost('https://club-of-sembawang.vercel.app')
-      addHost('http://localhost:3000')
+
+      // Local development only
+      if (process.env.NODE_ENV === 'development') {
+        patterns.push({
+          protocol: 'http',
+          hostname: 'localhost',
+          port: '3000',
+        })
+      }
+
       return patterns
     })(),
   },
