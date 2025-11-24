@@ -88,6 +88,24 @@ export function HighImpactHero({ richText, links, media }: HeroBlock) {
       ref={heroRef}
       className="select-none relative flex min-h-screen items-center justify-center overflow-hidden bg-[#0b0f17]"
     >
+      <div ref={mediaRef} className="absolute inset-0 h-full w-full z-0">
+        {media && typeof media === 'object' && media.url ? (
+          <>
+            <OptimizedImage
+              media={media}
+              fill
+              className="object-cover blur-sm scale-110"
+              wrapperClassName="absolute inset-0"
+              priority
+              sizes="100vw"
+              objectFit="cover"
+            />
+            <div className="absolute inset-0 bg-black/40" />
+          </>
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0b0f17] via-[#0f1623] to-[#0b0f17]" />
+        )}
+      </div>
       <div className="relative z-10 flex items-center justify-center px-4 text-center">
         <div ref={contentRef} className="max-w-4xl">
           <div className="fade-up opacity-0 translate-y-4">
@@ -101,21 +119,6 @@ export function HighImpactHero({ richText, links, media }: HeroBlock) {
             </div>
           )}
         </div>
-      </div>
-      <div ref={mediaRef} className="absolute inset-0 h-full w-full">
-        {media && typeof media === 'object' && media.url && (
-          <>
-            <OptimizedImage
-              media={media}
-              fill
-              className="object-cover"
-              priority
-              sizes="100vw"
-              objectFit="cover"
-            />
-            <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
-          </>
-        )}
       </div>
     </div>
   )

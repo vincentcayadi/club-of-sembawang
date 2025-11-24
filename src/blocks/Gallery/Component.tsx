@@ -88,9 +88,11 @@ export const GalleryBlockComponent: React.FC<GalleryBlockProps> = ({
               </div>
               <OptimizedImage
                 media={image}
-                className="h-full w-full transition-transform duration-700 group-hover:scale-110"
+                wrapperClassName="h-full w-full"
+                className="object-cover transition-transform duration-700 group-hover:scale-110"
                 aspectRatio="16 / 9"
                 objectFit="cover"
+                fill
                 sizes={
                   resolvedCount === '1'
                     ? '100vw'
@@ -119,7 +121,10 @@ export const GalleryBlockComponent: React.FC<GalleryBlockProps> = ({
           <div className="relative max-h-[90vh] max-w-[90vw] animate-in zoom-in-95 duration-300">
             <OptimizedImage
               media={selectedImage}
-              className="h-auto max-h-[90vh] w-auto max-w-[90vw] rounded-lg"
+              wrapperClassName="rounded-lg"
+              className="object-contain"
+              width={1200}
+              height={800}
               objectFit="contain"
               sizes="90vw"
               priority

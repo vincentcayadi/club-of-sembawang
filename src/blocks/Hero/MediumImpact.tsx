@@ -98,6 +98,7 @@ export function MediumImpactHero({ richText, links, media }: HeroBlock) {
               media={media}
               fill
               className="object-cover"
+              wrapperClassName="absolute inset-0"
               priority
               sizes="(max-width: 1024px) 100vw, 50vw"
               objectFit="cover"
