@@ -1,11 +1,11 @@
 'use client'
 
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { usePathname } from 'next/navigation'
-import Image from 'next/image'
 import { RenderLexical } from '@/components/RenderLexical'
 import { CMSLink } from '@/components/CMSLink'
+import { OptimizedImage } from '@/components/OptimizedImage'
 import { useUIStore } from '@/stores/uiStore'
 import { useHeaderStore } from '@/stores/useHeaderStore'
 import { ANIMATION_SPEEDS } from '@/constants'
@@ -16,7 +16,6 @@ export function HighImpactHero({ richText, links, media }: HeroBlock) {
   const heroRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
   const mediaRef = useRef<HTMLDivElement>(null)
-  const [imageLoaded, setImageLoaded] = useState(false)
   const prefersReducedMotion = useUIStore((state) => state.prefersReducedMotion)
   const setPrefersReducedMotion = useUIStore((state) => state.setPrefersReducedMotion)
   const setHasHighImpactHero = useHeaderStore((state) => state.setHasHighImpactHero)
@@ -25,10 +24,6 @@ export function HighImpactHero({ richText, links, media }: HeroBlock) {
     setHasHighImpactHero(true)
     return () => setHasHighImpactHero(false)
   }, [setHasHighImpactHero])
-
-  useEffect(() => {
-    setImageLoaded(false)
-  }, [pathname])
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0)
@@ -93,6 +88,24 @@ export function HighImpactHero({ richText, links, media }: HeroBlock) {
       ref={heroRef}
       className="select-none relative flex min-h-screen items-center justify-center overflow-hidden bg-[#0b0f17]"
     >
+      <div ref={mediaRef} className="absolute inset-0 h-full w-full z-0">
+        {media && typeof media === 'object' && media.url ? (
+          <>
+            <OptimizedImage
+              media={media}
+              fill
+              className="object-cover blur-sm scale-110"
+              wrapperClassName="absolute inset-0"
+              priority
+              sizes="100vw"
+              objectFit="cover"
+            />
+            <div className="absolute inset-0 bg-black/40" />
+          </>
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0b0f17] via-[#0f1623] to-[#0b0f17]" />
+        )}
+      </div>
       <div className="relative z-10 flex items-center justify-center px-4 text-center">
         <div ref={contentRef} className="max-w-4xl">
           <div className="fade-up opacity-0 translate-y-4">
@@ -106,26 +119,6 @@ export function HighImpactHero({ richText, links, media }: HeroBlock) {
             </div>
           )}
         </div>
-      </div>
-      <div ref={mediaRef} className="absolute inset-0 h-full w-full">
-        {media && typeof media === 'object' && media.url && (
-          <>
-            <Image
-              src={media.url}
-              alt={media.alt || ''}
-              fill
-              className={`object-cover transition-opacity duration-700 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
-              priority
-              sizes="100vw"
-              quality={90}
-              onLoadingComplete={() => setImageLoaded(true)}
-            />
-            {!imageLoaded && (
-              <div className="absolute inset-0 bg-gradient-to-br from-[#0b0f17] via-[#0f1623] to-[#0b0f17] blur-sm transition-opacity duration-500" />
-            )}
-            <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
-          </>
-        )}
       </div>
     </div>
   )

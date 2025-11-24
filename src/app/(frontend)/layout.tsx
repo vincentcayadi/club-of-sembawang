@@ -1,4 +1,5 @@
 import React from 'react'
+import { Inter } from 'next/font/google'
 import './globals.css'
 import { LenisProvider } from './components/LenisProvider'
 import { Footer } from '@/components/Footer'
@@ -8,6 +9,12 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import type { Header as HeaderGlobal } from '@/payload-types'
 import type { SiteSetting } from '@/payload-types'
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+})
 
 export async function generateMetadata() {
   const siteName = 'Club Of Sembawang'
@@ -46,13 +53,13 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   }
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={inter.variable}>
       <head>
         <link rel="icon" href={iconHref} type="image/x-icon" />
         <link rel="shortcut icon" href={iconHref} type="image/x-icon" />
         <link rel="apple-touch-icon" href={iconHref} />
       </head>
-      <body>
+      <body className={inter.className}>
         <LenisProvider>
           <Header
             navItems={navItems as any}

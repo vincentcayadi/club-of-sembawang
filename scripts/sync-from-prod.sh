@@ -8,8 +8,13 @@ set -e
 
 echo "[1/5] Checking local Postgres connection..."
 
-# Production database (Supabase)
-PROD_DB="postgresql://postgres.gfzqapedvlgveyccojrt:HN26Q1jiwaDQY4ME@aws-1-ap-southeast-2.pooler.supabase.com:6543/postgres"
+# Production database (Supabase) - loaded from environment
+if [ -z "$DATABASE_URI" ]; then
+  echo "ERROR: DATABASE_URI environment variable is not set"
+  echo "Please set DATABASE_URI to your production Supabase connection string"
+  exit 1
+fi
+PROD_DB="$DATABASE_URI"
 
 # Local database
 LOCAL_DB="postgresql://postgres:postgres@localhost:5432/postgres"

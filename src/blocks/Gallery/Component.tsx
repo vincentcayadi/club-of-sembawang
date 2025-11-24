@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import type { GalleryBlock as GalleryBlockProps, Media } from '@/payload-types'
-import { MediaImage } from '@/components/MediaImage'
+import { OptimizedImage } from '@/components/OptimizedImage'
 import { X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -86,9 +86,13 @@ export const GalleryBlockComponent: React.FC<GalleryBlockProps> = ({
                   View Full Size
                 </span>
               </div>
-              <MediaImage
+              <OptimizedImage
                 media={image}
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                wrapperClassName="h-full w-full"
+                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                aspectRatio="16 / 9"
+                objectFit="cover"
+                fill
                 sizes={
                   resolvedCount === '1'
                     ? '100vw'
@@ -115,10 +119,15 @@ export const GalleryBlockComponent: React.FC<GalleryBlockProps> = ({
             <X className="h-6 w-6" />
           </button>
           <div className="relative max-h-[90vh] max-w-[90vw] animate-in zoom-in-95 duration-300">
-            <MediaImage
+            <OptimizedImage
               media={selectedImage}
-              className="h-auto max-h-[90vh] w-auto max-w-[90vw] rounded-lg object-contain"
+              wrapperClassName="rounded-lg"
+              className="object-contain"
+              width={1200}
+              height={800}
+              objectFit="contain"
               sizes="90vw"
+              priority
             />
             {selectedImage.alt && (
               <p className="mt-4 text-center text-sm text-white/80">{selectedImage.alt}</p>

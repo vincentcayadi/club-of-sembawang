@@ -30,7 +30,11 @@ export const Pages: CollectionConfig = {
     },
     preview: (doc) => {
       const path = doc.slug === 'home' ? '/' : `/${doc.slug}`
-      const secret = process.env.PAYLOAD_PUBLIC_DRAFT_SECRET || 'demo-secret-123'
+      const secret = process.env.PAYLOAD_PUBLIC_DRAFT_SECRET
+
+      if (!secret) {
+        throw new Error('PAYLOAD_PUBLIC_DRAFT_SECRET environment variable is required for preview mode')
+      }
 
       const params = new URLSearchParams({
         url: path,
