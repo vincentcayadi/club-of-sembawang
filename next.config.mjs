@@ -16,6 +16,16 @@ const nextConfig = {
         })
       }
 
+      // Allow own domain for Payload media API route
+      const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL
+      if (serverUrl) {
+        const url = new URL(serverUrl)
+        patterns.push({
+          protocol: url.protocol.replace(':', ''),
+          hostname: url.hostname,
+        })
+      }
+
       // Local development only
       if (process.env.NODE_ENV === 'development') {
         patterns.push({
