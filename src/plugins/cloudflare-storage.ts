@@ -46,7 +46,12 @@ export const cloudflareStorage = (): Plugin | null => {
 
   return s3Storage({
     collections: {
-      media: true,
+      media: {
+        disablePayloadAccessControl: true, // Serve directly from R2
+        generateFileURL: ({ filename }) => {
+          return `https://${process.env.R2_PUBLIC_URL || `${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`}/${filename}`
+        },
+      },
     },
     bucket: process.env.R2_BUCKET_NAME!,
     config: {
