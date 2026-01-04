@@ -20,17 +20,18 @@ export function LowImpactHero({ richText, links }: HeroBlock) {
     window.scrollTo(0, 0)
 
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-    setPrefersReducedMotion(mediaQuery.matches)
+    const prefersReduced = mediaQuery.matches
+    setPrefersReducedMotion(prefersReduced)
     const handleChange = (event: MediaQueryListEvent) => setPrefersReducedMotion(event.matches)
     mediaQuery.addEventListener('change', handleChange)
 
-    if (!prefersReducedMotion && contentRef.current) {
+    if (!prefersReduced && contentRef.current) {
       const fadeElements = contentRef.current.querySelectorAll('.fade-up')
       gsap.set(fadeElements, { opacity: 0, y: 30 })
     }
 
     const ctx = gsap.context(() => {
-      if (prefersReducedMotion) return
+      if (prefersReduced) return
 
       if (contentRef.current) {
         const fadeElements = contentRef.current.querySelectorAll('.fade-up')

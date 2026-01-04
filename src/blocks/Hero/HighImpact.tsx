@@ -30,11 +30,12 @@ export function HighImpactHero({ richText, links, media }: HeroBlock) {
 
     // Detect reduced motion preference once per mount
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-    setPrefersReducedMotion(mediaQuery.matches)
+    const prefersReduced = mediaQuery.matches
+    setPrefersReducedMotion(prefersReduced)
     const handleChange = (event: MediaQueryListEvent) => setPrefersReducedMotion(event.matches)
     mediaQuery.addEventListener('change', handleChange)
 
-    if (!prefersReducedMotion) {
+    if (!prefersReduced) {
       if (mediaRef.current) {
         gsap.set(mediaRef.current, { opacity: 0 })
       }
@@ -45,7 +46,7 @@ export function HighImpactHero({ richText, links, media }: HeroBlock) {
     }
 
     const ctx = gsap.context(() => {
-      if (prefersReducedMotion) return
+      if (prefersReduced) return
       if (contentRef.current) {
         const fadeElements = contentRef.current.querySelectorAll('.fade-up')
 
