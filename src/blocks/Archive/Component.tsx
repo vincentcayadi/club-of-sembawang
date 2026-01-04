@@ -104,7 +104,7 @@ const ArchiveCard = ({ post }: { post: Post }) => {
   return (
     <Link
       href={href}
-      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border/50 bg-card shadow-sm transition-all duration-300 hover:shadow-lg hover:border-border"
+      className="group flex h-full flex-col overflow-hidden rounded-lg border border-border/50 bg-card shadow-sm transition-all duration-300 hover:shadow-lg hover:border-border"
     >
       {heroMedia?.url && (
         <div className="relative h-56 w-full overflow-hidden bg-muted">
@@ -205,7 +205,7 @@ export const ArchiveBlockComponent = async ({
             className="prose prose-xl max-w-3xl mx-auto text-center"
           />
         )}
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {validPosts.map((post) => (
             <ArchiveCard key={`${post.id ?? post.slug ?? 'post'}`} post={post} />
           ))}

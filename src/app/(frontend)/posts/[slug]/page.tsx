@@ -131,16 +131,20 @@ export default async function Post({ params }: PostProps) {
 
   const readingTime = calculateReadingTime(post.content)
   const publishDate = formatDate(post.publishedAt)
+  const authorName =
+    post.author && typeof post.author === 'object' && 'name' in post.author
+      ? post.author.name
+      : null
 
   return (
     <article className="container mx-auto px-4 py-12 md:py-20">
       <div className="mx-auto max-w-3xl">
         <Link
-          href="/"
+          href="/posts"
           className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground mb-8"
         >
           <ArrowLeft className="h-4 w-4" />
-          <span>index</span>
+          <span>Back to posts</span>
         </Link>
 
         <header className="mb-12">
@@ -148,17 +152,19 @@ export default async function Post({ params }: PostProps) {
             {post.title}
           </h1>
 
-          <div className="flex items-center gap-3 text-sm text-muted-foreground mb-6">
-            {publishDate && <time>{publishDate}</time>}
-            {publishDate && readingTime && <span>•</span>}
-            {readingTime && <span>{readingTime}min</span>}
-          </div>
-
           {post.excerpt && (
-            <p className="text-lg leading-relaxed text-muted-foreground border-l-4 border-primary/30 pl-4 py-2">
+            <p className="text-lg leading-relaxed text-muted-foreground border-l-4 border-primary/30 pl-4 py-2 mb-6">
               {post.excerpt}
             </p>
           )}
+
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            {authorName && <span>{authorName}</span>}
+            {authorName && (publishDate || readingTime) && <span>•</span>}
+            {publishDate && <time>{publishDate}</time>}
+            {publishDate && readingTime && <span>•</span>}
+            {readingTime && <span>{readingTime} min read</span>}
+          </div>
         </header>
 
         {post.headerImage && typeof post.headerImage === 'object' && post.headerImage.url && (
