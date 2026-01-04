@@ -120,17 +120,6 @@ const ArchiveCard = ({ post }: { post: Post }) => {
         </div>
       )}
       <div className="flex flex-1 flex-col gap-3 p-6">
-        {(authorName || publishDate || readingTime) && (
-          <div className="flex items-center gap-2 text-xs text-muted-foreground">
-            {authorName && <span>{authorName}</span>}
-            {authorName && (publishDate || readingTime) && <span>•</span>}
-            {publishDate && <time>{publishDate}</time>}
-            {publishDate && readingTime && <span>•</span>}
-            {!publishDate && authorName && readingTime && <span className="hidden" />}
-            {readingTime && <span>{readingTime} min read</span>}
-          </div>
-        )}
-
         <h3 className="text-xl font-bold text-foreground leading-tight group-hover:text-primary transition-colors">
           {post.title}
         </h3>
@@ -139,6 +128,16 @@ const ArchiveCard = ({ post }: { post: Post }) => {
           <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
             {post.excerpt}
           </p>
+        )}
+
+        {(authorName || publishDate || readingTime) && (
+          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            {authorName && <span>{authorName}</span>}
+            {authorName && (publishDate || readingTime) && <span>•</span>}
+            {publishDate && <time>{publishDate}</time>}
+            {publishDate && readingTime && <span>•</span>}
+            {readingTime && <span>{readingTime} min read</span>}
+          </div>
         )}
 
         <div className="mt-auto flex justify-end pt-2">

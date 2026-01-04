@@ -10,9 +10,9 @@ import type { Media, ParagraphBlock } from '@/payload-types'
 gsap.registerPlugin(ScrollTrigger)
 
 const alignmentClasses = {
-  left: 'text-left',
-  center: 'text-center',
-  right: 'text-right',
+  left: '!text-left',
+  center: '!text-center',
+  right: '!text-right',
 } as const
 
 const parseColor = (color?: string | null) => {
