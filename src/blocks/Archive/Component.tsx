@@ -123,9 +123,10 @@ const ArchiveCard = ({ post }: { post: Post }) => {
         {(authorName || publishDate || readingTime) && (
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             {authorName && <span>{authorName}</span>}
-            {authorName && publishDate && <span>•</span>}
+            {authorName && (publishDate || readingTime) && <span>•</span>}
             {publishDate && <time>{publishDate}</time>}
             {publishDate && readingTime && <span>•</span>}
+            {!publishDate && authorName && readingTime && <span className="hidden" />}
             {readingTime && <span>{readingTime} min read</span>}
           </div>
         )}
