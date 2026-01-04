@@ -96,6 +96,10 @@ const ArchiveCard = ({ post }: { post: Post }) => {
 
   const readingTime = calculateReadingTime((post as any).content)
   const publishDate = formatDate(post.publishedAt)
+  const authorName =
+    post.author && typeof post.author === 'object' && 'name' in post.author
+      ? post.author.name
+      : null
 
   return (
     <Link
@@ -116,11 +120,15 @@ const ArchiveCard = ({ post }: { post: Post }) => {
         </div>
       )}
       <div className="flex flex-1 flex-col gap-3 p-6">
-        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          {publishDate && <time>{publishDate}</time>}
-          {publishDate && readingTime && <span>•</span>}
-          {readingTime && <span>{readingTime}min</span>}
-        </div>
+        {(authorName || publishDate || readingTime) && (
+          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            {authorName && <span>{authorName}</span>}
+            {authorName && publishDate && <span>•</span>}
+            {publishDate && <time>{publishDate}</time>}
+            {publishDate && readingTime && <span>•</span>}
+            {readingTime && <span>{readingTime} min read</span>}
+          </div>
+        )}
 
         <h3 className="text-xl font-bold text-foreground leading-tight group-hover:text-primary transition-colors">
           {post.title}
@@ -132,18 +140,15 @@ const ArchiveCard = ({ post }: { post: Post }) => {
           </p>
         )}
 
-        <div className="mt-auto pt-2">
-          <span className="inline-flex items-center text-sm font-semibold text-primary">
-            Read more
-            <svg
-              className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </span>
+        <div className="mt-auto flex justify-end pt-2">
+          <svg
+            className="h-5 w-5 text-primary transition-transform group-hover:translate-x-1"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
         </div>
       </div>
     </Link>
