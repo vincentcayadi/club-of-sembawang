@@ -74,7 +74,7 @@ export const QuoteBlockComponent: React.FC<QuoteBlock> = ({ quoteText, author, s
   const Icon = config.icon
 
   return (
-    <div ref={quoteRef} className="my-12 w-full px-4">
+    <div ref={quoteRef} className="w-full block-spacing">
       <div className="mx-auto max-w-4xl">
         <blockquote
           className={cn(

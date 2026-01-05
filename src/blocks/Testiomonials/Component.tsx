@@ -139,7 +139,7 @@ export function TestimonialsBlockComponent({
   if (safeTestimonials.length === 0) return null
 
   return (
-    <section className="px-4 py-16 md:py-24">
+    <section className="block-spacing">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-10">
         {heading && (
           <div className="mx-auto max-w-3xl text-center">

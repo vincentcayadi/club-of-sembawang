@@ -136,7 +136,7 @@ export function ParagraphBlockComponent({
   return (
     <section
       ref={sectionRef}
-      className="relative flex min-h-48 items-center overflow-hidden px-4 py-16 md:py-24"
+      className="relative flex min-h-48 items-center overflow-hidden block-spacing"
       style={
         backgroundType === 'solid' && backgroundColor
           ? { backgroundColor }
@@ -176,7 +176,6 @@ export function ParagraphBlockComponent({
             'prose-p:leading-relaxed prose-p:text-lg',
             'prose-a:text-primary prose-a:no-underline hover:prose-a:underline',
             'prose-strong:font-semibold prose-strong:text-foreground',
-            backgroundType === 'none' && safeAlignment === 'left' && 'border-l-4 border-primary/20 pl-6',
           )}
         >
           <RenderLexical content={content} />

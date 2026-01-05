@@ -26,7 +26,7 @@ export const InstagramBlockComponent: React.FC<InstagramBlock> = ({ url }) => {
   if (!url) return null
 
   return (
-    <div ref={containerRef} className="my-12 w-full px-4">
+    <div ref={containerRef} className="w-full block-spacing">
       <div className="mx-auto max-w-xl">
         <blockquote
           className="instagram-media"

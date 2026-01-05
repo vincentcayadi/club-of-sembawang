@@ -179,7 +179,7 @@ export const ArchiveBlockComponent = async ({
 
   if (!validPosts || validPosts.length === 0) {
     return (
-      <section className="my-12" id={id ? `block-${id}` : undefined}>
+      <section className="block-spacing" id={id ? `block-${id}` : undefined}>
         <div className="mx-auto max-w-5xl px-6">
           {introContent && (
             <RenderLexical
@@ -196,7 +196,7 @@ export const ArchiveBlockComponent = async ({
   }
 
   return (
-    <section className="my-16 md:my-24" id={id ? `block-${id}` : undefined}>
+    <section className="block-spacing" id={id ? `block-${id}` : undefined}>
       <div className="mx-auto flex max-w-6xl flex-col gap-10 px-6">
         {introContent && (
           <RenderLexical

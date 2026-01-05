@@ -77,7 +77,7 @@ export const GalleryBlockComponent: React.FC<GalleryBlockProps> = ({
 
   return (
     <>
-      <div ref={galleryRef} className="my-16 w-full px-4 md:my-24">
+      <div ref={galleryRef} className="w-full block-spacing">
         <div className={cn('mx-auto max-w-7xl grid gap-6 md:gap-8', gridClass)}>
           {images.map((image, index) => (
             <div

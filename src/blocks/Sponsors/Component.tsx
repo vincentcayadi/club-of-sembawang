@@ -57,7 +57,7 @@ export function SponsorsBlockComponent({ heading, subheading, logos }: SponsorsB
   if (!logosToShow.length) return null
 
   return (
-    <section ref={sectionRef} className="px-4 py-16 md:py-24">
+    <section ref={sectionRef} className="block-spacing">
       <div className="mx-auto max-w-6xl">
         {(heading || subheading) && (
           <div className="mb-12 space-y-3 text-center">

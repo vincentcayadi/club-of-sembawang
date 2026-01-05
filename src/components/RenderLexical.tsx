@@ -15,12 +15,12 @@ interface RenderLexicalProps {
 }
 
 const headingClasses: Record<string, string> = {
-  h1: 'mb-4 text-4xl font-bold leading-tight md:text-5xl',
-  h2: 'mb-4 text-3xl font-semibold leading-snug md:text-4xl',
-  h3: 'mb-4 text-2xl font-semibold leading-snug md:text-3xl',
-  h4: 'mb-4 text-xl font-semibold leading-snug md:text-2xl',
-  h5: 'mb-4 text-lg font-semibold leading-snug md:text-xl',
-  h6: 'mb-4 text-base font-semibold leading-snug md:text-lg',
+  h1: 'mb-4 text-4xl font-bold leading-tight tracking-tight md:text-5xl',
+  h2: 'mb-4 text-3xl font-semibold leading-snug tracking-tight md:text-4xl',
+  h3: 'mb-4 text-2xl font-semibold leading-snug tracking-tight md:text-3xl',
+  h4: 'mb-4 text-xl font-semibold leading-snug tracking-tight md:text-2xl',
+  h5: 'mb-4 text-lg font-semibold leading-snug tracking-tight md:text-xl',
+  h6: 'mb-4 text-base font-semibold leading-snug tracking-tight md:text-lg',
 }
 
 const converters: JSXConvertersFunction = ({ defaultConverters }) => ({

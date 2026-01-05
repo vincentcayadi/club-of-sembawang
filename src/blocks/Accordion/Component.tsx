@@ -18,7 +18,7 @@ export function AccordionBlockComponent({ header, description, alignment, items 
   }
 
   return (
-    <section className="mx-auto w-full max-w-4xl px-4 py-12 md:py-16">
+    <section className="mx-auto w-full max-w-4xl block-spacing">
       {header && (
         <h2
           className={cn(

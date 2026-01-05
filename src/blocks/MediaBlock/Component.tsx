@@ -3,8 +3,8 @@
 import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Image from 'next/image'
 import type { MediaBlock as MediaBlockProps, Media } from '@/payload-types'
-import { OptimizedImage } from '@/components/OptimizedImage'
 import { RenderLexical } from '@/components/RenderLexical'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -18,36 +18,18 @@ export const MediaBlockComponent: React.FC<MediaBlockProps> = ({
   caption,
 }) => {
   const sectionRef = useRef<HTMLDivElement>(null)
-  const imageContainerRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (!sectionRef.current) return
 
     const ctx = gsap.context(() => {
-      // Animate image container
-      if (imageContainerRef.current) {
-        gsap.from(imageContainerRef.current, {
-          opacity: 0,
-          scale: 0.96,
-          y: 40,
-          duration: 0.9,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: imageContainerRef.current,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
-          },
-        })
-      }
-
-      // Animate content
+      // Animate content only
       if (contentRef.current) {
         gsap.from(contentRef.current, {
           opacity: 0,
           x: imagePosition === 'right' ? -40 : 40,
           duration: 0.9,
-          delay: 0.2,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: contentRef.current,
@@ -68,39 +50,37 @@ export const MediaBlockComponent: React.FC<MediaBlockProps> = ({
   return (
     <section
       ref={sectionRef}
-      className="my-8 w-full px-4 md:my-12 lg:my-16"
+      className="w-full block-spacing"
     >
       <div className="mx-auto w-full max-w-6xl">
         <div className={`
-          flex flex-col items-center gap-6
-          md:flex-row md:gap-8
-          ${imagePosition === 'right' ? 'md:flex-row-reverse' : ''}
+          grid grid-cols-1 items-center block-gap
+          md:grid-cols-2
+          ${imagePosition === 'right' ? 'md:grid-flow-dense' : ''}
         `}>
           {/* Image Container */}
-          <div
-            ref={imageContainerRef}
-            className="w-full md:w-auto md:flex-shrink-0"
-          >
+          <div className={`flex justify-center ${imagePosition === 'right' ? 'md:col-start-2' : ''}`}>
             <div
-              className="relative mx-auto w-full max-w-sm rounded-lg overflow-hidden"
+              className="relative w-full max-w-sm max-h-80 rounded-lg overflow-hidden"
               style={{ aspectRatio }}
             >
-              <OptimizedImage
-                media={typedMedia}
-                alt={typedMedia.alt || ''}
-                wrapperClassName="w-full h-full"
-                className="object-contain"
-                objectFit="contain"
-                fill
-                sizes="(max-width: 768px) 100vw, 384px"
-              />
+              {typedMedia.url && (
+                <Image
+                  src={typedMedia.url}
+                  alt={typedMedia.alt || ''}
+                  width={typedMedia.width || 400}
+                  height={typedMedia.height || 400}
+                  className="w-full h-full object-contain"
+                  sizes="(max-width: 768px) 100vw, 384px"
+                />
+              )}
             </div>
           </div>
 
           {/* Content Container */}
           <div
             ref={contentRef}
-            className="flex-1 flex flex-col justify-center"
+            className={`flex flex-col justify-center ${imagePosition === 'right' ? 'md:col-start-1' : ''}`}
           >
             {caption && (
               <div className="prose prose-lg prose-slate max-w-none">

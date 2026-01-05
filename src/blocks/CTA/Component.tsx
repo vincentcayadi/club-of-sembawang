@@ -73,10 +73,10 @@ export const CTABlockComponent: React.FC<CTABlockProps> = ({
     <section
       ref={sectionRef}
       className={cn(
-        'relative overflow-hidden my-16 md:my-24',
+        'relative overflow-hidden',
         isFullWidth
-          ? 'px-0'
-          : 'w-full max-w-5xl mx-2 sm:mx-4 md:mx-auto rounded-lg border border-border/60 shadow-lg',
+          ? 'block-spacing !px-0'
+          : 'w-full max-w-5xl mx-2 sm:mx-4 md:mx-auto rounded-lg border border-border/60 shadow-lg py-8 md:py-12 lg:py-16',
       )}
       style={
         isFullWidth
