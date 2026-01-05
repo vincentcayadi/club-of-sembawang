@@ -14,6 +14,7 @@ type ValidMedia = Media
 export const MediaBlockComponent: React.FC<MediaBlockProps> = ({
   media,
   imagePosition = 'left',
+  aspectRatio = '4/3',
   caption,
 }) => {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -67,49 +68,39 @@ export const MediaBlockComponent: React.FC<MediaBlockProps> = ({
   return (
     <section
       ref={sectionRef}
-      className="my-16 w-full px-4 md:my-24 lg:my-32"
+      className="my-8 w-full px-4 md:my-12 lg:my-16"
     >
-      <div className="mx-auto w-full max-w-7xl">
+      <div className="mx-auto w-full max-w-6xl">
         <div className={`
-          grid grid-cols-1 items-center gap-8
-          md:grid-cols-2 md:gap-12
-          lg:gap-16
-          ${imagePosition === 'right' ? 'md:grid-flow-dense' : ''}
+          flex flex-col items-center gap-6
+          md:flex-row md:gap-8
+          ${imagePosition === 'right' ? 'md:flex-row-reverse' : ''}
         `}>
           {/* Image Container */}
           <div
             ref={imageContainerRef}
-            className={`
-              group relative w-full
-              ${imagePosition === 'right' ? 'md:col-start-2' : ''}
-            `}
+            className="w-full md:w-auto md:flex-shrink-0"
           >
-            {/* Main image wrapper with aspect ratio */}
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-muted/30 shadow-xl ring-1 ring-border/50 transition-all duration-500 hover:shadow-2xl hover:ring-border">
+            <div
+              className="relative mx-auto w-full max-w-sm rounded-lg overflow-hidden"
+              style={{ aspectRatio }}
+            >
               <OptimizedImage
                 media={typedMedia}
-                wrapperClassName="absolute inset-0"
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                objectFit="cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
+                alt={typedMedia.alt || ''}
+                wrapperClassName="w-full h-full"
+                className="object-contain"
+                objectFit="contain"
                 fill
+                sizes="(max-width: 768px) 100vw, 384px"
               />
-
-              {/* Subtle overlay on hover */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/5 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
             </div>
-
-            {/* Decorative element */}
-            <div className="absolute -bottom-4 -right-4 -z-10 h-full w-full rounded-2xl bg-gradient-to-br from-primary/5 to-primary/10 blur-2xl transition-opacity duration-500 group-hover:opacity-70" />
           </div>
 
           {/* Content Container */}
           <div
             ref={contentRef}
-            className={`
-              flex flex-col justify-center
-              ${imagePosition === 'right' ? 'md:col-start-1' : ''}
-            `}
+            className="flex-1 flex flex-col justify-center"
           >
             {caption && (
               <div className="prose prose-lg prose-slate max-w-none">

@@ -571,6 +571,10 @@ export interface MediaBlock {
    */
   imagePosition: 'left' | 'right';
   /**
+   * Choose the aspect ratio for the image
+   */
+  aspectRatio: '1/1' | '4/3' | '16/9';
+  /**
    * The text that appears next to the image
    */
   caption?: {
@@ -990,6 +994,7 @@ export interface GalleryBlockSelect<T extends boolean = true> {
 export interface MediaBlockSelect<T extends boolean = true> {
   media?: T;
   imagePosition?: T;
+  aspectRatio?: T;
   caption?: T;
   id?: T;
   blockName?: T;

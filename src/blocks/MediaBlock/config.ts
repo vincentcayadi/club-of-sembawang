@@ -40,6 +40,30 @@ export const MediaBlock: Block = {
       },
     },
     {
+      name: 'aspectRatio',
+      type: 'select',
+      defaultValue: '4/3',
+      label: 'Image Aspect Ratio',
+      options: [
+        {
+          label: 'Square (1:1)',
+          value: '1/1',
+        },
+        {
+          label: 'Standard (4:3)',
+          value: '4/3',
+        },
+        {
+          label: 'Widescreen (16:9)',
+          value: '16/9',
+        },
+      ],
+      required: true,
+      admin: {
+        description: 'Choose the aspect ratio for the image',
+      },
+    },
+    {
       name: 'caption',
       type: 'richText',
       editor: defaultLexical,
