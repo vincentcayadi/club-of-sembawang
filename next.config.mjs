@@ -9,11 +9,21 @@ const nextConfig = {
       // Allow R2 public URL for image optimization
       const r2PublicUrl = process.env.R2_PUBLIC_URL
       if (r2PublicUrl) {
-        patterns.push({
-          protocol: 'https',
-          hostname: r2PublicUrl,
-          pathname: '/**',
-        })
+        try {
+          const url = new URL(r2PublicUrl)
+          patterns.push({
+            protocol: url.protocol.replace(':', ''),
+            hostname: url.hostname,
+            pathname: '/**',
+          })
+        } catch {
+          // Fallback if R2_PUBLIC_URL is already just a hostname
+          patterns.push({
+            protocol: 'https',
+            hostname: r2PublicUrl,
+            pathname: '/**',
+          })
+        }
       }
 
       // Fallback to R2 storage hostname if public URL not set
