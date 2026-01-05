@@ -150,6 +150,7 @@ export function OptimizedImage({
               className={blurImageClasses}
               priority={priority}
               quality={10}
+              unoptimized
               aria-hidden="true"
             />
           ) : (
@@ -162,6 +163,7 @@ export function OptimizedImage({
               className={blurImageClasses}
               priority={priority}
               quality={10}
+              unoptimized
               aria-hidden="true"
             />
           )}
@@ -177,6 +179,7 @@ export function OptimizedImage({
               onLoad={handleLoad}
               priority={priority}
               quality={90}
+              unoptimized
             />
           ) : (
             <Image
@@ -189,6 +192,7 @@ export function OptimizedImage({
               onLoad={handleLoad}
               priority={priority}
               quality={90}
+              unoptimized
             />
           )}
         </>
