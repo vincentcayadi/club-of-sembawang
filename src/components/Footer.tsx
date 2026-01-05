@@ -26,9 +26,9 @@ export async function Footer() {
   return (
     <footer className="bg-black py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-7xl mx-auto">
-        <div className="flex flex-wrap justify-between gap-y-12 lg:gap-x-8">
+        <div className="grid grid-cols-1 md:grid-cols-[auto_auto_auto] gap-x-16 gap-y-12">
           {/* Logo and Description */}
-          <div className="w-full md:w-[45%] lg:w-[35%] flex flex-col items-center md:items-start text-center md:text-left">
+          <div className="flex flex-col items-start text-left max-w-sm">
             <div className="h-10 flex items-center">
               {logo && typeof logo === 'object' && 'url' in logo ? (
                 <OptimizedImage
@@ -52,7 +52,7 @@ export async function Footer() {
 
           {/* Important Links */}
           {footerLinks.length > 0 && (
-            <div className="w-full md:w-[45%] lg:w-[15%] flex flex-col items-center md:items-start text-center md:text-left">
+            <div className="flex flex-col items-start text-left">
               <h3 className="text-sm text-white font-medium">Important Links</h3>
               <div className="flex flex-col gap-2 mt-6">
                 {footerLinks.map((item, idx) => {
@@ -75,7 +75,7 @@ export async function Footer() {
 
           {/* Social Links */}
           {socialLinks.length > 0 && (
-            <div className="w-full md:w-[45%] lg:w-[15%] flex flex-col items-center md:items-start text-center md:text-left">
+            <div className="flex flex-col items-start text-left">
               <h3 className="text-sm text-white font-medium">Social Links</h3>
               <div className="flex flex-col gap-2 mt-6">
                 {socialLinks.map((link, idx) => {
