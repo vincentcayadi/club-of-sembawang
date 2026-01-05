@@ -104,7 +104,7 @@ const ArchiveCard = ({ post }: { post: Post }) => {
   return (
     <Link
       href={href}
-      className="group flex h-full flex-col overflow-hidden rounded-lg border border-border/50 bg-card shadow-sm transition-all duration-300 hover:shadow-lg hover:border-border"
+      className="group flex h-full min-h-48 flex-col overflow-hidden rounded-lg border border-border/50 bg-card shadow-sm transition-all duration-300 hover:shadow-lg hover:border-border"
     >
       {heroMedia?.url && (
         <div className="relative h-56 w-full overflow-hidden bg-muted">
@@ -180,7 +180,7 @@ export const ArchiveBlockComponent = async ({
   if (!validPosts || validPosts.length === 0) {
     return (
       <section className="block-spacing" id={id ? `block-${id}` : undefined}>
-        <div className="mx-auto max-w-5xl px-6">
+        <div className="mx-auto max-w-4xl px-6">
           {introContent && (
             <RenderLexical
               content={introContent}
@@ -197,14 +197,14 @@ export const ArchiveBlockComponent = async ({
 
   return (
     <section className="block-spacing" id={id ? `block-${id}` : undefined}>
-      <div className="mx-auto flex max-w-6xl flex-col gap-10 px-6">
+      <div className="mx-auto flex max-w-4xl flex-col gap-10 px-6">
         {introContent && (
           <RenderLexical
             content={introContent}
             className="prose prose-xl max-w-3xl mx-auto text-center"
           />
         )}
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {validPosts.map((post) => (
             <ArchiveCard key={`${post.id ?? post.slug ?? 'post'}`} post={post} />
           ))}
