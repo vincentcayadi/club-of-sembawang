@@ -47,21 +47,6 @@ export const CTABlockComponent: React.FC<CTABlockProps> = ({
           },
         })
       }
-
-      if (buttonsRef.current && buttonsRef.current.children.length > 0) {
-        gsap.from(buttonsRef.current.children, {
-          opacity: 0,
-          y: 20,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: buttonsRef.current,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
-          },
-        })
-      }
     }, sectionRef)
 
     return () => ctx.revert()
@@ -73,10 +58,10 @@ export const CTABlockComponent: React.FC<CTABlockProps> = ({
     <section
       ref={sectionRef}
       className={cn(
-        'relative overflow-hidden',
+        'relative overflow-hidden block-spacing',
         isFullWidth
-          ? 'block-spacing !px-0'
-          : 'w-full max-w-5xl mx-2 sm:mx-4 md:mx-auto rounded-lg border border-border/60 shadow-lg py-8 md:py-12 lg:py-16',
+          ? '!mx-0 px-4'
+          : 'max-w-5xl !mx-auto rounded',
       )}
       style={
         isFullWidth
