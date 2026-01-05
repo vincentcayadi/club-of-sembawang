@@ -50,10 +50,10 @@ export async function Footer() {
             )}
           </div>
 
-          {/* Important Links */}
+          {/* Site Links */}
           {footerLinks.length > 0 && (
             <div className="flex flex-col items-start text-left">
-              <h3 className="text-sm text-white font-medium">Important Links</h3>
+              <h3 className="text-sm text-white font-medium">Site Links</h3>
               <div className="flex flex-col gap-2 mt-6">
                 {footerLinks.map((item, idx) => {
                   if (!item?.url) return null
