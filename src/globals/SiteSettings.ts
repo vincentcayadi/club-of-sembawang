@@ -33,14 +33,6 @@ export const SiteSettings: GlobalConfig = {
       },
     },
     {
-      name: 'tagline',
-      type: 'text',
-      defaultValue: SITE_DESCRIPTION_DEFAULT,
-      admin: {
-        description: 'Short tagline or slogan',
-      },
-    },
-    {
       name: 'description',
       type: 'textarea',
       defaultValue: SITE_DESCRIPTION_DEFAULT,

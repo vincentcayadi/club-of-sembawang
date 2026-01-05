@@ -16,6 +16,41 @@ export const Footer: GlobalConfig = {
       },
     },
     {
+      name: 'description',
+      type: 'textarea',
+      admin: {
+        placeholder: "Singapore's first public health initiative promoting...",
+        description: 'Short description displayed below the logo in footer',
+      },
+    },
+    {
+      name: 'footerLinks',
+      type: 'array',
+      label: 'Footer Links',
+      maxRows: 8,
+      admin: {
+        description: 'Important links displayed in footer (can be different from header nav)',
+        initCollapsed: true,
+      },
+      fields: [
+        {
+          name: 'label',
+          type: 'text',
+          required: true,
+          admin: {
+            placeholder: 'Join Us',
+          },
+        },
+        createUrlField({
+          name: 'url',
+          label: 'Link',
+          required: true,
+          validateInternalPaths: false,
+          checkExternalLinks: true,
+        }),
+      ],
+    },
+    {
       name: 'socialLinks',
       type: 'array',
       label: 'Social Media Links',
@@ -57,6 +92,33 @@ export const Footer: GlobalConfig = {
           required: true,
           validateInternalPaths: false,
           checkExternalLinks: true,
+        }),
+      ],
+    },
+    {
+      name: 'legalLinks',
+      type: 'array',
+      label: 'Legal Links',
+      maxRows: 3,
+      admin: {
+        description: 'Legal links like Terms & Conditions, Privacy Policy',
+        initCollapsed: true,
+      },
+      fields: [
+        {
+          name: 'label',
+          type: 'text',
+          required: true,
+          admin: {
+            placeholder: 'Privacy Policy',
+          },
+        },
+        createUrlField({
+          name: 'url',
+          label: 'Link',
+          required: true,
+          validateInternalPaths: true,
+          checkExternalLinks: false,
         }),
       ],
     },
