@@ -18,6 +18,7 @@ export const Posts: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'title',
+    defaultColumns: ['title', 'author', 'publishedAt', 'updatedAt'],
     livePreview: {
       url: ({ data }) => {
         return `${process.env.NEXT_PUBLIC_SERVER_URL}/posts/${data.slug}`

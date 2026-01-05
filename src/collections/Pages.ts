@@ -22,6 +22,7 @@ export const Pages: CollectionConfig = {
   slug: 'pages',
   admin: {
     useAsTitle: 'title',
+    defaultColumns: ['title', 'excerpt', 'updatedAt'],
     livePreview: {
       url: ({ data }) => {
         const path = data.slug === 'home' ? '/' : `/${data.slug}`
