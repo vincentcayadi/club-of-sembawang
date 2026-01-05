@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation'
 import { RenderLexical } from '@/components/RenderLexical'
 import { CMSLink } from '@/components/CMSLink'
 import { OptimizedImage } from '@/components/OptimizedImage'
-import { useUIStore } from '@/stores/uiStore'
+import { useReducedMotion } from '@/hooks/useReducedMotion'
 import { useHeaderStore } from '@/stores/useHeaderStore'
 import { ANIMATION_SPEEDS } from '@/constants'
 import type { HeroBlock } from '@/payload-types'
@@ -16,8 +16,7 @@ export function HighImpactHero({ richText, links, media }: HeroBlock) {
   const heroRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
   const mediaRef = useRef<HTMLDivElement>(null)
-  const prefersReducedMotion = useUIStore((state) => state.prefersReducedMotion)
-  const setPrefersReducedMotion = useUIStore((state) => state.setPrefersReducedMotion)
+  const getPrefersReduced = useReducedMotion()
   const setHasHighImpactHero = useHeaderStore((state) => state.setHasHighImpactHero)
 
   useEffect(() => {
@@ -28,12 +27,7 @@ export function HighImpactHero({ richText, links, media }: HeroBlock) {
   useLayoutEffect(() => {
     window.scrollTo(0, 0)
 
-    // Detect reduced motion preference once per mount
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const prefersReduced = mediaQuery.matches
-    setPrefersReducedMotion(prefersReduced)
-    const handleChange = (event: MediaQueryListEvent) => setPrefersReducedMotion(event.matches)
-    mediaQuery.addEventListener('change', handleChange)
+    const prefersReduced = getPrefersReduced()
 
     if (!prefersReduced) {
       if (mediaRef.current) {
@@ -79,10 +73,9 @@ export function HighImpactHero({ richText, links, media }: HeroBlock) {
     }, heroRef)
 
     return () => {
-      mediaQuery.removeEventListener('change', handleChange)
       ctx.revert()
     }
-  }, [pathname, prefersReducedMotion, setPrefersReducedMotion])
+  }, [pathname, getPrefersReduced])
 
   return (
     <div

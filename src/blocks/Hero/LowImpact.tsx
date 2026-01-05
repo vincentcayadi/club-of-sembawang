@@ -5,7 +5,7 @@ import { gsap } from 'gsap'
 import { usePathname } from 'next/navigation'
 import { RenderLexical } from '@/components/RenderLexical'
 import { CMSLink } from '@/components/CMSLink'
-import { useUIStore } from '@/stores/uiStore'
+import { useReducedMotion } from '@/hooks/useReducedMotion'
 import { ANIMATION_SPEEDS } from '@/constants'
 import type { HeroBlock } from '@/payload-types'
 
@@ -13,17 +13,12 @@ export function LowImpactHero({ richText, links }: HeroBlock) {
   const pathname = usePathname()
   const heroRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
-  const prefersReducedMotion = useUIStore((state) => state.prefersReducedMotion)
-  const setPrefersReducedMotion = useUIStore((state) => state.setPrefersReducedMotion)
+  const getPrefersReduced = useReducedMotion()
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0)
 
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const prefersReduced = mediaQuery.matches
-    setPrefersReducedMotion(prefersReduced)
-    const handleChange = (event: MediaQueryListEvent) => setPrefersReducedMotion(event.matches)
-    mediaQuery.addEventListener('change', handleChange)
+    const prefersReduced = getPrefersReduced()
 
     if (!prefersReduced && contentRef.current) {
       const fadeElements = contentRef.current.querySelectorAll('.fade-up')
@@ -53,10 +48,9 @@ export function LowImpactHero({ richText, links }: HeroBlock) {
     }, heroRef)
 
     return () => {
-      mediaQuery.removeEventListener('change', handleChange)
       ctx.revert()
     }
-  }, [pathname, prefersReducedMotion, setPrefersReducedMotion])
+  }, [pathname, getPrefersReduced])
 
   return (
     <div ref={heroRef} className="container mx-auto px-4 py-20 lg:py-32">
