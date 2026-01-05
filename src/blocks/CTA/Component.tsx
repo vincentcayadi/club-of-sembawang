@@ -8,6 +8,7 @@ import { RichText } from '@payloadcms/richtext-lexical/react'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { ArrowRight } from 'lucide-react'
+import { useReducedMotion } from '@/hooks/useReducedMotion'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -21,12 +22,16 @@ export const CTABlockComponent: React.FC<CTABlockProps> = ({
   const sectionRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
   const buttonsRef = useRef<HTMLDivElement>(null)
+  const getPrefersReduced = useReducedMotion()
 
-  const safeButtons = buttons?.slice(0, 2) || []
-  if (!heading || safeButtons.length === 0) return null
+  // Filter valid buttons
+  const validButtons = buttons?.filter((btn) => btn?.text && btn?.url).slice(0, 2) || []
+
+  // Don't render if no heading
+  if (!heading) return null
 
   useEffect(() => {
-    if (!sectionRef.current) return
+    if (!sectionRef.current || getPrefersReduced()) return
 
     const ctx = gsap.context(() => {
       if (contentRef.current) {
@@ -43,7 +48,7 @@ export const CTABlockComponent: React.FC<CTABlockProps> = ({
         })
       }
 
-      if (buttonsRef.current) {
+      if (buttonsRef.current && buttonsRef.current.children.length > 0) {
         gsap.from(buttonsRef.current.children, {
           opacity: 0,
           y: 20,
@@ -60,84 +65,88 @@ export const CTABlockComponent: React.FC<CTABlockProps> = ({
     }, sectionRef)
 
     return () => ctx.revert()
-  }, [])
+  }, [getPrefersReduced])
 
   const isFullWidth = layout === 'fullWidth'
-
-  const sectionClass = isFullWidth
-    ? 'my-16 px-0 md:my-24'
-    : 'my-16 w-full max-w-5xl mx-auto rounded-2xl border border-border/60 px-8 py-12 shadow-lg md:my-24'
-
-  const contentWrapper = isFullWidth
-    ? 'mx-auto flex w-full max-w-5xl flex-col gap-6 px-8 py-12 md:flex-row md:items-center md:justify-between md:gap-8 md:py-16'
-    : 'flex flex-col gap-6 md:flex-row md:items-center md:justify-between md:gap-8'
-
-  const buttonClass =
-    'group inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-95'
-
-  const buttonVariants: Record<string, string> = {
-    primary: 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-md hover:shadow-lg',
-    secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-sm hover:shadow-md',
-    outline: 'border-2 border-primary/20 bg-transparent hover:bg-primary/5 hover:border-primary/40',
-  }
-
-  const hexToRgb = (hex: string) => {
-    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
-    return result
-      ? {
-          r: parseInt(result[1], 16),
-          g: parseInt(result[2], 16),
-          b: parseInt(result[3], 16),
-        }
-      : { r: 244, g: 244, b: 245 }
-  }
-
-  const bg = backgroundColor || '#f4f4f5'
-  const rgb = hexToRgb(bg)
-  const gradientBg = `linear-gradient(135deg, ${bg} 0%, rgb(${rgb.r - 10}, ${rgb.g - 10}, ${rgb.b - 10}) 100%)`
 
   return (
     <section
       ref={sectionRef}
-      className={cn(sectionClass, 'relative overflow-hidden')}
+      className={cn(
+        'relative overflow-hidden my-16 md:my-24',
+        isFullWidth
+          ? 'px-0'
+          : 'w-full max-w-5xl mx-2 sm:mx-4 md:mx-auto rounded-lg border border-border/60 shadow-lg',
+      )}
       style={
         isFullWidth
           ? {
-              background: gradientBg,
+              backgroundColor: backgroundColor || '#f4f4f5',
               width: '100vw',
               marginLeft: 'calc(50% - 50vw)',
               marginRight: 'calc(50% - 50vw)',
             }
-          : { background: gradientBg }
+          : { backgroundColor: backgroundColor || '#f4f4f5' }
       }
     >
-      <div className="absolute inset-0 opacity-[0.03]">
-        <div className="absolute inset-0" style={{
-          backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)',
-          backgroundSize: '24px 24px'
-        }} />
+      {/* Subtle dot pattern overlay */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)',
+            backgroundSize: '24px 24px',
+          }}
+        />
       </div>
-      <div className={contentWrapper}>
+
+      {/* Content */}
+      <div
+        className={cn(
+          'flex flex-col gap-6 md:flex-row md:items-center md:justify-between md:gap-8',
+          isFullWidth
+            ? 'mx-auto w-full max-w-5xl px-4 sm:px-6 md:px-8 py-12 md:py-16'
+            : 'px-4 sm:px-6 md:px-8 py-8 md:py-12',
+        )}
+      >
+        {/* Text Content */}
         <div ref={contentRef} className="flex-1 space-y-3">
-          <h3 className="text-3xl font-bold tracking-tight md:text-4xl">{heading}</h3>
-          {body ? (
-            <div className="prose prose-base max-w-2xl [&>p]:text-muted-foreground [&>p]:text-lg">
+          <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
+            {heading}
+          </h3>
+          {body && (
+            <div className="prose prose-sm sm:prose-base max-w-2xl text-muted-foreground">
               <RichText data={body} disableIndent disableTextAlign />
             </div>
-          ) : null}
+          )}
         </div>
-        <div ref={buttonsRef} className="flex flex-wrap gap-4">
-          {safeButtons.map((btn, idx) => (
-            <Link
-              key={`${btn.url}-${idx}`}
-              href={btn.url ?? '#'}
-              className={cn(buttonClass, buttonVariants[btn.variant || 'primary'])}
-            >
-              {btn.text}
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          ))}
-        </div>
+
+        {/* Buttons */}
+        {validButtons.length > 0 && (
+          <div ref={buttonsRef} className="flex flex-wrap gap-3 sm:gap-4">
+            {validButtons.map((btn, idx) => {
+              const variant = btn.variant || 'primary'
+              return (
+                <Link
+                  key={`${btn.url}-${idx}`}
+                  href={btn.url}
+                  className={cn(
+                    'group inline-flex items-center justify-center gap-2 rounded-lg px-5 sm:px-6 py-2.5 sm:py-3 text-sm font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring active:scale-95',
+                    variant === 'primary' &&
+                      'bg-primary text-primary-foreground hover:bg-primary/90 shadow-md hover:shadow-lg',
+                    variant === 'secondary' &&
+                      'bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-sm hover:shadow-md',
+                    variant === 'outline' &&
+                      'border-2 border-primary/20 bg-transparent hover:bg-primary/5 hover:border-primary/40',
+                  )}
+                >
+                  {btn.text}
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              )
+            })}
+          </div>
+        )}
       </div>
     </section>
   )
