@@ -1178,10 +1178,6 @@ export interface SiteSetting {
    */
   siteName: string;
   /**
-   * Short tagline or slogan
-   */
-  tagline?: string | null;
-  /**
    * Default meta description for the site (used for SEO and social sharing)
    */
   description?: string | null;
@@ -1224,6 +1220,23 @@ export interface Footer {
    */
   copyright?: string | null;
   /**
+   * Short description displayed below the logo in footer
+   */
+  description?: string | null;
+  /**
+   * Important links displayed in footer (can be different from header nav)
+   */
+  footerLinks?:
+    | {
+        label: string;
+        /**
+         * Internal path (/about) or external URL (https://example.com)
+         */
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
    * Add links to your social media profiles
    */
   socialLinks?:
@@ -1243,6 +1256,19 @@ export interface Footer {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Legal links like Terms & Conditions, Privacy Policy
+   */
+  legalLinks?:
+    | {
+        label: string;
+        /**
+         * Internal path (/about) or external URL (https://example.com)
+         */
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1254,7 +1280,6 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   logo?: T;
   squareLogo?: T;
   siteName?: T;
-  tagline?: T;
   description?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1282,11 +1307,26 @@ export interface HeaderSelect<T extends boolean = true> {
  */
 export interface FooterSelect<T extends boolean = true> {
   copyright?: T;
+  description?: T;
+  footerLinks?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+        id?: T;
+      };
   socialLinks?:
     | T
     | {
         platform?: T;
         customPlatform?: T;
+        url?: T;
+        id?: T;
+      };
+  legalLinks?:
+    | T
+    | {
+        label?: T;
         url?: T;
         id?: T;
       };
