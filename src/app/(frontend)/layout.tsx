@@ -59,7 +59,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
         <link rel="shortcut icon" href={iconHref} type="image/x-icon" />
         <link rel="apple-touch-icon" href={iconHref} />
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className} flex min-h-screen flex-col`}>
         <LenisProvider>
           <Header
             navItems={navItems as any}
@@ -67,7 +67,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
             squareLogo={siteSettings?.squareLogo ?? undefined}
             siteName={siteSettings?.siteName ?? undefined}
           />
-          <PageWrapper>
+          <PageWrapper className="flex-1">
             {children}
           </PageWrapper>
           <Footer />
