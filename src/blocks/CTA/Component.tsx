@@ -61,7 +61,7 @@ export const CTABlockComponent: React.FC<CTABlockProps> = ({
         'relative overflow-hidden block-spacing',
         isFullWidth
           ? '!mx-0 px-4'
-          : 'max-w-5xl !mx-auto rounded',
+          : 'max-w-4xl !mx-auto rounded',
       )}
       style={
         isFullWidth
